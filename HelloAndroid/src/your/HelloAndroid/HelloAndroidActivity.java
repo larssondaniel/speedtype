@@ -26,7 +26,7 @@ public class HelloAndroidActivity extends Activity {
 	// Listener object to handle the click events
 	View.OnClickListener clickListener = new View.OnClickListener() {
 		public void onClick(View v) {
-			text.setText("Ord " + i);
+			text.setText("Apa " + i);
 			i++;
 		}
 	};
