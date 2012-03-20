@@ -8,10 +8,9 @@ public class Dictionary {
 	
 	public Dictionary(){
 		dictionary = new Stack<Word>();
-		
-		dictionary.add(new Word("Banan"));
-		dictionary.add(new Word("Apelsin"));
-		dictionary.add(new Word("Morot"));
+		String[] words = {"banana","apple","onion","orange","carrot"};
+		for(String word: words )
+			dictionary.add(new Word(word));
 	}
 	public String getNextWord(){
 		return dictionary.empty() ? null : dictionary.pop().toString();

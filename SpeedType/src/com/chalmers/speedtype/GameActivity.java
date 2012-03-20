@@ -1,5 +1,7 @@
 package com.chalmers.speedtype;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,8 +32,16 @@ public class GameActivity extends Activity {
         
         setUpViews();
         setUpListeners();
+        setUpAnimations();
     }
 	
+	private void setUpAnimations() {
+		/*AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(this,
+			    R.animations.animation);
+			set.setTarget(wordView);
+			set.start();*/
+	}
+
 	private void setUpViews() {
 		input = (EditText)findViewById(R.id.myEdit);
 		wordView = (TextView)findViewById(R.id.word);
@@ -49,8 +59,7 @@ public class GameActivity extends Activity {
 			private int currentChar = 0;
 			
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				
-				if(s.charAt(count-1) == currentWord.charAt(currentChar)){
+				if(s.length()>0 && s.charAt(s.length()-1) == currentWord.charAt(currentChar)){
 					wordView.setText(Html.fromHtml("<font color=#00ff00>" + currentWord.substring(0, currentChar+1) + "</font>"));
 					wordView.append(currentWord.substring(currentChar+1, currentWord.length()));
 					currentChar++;
