@@ -1,7 +1,5 @@
 package com.chalmers.speedtype;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,15 +30,7 @@ public class GameActivity extends Activity {
         
         setUpViews();
         setUpListeners();
-        setUpAnimations();
     }
-	
-	private void setUpAnimations() {
-		/*AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(this,
-			    R.animations.animation);
-			set.setTarget(wordView);
-			set.start();*/
-	}
 
 	private void setUpViews() {
 		input = (EditText)findViewById(R.id.myEdit);
