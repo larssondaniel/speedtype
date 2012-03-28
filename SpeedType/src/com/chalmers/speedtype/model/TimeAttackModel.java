@@ -12,31 +12,19 @@ public class TimeAttackModel extends Model {
 
 	private TextView wordView;
 	private TextView nextWordView;
-	private TextView time;
+	private TextView timeView;
+	private TextView scoreView;
 
 	CountDownTimer timer;
 
+	private int score = 0;
 	private int currentChar = 0;
-	public long timeLeft = 20000;
+	public long timeLeft = 10000;
 
 	public TimeAttackModel(Activity activity) {
 		super(activity);
 		currentWord = dictionary.getNextWord();
 		nextWord = dictionary.getNextWord();
-
-		timer = new CountDownTimer(timeLeft, 1000) {
-
-			public void onTick(long millisTimeLeft) {
-				time.setText("" + timeLeft / 1000);
-				timeLeft = timeLeft - 1000;
-			}
-
-			public void onFinish() {
-				time.setText("");
-				nextWordView.setText("Game over!");
-				wordView.setText("Score: 1337");
-			}
-		}.start();
 	}
 
 	public CharSequence getCurrentWord() {
@@ -58,6 +46,22 @@ public class TimeAttackModel extends Model {
 			wordView.append(currentWord.substring(currentChar + 1,
 					currentWord.length()));
 			currentChar++;
+			scoreView.setText("" + ++score);
+			if (timer == null) {
+				timer = new CountDownTimer(timeLeft, 1000) {
+
+					public void onTick(long millisTimeLeft) {
+						timeView.setText("" + timeLeft / 1000);
+						timeLeft = timeLeft - 1000;
+					}
+
+					public void onFinish() {
+						timeView.setText("");
+						nextWordView.setText("Game over!");
+						wordView.setText("Score: 1337");
+					}
+				}.start();
+			}
 			if (currentChar == currentWord.length()) {
 				currentWord = nextWord;
 				nextWord = dictionary.getNextWord();
@@ -68,12 +72,12 @@ public class TimeAttackModel extends Model {
 				timer = new CountDownTimer(timeLeft += 4000, 1000) {
 
 					public void onTick(long millisTimeLeft) {
-						time.setText("" + timeLeft / 1000);
+						timeView.setText("" + timeLeft / 1000);
 						timeLeft = timeLeft - 1000;
 					}
 
 					public void onFinish() {
-						time.setText("");
+						timeView.setText("");
 						nextWordView.setText("Game over!");
 						wordView.setText("Score: 1337");
 						activity.finish();
@@ -86,9 +90,11 @@ public class TimeAttackModel extends Model {
 
 	}
 
-	public void setViews(TextView wordView, TextView nextWordView, TextView time) {
+	public void setViews(TextView wordView, TextView nextWordView,
+			TextView timeView, TextView scoreView) {
 		this.wordView = wordView;
 		this.nextWordView = nextWordView;
-		this.time = time;
+		this.timeView = timeView;
+		this.scoreView = scoreView;
 	}
 }
