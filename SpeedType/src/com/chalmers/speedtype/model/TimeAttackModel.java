@@ -19,7 +19,7 @@ public class TimeAttackModel extends Model {
 
 	private int score = 0;
 	private int currentChar = 0;
-	public long timeLeft = 10000;
+	public long timeLeft = 10000; // millisec.
 
 	public TimeAttackModel(Activity activity) {
 		super(activity);
@@ -48,11 +48,11 @@ public class TimeAttackModel extends Model {
 			currentChar++;
 			scoreView.setText("" + ++score);
 			if (timer == null) {
-				timer = new CountDownTimer(timeLeft, 1000) {
+				timer = new CountDownTimer(timeLeft, 100) {
 
 					public void onTick(long millisTimeLeft) {
-						timeView.setText("" + timeLeft / 1000);
-						timeLeft = timeLeft - 1000;
+						timeView.setText("" + (double) timeLeft / 1000);
+						timeLeft = timeLeft - 100;
 					}
 
 					public void onFinish() {
@@ -69,11 +69,11 @@ public class TimeAttackModel extends Model {
 				nextWordView.setText(nextWord);
 				currentChar = 0;
 				timer.cancel();
-				timer = new CountDownTimer(timeLeft += 4000, 1000) {
+				timer = new CountDownTimer(timeLeft += 4000, 100) {
 
 					public void onTick(long millisTimeLeft) {
-						timeView.setText("" + timeLeft / 1000);
-						timeLeft = timeLeft - 1000;
+						timeView.setText("" + (double) timeLeft / 1000);
+						timeLeft = timeLeft - 100;
 					}
 
 					public void onFinish() {
