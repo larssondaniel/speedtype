@@ -48,5 +48,32 @@
         android:imeOptions="actionNone"
         android:inputType="textFilter"
         android:singleLine="true" />
+	
+	<TextView 
+	    android:id="@+id/xcoor"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="50dp"
+	    android:gravity="left"
+	    android:textSize="20sp"
+	    />
+	
+	<TextView 
+	    android:id="@+id/ycoor"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="80dp"
+	    android:gravity="left"
+	    android:textSize="20sp"
+	    />
+		
+	<TextView 
+	    android:id="@+id/zcoor"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="110dp"
+	    android:gravity="left"
+	    android:textSize="20sp"
+	    />
 
 </RelativeLayout>
