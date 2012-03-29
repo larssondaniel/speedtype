@@ -10,6 +10,7 @@ import android.widget.Button;
 public class MenuActivity extends Activity {
     
 	private Button newGameButton;
+	private GameModeFactory gameFactory;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,13 @@ public class MenuActivity extends Activity {
 	}
 	
 	private void startGame() {
-		Intent intent = new Intent(getApplicationContext(), TimeAttackActivity.class);
-		startActivity(intent);
+		Intent i = gameFactory.createGameMode("TimeAttack", super.getApplicationContext());
+		if(i == null){
+			System.out.print("No activity recieved by gameFactory");
+		}
+		else{
+		startActivity(i);
+		}
 	}
 
 }
