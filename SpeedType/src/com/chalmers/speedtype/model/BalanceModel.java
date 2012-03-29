@@ -5,14 +5,13 @@ import android.os.CountDownTimer;
 import android.text.Html;
 import android.widget.TextView;
 
-public class TimeAttackModel extends Model {
+public class BalanceModel extends Model {
 
 	private Word currentWord;
 	private Word nextWord;
 
 	private TextView wordView;
 	private TextView nextWordView;
-	
 	private TextView timeView;
 	private TextView scoreView;
 
@@ -22,7 +21,7 @@ public class TimeAttackModel extends Model {
 	private int currentChar = 0;
 	public long timeLeft = 10000; // millisec.
 
-	public TimeAttackModel(Activity activity) {
+	public BalanceModel(Activity activity) {
 		super(activity);
 		currentWord = dictionary.getNextWord();
 		nextWord = dictionary.getNextWord();

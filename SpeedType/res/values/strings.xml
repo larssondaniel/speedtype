@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SpeedType</string>
-	<string name="new_game">New Game</string>
+	<string name="time_attack">Time Attack</string>
 	<string name="back">Back</string>
 	<string name="word">Sample word</string>
+	<string name="balance">Balance</string>
 </resources>

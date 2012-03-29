@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="3.59" >
+    
+	<TextView
+        android:id="@+id/time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:textColor="#555555"
+        android:textSize="30sp" />
+        
+	<TextView
+        android:id="@+id/score"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textColor="#555555"
+        android:textSize="20sp" />
+        
+	<TextView
+        android:id="@+id/next_word"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="90dp"
+        android:textColor="#555555"
+        android:textSize="20sp" />
+        
+	<TextView
+        android:id="@+id/word"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:gravity="center_horizontal"
+        android:text="@string/word"
+        android:textSize="40sp" />
+
+	<EditText
+        android:id="@+id/input_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:imeOptions="actionNone"
+        android:inputType="textFilter"
+        android:singleLine="true" />
+
+</RelativeLayout>

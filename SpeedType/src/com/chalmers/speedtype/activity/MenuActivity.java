@@ -8,33 +8,48 @@ import android.view.View;
 import android.widget.Button;
 
 public class MenuActivity extends Activity {
-    
-	private Button newGameButton;
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu);
-        setUpViews();
-        setUpListeners();
-        
-    }
-    
-	private void setUpViews() {
-		newGameButton = (Button)findViewById(R.id.new_game_button);
+
+	private Button newTimeAttackGameButton;
+	private Button newBalanceGameButton;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.menu);
+		setUpViews();
+		setUpListeners();
+
 	}
-	
+
+	private void setUpViews() {
+		newTimeAttackGameButton = (Button) findViewById(R.id.new_timeAttack_button);
+		newBalanceGameButton = (Button) findViewById(R.id.new_balance_button);
+	}
+
 	private void setUpListeners() {
-		newGameButton.setOnClickListener(new View.OnClickListener() {
+		newTimeAttackGameButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				startGame();
+				startGame("timeAttack");
+			}
+		});
+		newBalanceGameButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				startGame("balance");
 			}
 		});
 	}
-	
-	private void startGame() {
-		Intent intent = new Intent(getApplicationContext(), TimeAttackActivity.class);
-		startActivity(intent);
+
+	private void startGame(String gameMode) {
+		if (gameMode.equals("timeAttack")) {
+			Intent intent = new Intent(getApplicationContext(),
+					TimeAttackActivity.class);
+			startActivity(intent);
+		} else if (gameMode.equals("balance")) {
+			Intent intent = new Intent(getApplicationContext(),
+					BalanceActivity.class);
+			startActivity(intent);
+		}
+
 	}
 
 }
