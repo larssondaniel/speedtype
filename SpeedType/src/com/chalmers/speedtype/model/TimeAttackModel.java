@@ -1,7 +1,8 @@
 package com.chalmers.speedtype.model;
 
+import com.chalmers.speedtype.util.MyCountDownTimer;
+
 import android.app.Activity;
-import android.os.CountDownTimer;
 import android.text.Html;
 import android.widget.TextView;
 
@@ -12,15 +13,16 @@ public class TimeAttackModel extends Model {
 
 	private TextView wordView;
 	private TextView nextWordView;
-	
+
 	private TextView timeView;
 	private TextView scoreView;
 
-	CountDownTimer timer;
+	MyCountDownTimer timer;
 
 	private int score = 0;
 	private int currentChar = 0;
-	public long timeLeft = 10000; // millisec.
+	private long startTimeLeft = 10000; // millisec.
+	private long tempTimeLeft;
 
 	public TimeAttackModel(Activity activity) {
 		super(activity);
@@ -49,41 +51,25 @@ public class TimeAttackModel extends Model {
 			currentChar++;
 			scoreView.setText("" + ++score);
 			if (timer == null) {
-				timer = new CountDownTimer(timeLeft, 100) {
 
-					public void onTick(long millisTimeLeft) {
-						timeView.setText("" + (double) timeLeft / 1000);
-						timeLeft = timeLeft - 100;
-					}
-
-					public void onFinish() {
-						timeView.setText("");
-						nextWordView.setText("Game over!");
-						wordView.setText("Score: 1337");
-					}
-				}.start();
+				timer = new MyCountDownTimer(startTimeLeft, 100, wordView,
+						nextWordView, timeView, scoreView);
+				timer.start();
 			}
+
 			if (currentChar == currentWord.length()) {
 				currentWord = nextWord;
 				nextWord = dictionary.getNextWord();
 				wordView.setText(currentWord);
 				nextWordView.setText(nextWord);
 				currentChar = 0;
+				tempTimeLeft = timer.getTimeLeft();
 				timer.cancel();
-				timer = new CountDownTimer(timeLeft += 4000, 100) {
 
-					public void onTick(long millisTimeLeft) {
-						timeView.setText("" + (double) timeLeft / 1000);
-						timeLeft = timeLeft - 100;
-					}
+				timer = new MyCountDownTimer(tempTimeLeft + 4000, 100,
+						wordView, nextWordView, timeView, scoreView);
+				timer.start();
 
-					public void onFinish() {
-						timeView.setText("");
-						nextWordView.setText("Game over!");
-						wordView.setText("Score: 1337");
-						activity.finish();
-					}
-				}.start();
 				if (currentWord == null)
 					activity.finish();
 			}
