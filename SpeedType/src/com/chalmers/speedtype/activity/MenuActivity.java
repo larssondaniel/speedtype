@@ -18,7 +18,7 @@ public class MenuActivity extends Activity {
         setContentView(R.layout.menu);
         setUpViews();
         setUpListeners();
-        
+        gameFactory = new GameModeFactory();
     }
     
 	private void setUpViews() {
@@ -34,13 +34,12 @@ public class MenuActivity extends Activity {
 	}
 	
 	private void startGame() {
-		Intent i = gameFactory.createGameMode("TimeAttack", super.getApplicationContext());
-		if(i == null){
+		GameMode g = gameFactory.createGameMode("TimeAttack");
+		
+		if(g == null){
 			System.out.print("No activity recieved by gameFactory");
-		}
-		else{
-		startActivity(i);
+		}else{
+			startActivity(new Intent(getApplicationContext(), g.getClass()));
 		}
 	}
-
 }
