@@ -1,6 +1,5 @@
 package com.chalmers.speedtype.model;
 
-import android.app.Activity;
 import android.os.CountDownTimer;
 import android.text.Html;
 import android.widget.TextView;
@@ -20,9 +19,10 @@ public class TimeAttackModel extends Model {
 	private int score = 0;
 	private int currentChar = 0;
 	public long timeLeft = 10000;
+	
+	private boolean isFinished;
 
-	public TimeAttackModel(Activity activity) {
-		super(activity);
+	public TimeAttackModel() {
 		currentWord = dictionary.getNextWord();
 		nextWord = dictionary.getNextWord();
 	}
@@ -38,13 +38,8 @@ public class TimeAttackModel extends Model {
 
 	@Override
 	public void onTextChanged(CharSequence s) {
-		// garbage
-		if (s.length() > 0
-				&& s.charAt(s.length() - 1) == currentWord.charAt(currentChar)) {
-			wordView.setText(Html.fromHtml("<font color=#00ff00>"
-					+ currentWord.substring(0, currentChar + 1) + "</font>"));
-			wordView.append(currentWord.substring(currentChar + 1,
-					currentWord.length()));
+		if (s.length() > 0 && s.charAt(s.length() - 1) == getLastChar()) {
+			setTextColors();
 			currentChar++;
 			scoreView.setText("" + ++score);
 			if (timer == null) {
@@ -63,11 +58,8 @@ public class TimeAttackModel extends Model {
 				}.start();
 			}
 			if (currentChar == currentWord.length()) {
-				currentWord = nextWord;
-				nextWord = dictionary.getNextWord();
-				wordView.setText(currentWord);
-				nextWordView.setText(nextWord);
-				currentChar = 0;
+				setNewWord();
+				
 				timer.cancel();
 				timer = new CountDownTimer(timeLeft += 4000, 1000) {
 
@@ -80,14 +72,33 @@ public class TimeAttackModel extends Model {
 						timeView.setText("");
 						nextWordView.setText("Game over!");
 						wordView.setText("Score: 1337");
-						activity.finish();
+						isFinished = true;
 					}
 				}.start();
-				if (currentWord == null)
-					activity.finish();
 			}
 		}
+	}
 
+	private void setNewWord() {
+		currentWord = nextWord;
+		nextWord = dictionary.getNextWord();
+		wordView.setText(currentWord);
+		nextWordView.setText(nextWord);
+		currentChar = 0;
+	}
+
+	private void setTextColors() {
+		wordView.setText(Html.fromHtml("<font color=#00ff00>"
+				+ currentWord.substring(0, currentChar + 1) + "</font>"));
+		wordView.append(currentWord.substring(currentChar + 1,
+				currentWord.length()));
+	}
+
+	private char getLastChar() {
+		return currentWord.charAt(currentChar);
+	}
+	public boolean isFinished(){
+		return isFinished;
 	}
 
 	public void setViews(TextView wordView, TextView nextWordView,

@@ -24,8 +24,9 @@ public class TimeAttackActivity extends GameMode {
 		super.onCreate(savedInstanceState);
 
 		controller = new Controller();
-		model = new TimeAttackModel(this);
+		model = new TimeAttackModel();
 		controller.setModel(model);
+		controller.setActivity(this);
 
 		setContentView(R.layout.time_attack);
 		setUpViews();
