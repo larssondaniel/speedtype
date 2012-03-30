@@ -15,12 +15,10 @@ import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.controller.Controller;
 import com.chalmers.speedtype.model.BalanceModel;
 
-public class BalanceActivity extends GameMode implements SensorEventListener {
-	private SensorManager sensorManager;
-
-	TextView xCoor; // declare X axis object
-	TextView yCoor; // declare Y axis object
-	TextView zCoor; // declare Z axis object
+public class BalanceActivity extends GameMode {
+	TextView xCoor;
+	TextView yCoor;
+	TextView zCoor;
 
 	private Controller controller;
 	private BalanceModel model;
@@ -46,33 +44,6 @@ public class BalanceActivity extends GameMode implements SensorEventListener {
 		OrientationListener ol = new OrientationListener(10, xCoor, yCoor,
 				zCoor);
 		ol.start();
-
-		/*
-		 * More sensor speeds (taken from api docs) SENSOR_DELAY_FASTEST get
-		 * sensor data as fast as possible SENSOR_DELAY_GAME rate suitable for
-		 * games SENSOR_DELAY_NORMAL rate (default) suitable for screen
-		 * orientation changes
-		 */
-	}
-
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-	}
-
-	public void onSensorChanged(SensorEvent event) {
-
-		// check sensor type
-		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-
-			// assign directions
-			float x = event.values[0];
-			float y = event.values[1];
-			float z = event.values[2];
-
-			// xCoor.setText("X: " + x);
-			// yCoor.setText("Y: " + y);
-			// zCoor.setText("Z: " + z);
-		}
 	}
 
 	private void setUpViews() {
@@ -121,7 +92,7 @@ public class BalanceActivity extends GameMode implements SensorEventListener {
 			this.rate = rate;
 			this.xView = xView;
 			this.yView = yView;
-			this.zView = yView;
+			this.zView = zView;
 			sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		}
 
@@ -134,33 +105,32 @@ public class BalanceActivity extends GameMode implements SensorEventListener {
 					rate);
 		}
 
-		float[] R = new float[16];
-		float[] I = new float[16];
-		float[] mags = null;
-		float[] accels = null;
+		float[] R = new float[16]; // Identity matrix
+		float[] I = new float[16]; // Rotation matrix
+		float[] magField = null; // Magnetic field values
+		float[] gravity = null; // Accelerometer values
 
-		float[] orientationValues = { 0f, 0f, 0f };
-
+		float[] orientationValues = { 0f, 0f, 0f }; // Result of orientation
+													// calculation
 
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 			// TODO Auto-generated method stub
 
 		}
 
-
 		public void onSensorChanged(SensorEvent event) {
 
 			switch (event.sensor.getType()) {
 			case Sensor.TYPE_MAGNETIC_FIELD:
-				mags = event.values.clone();
+				magField = event.values.clone();
 				break;
 			case Sensor.TYPE_ACCELEROMETER:
-				accels = event.values.clone();
+				gravity = event.values.clone();
 				break;
 			}
 
-			if (mags != null && accels != null) {
-				SensorManager.getRotationMatrix(R, I, accels, mags);
+			if (magField != null && gravity != null) {
+				SensorManager.getRotationMatrix(R, I, gravity, magField);
 				SensorManager.getOrientation(R, orientationValues);
 			}
 
