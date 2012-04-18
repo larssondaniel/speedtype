@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
+
 	<TextView 
 		android:id="@+id/header"
 	    android:layout_width="fill_parent" 
@@ -17,4 +18,17 @@
  		android:layout_width="wrap_content"
  		android:layout_height="wrap_content"
  		android:text="@string/new_game"/>
+
+	<Button
+	    android:id="@+id/trophy_room_button"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/trophy_room" />
+	
+	<Button
+	    android:id="@+id/exit_button"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/exit_button" />
+
 </LinearLayout>

@@ -4,4 +4,6 @@
 	<string name="new_game">New Game</string>
 	<string name="back">Back</string>
 	<string name="word">Sample word</string>
+	<string name="trophy_room">Trophy Room</string>
+	<string name="exit_button">Exit</string>
 </resources>

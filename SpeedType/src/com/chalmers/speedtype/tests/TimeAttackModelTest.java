@@ -10,7 +10,7 @@ import com.chalmers.speedtype.model.TimeAttackModel;
 
 public class TimeAttackModelTest {;
 	
-	private TimeAttackModel tam = new TimeAttackModel();
+	private TimeAttackModel tam = new TimeAttackModel(null);
 	private Stack<String> words = new Stack<String>();
 	private final String[] STATICWORDS = {"banana","apple","onion","orange","carrot"}; //Current static Strings in Dictionary
 	

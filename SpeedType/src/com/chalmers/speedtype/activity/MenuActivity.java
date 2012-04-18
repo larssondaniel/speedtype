@@ -10,6 +10,9 @@ import android.widget.Button;
 public class MenuActivity extends Activity {
     
 	private Button newGameButton;
+	private Button exitButton;
+	private Button trophyRoomButton;
+	
 	private GameModeFactory gameFactory;
 	
     @Override
@@ -23,12 +26,24 @@ public class MenuActivity extends Activity {
     
 	private void setUpViews() {
 		newGameButton = (Button)findViewById(R.id.new_game_button);
+		trophyRoomButton = (Button)findViewById(R.id.trophy_room_button);
+		exitButton = (Button)findViewById(R.id.exit_button);
 	}
 	
 	private void setUpListeners() {
 		newGameButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				startGame();
+			}
+		});
+		trophyRoomButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				trophyRoom();
+			}
+		});
+		exitButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				System.exit(0);
 			}
 		});
 	}
@@ -41,5 +56,9 @@ public class MenuActivity extends Activity {
 		}else{
 			startActivity(new Intent(getApplicationContext(), g.getClass()));
 		}
+	}
+	
+	private void trophyRoom(){
+		System.out.println("There's no trophy room yet");
 	}
 }
