@@ -7,11 +7,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chalmers.speedtype.R;
+import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.controller.Controller;
 import com.chalmers.speedtype.model.TimeAttackModel;
 
 public class TimeAttackActivity extends GameMode {
 
+	private SpeedTypeApplication app;
 	private Controller controller;
 	private TimeAttackModel model;
 	private TextView wordView;
@@ -23,8 +25,9 @@ public class TimeAttackActivity extends GameMode {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		app = (SpeedTypeApplication)getApplication();
 		controller = new Controller();
-		model = new TimeAttackModel();
+		model = new TimeAttackModel(app.getDatabase());
 		controller.setModel(model);
 		controller.setActivity(this);
 

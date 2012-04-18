@@ -1,5 +1,7 @@
 package com.chalmers.speedtype.model;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
 import android.text.Html;
 import android.widget.TextView;
@@ -22,7 +24,8 @@ public class TimeAttackModel extends Model {
 	
 	private boolean isFinished;
 
-	public TimeAttackModel() {
+	public TimeAttackModel(SQLiteDatabase database) {
+		super(database);
 		currentWord = dictionary.getNextWord();
 		nextWord = dictionary.getNextWord();
 	}
