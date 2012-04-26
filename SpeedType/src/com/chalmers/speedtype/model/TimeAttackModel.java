@@ -1,6 +1,5 @@
 package com.chalmers.speedtype.model;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
 import android.text.Html;
