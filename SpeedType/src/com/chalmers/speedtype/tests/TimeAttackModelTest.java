@@ -7,17 +7,18 @@ import java.util.Stack;
 import org.junit.Test;
 import com.chalmers.speedtype.model.TimeAttackModel;
 
+public class TimeAttackModelTest {
+	;
 
-public class TimeAttackModelTest {;
-	
 	private TimeAttackModel tam = new TimeAttackModel(null);
 	private Stack<String> words = new Stack<String>();
-	private final String[] STATICWORDS = {"banana","apple","onion","orange","carrot"}; //Current static Strings in Dictionary
-	
+	private final String[] STATICWORDS = { "banana", "apple", "onion",
+			"orange", "carrot" }; // Current static Strings in Dictionary
+
 	@Test
 	public void testGetCurrentWord() {
 		// Will be rewritten once the database has been implemented.
-		for (String s : STATICWORDS){
+		for (String s : STATICWORDS) {
 			words.add(s);
 		}
 		CharSequence cs = tam.getCurrentWord();
@@ -28,10 +29,11 @@ public class TimeAttackModelTest {;
 
 	@Test
 	public void testGetNextWord() {
-		/* Will be rewritten when Dictionary class is fully operational.
-		 * Waiting for the databse to be implemented.
+		/*
+		 * Will be rewritten when Dictionary class is fully operational. Waiting
+		 * for the databse to be implemented.
 		 */
-		for (String s : STATICWORDS){
+		for (String s : STATICWORDS) {
 			words.add(s);
 		}
 		CharSequence cs = tam.getNextWord();
@@ -47,13 +49,12 @@ public class TimeAttackModelTest {;
 
 	@Test
 	public void testIsFinished() {
-		// No real reason to test a instance variable. 
+		// No real reason to test a instance variable.
 	}
 
 	@Test
 	public void testTimeAttackModel() {
 		fail("Not yet implemented"); // TODO
 	}
-
 
 }
