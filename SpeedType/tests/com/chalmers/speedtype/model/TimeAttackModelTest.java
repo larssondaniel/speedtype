@@ -1,4 +1,4 @@
-package com.chalmers.speedtype.tests;
+package com.chalmers.speedtype.model;
 
 import static org.junit.Assert.*;
 
