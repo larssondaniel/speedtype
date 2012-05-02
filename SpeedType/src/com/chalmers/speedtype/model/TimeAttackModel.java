@@ -1,6 +1,8 @@
 package com.chalmers.speedtype.model;
 
 import com.chalmers.speedtype.R;
+
+import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
 import android.text.Html;
@@ -9,9 +11,6 @@ import android.widget.TextView;
 
 public class TimeAttackModel extends Model {
 
-	private Word currentWord;
-	private Word nextWord;
-
 	private TextView wordView;
 	private TextView nextWordView;
 	private TextView timeView;
@@ -19,17 +18,9 @@ public class TimeAttackModel extends Model {
 	private ImageView powerUpView;
 
 	CountDownTimer timer;
-
-	private int score = 0;
-	private int currentChar = 0;
-	private int powerUpMultiplier = 1;
-	private int correctLettersInRow;
 	public long timeLeft = 10000;
 
 	private boolean isFinished;
-
-	private PowerUp multiplier;
-	private PowerUp speedReward;
 
 	public TimeAttackModel(SQLiteDatabase database) {
 		super(database);
@@ -70,7 +61,9 @@ public class TimeAttackModel extends Model {
 				}.start();
 			}
 			if (currentChar == currentWord.length()) {
-				addSpeedReward();
+				if (speedReward != null) {
+					speedReward.addSpeedReward(speedReward, timeLeft, score);
+				}
 				timer.cancel();
 				timer = new CountDownTimer(timeLeft += 4000, 1000) {
 
@@ -86,7 +79,7 @@ public class TimeAttackModel extends Model {
 						isFinished = true;
 					}
 				}.start();
-				startSpeedRewardTimer();
+				startSpeedRewardTimer(timeLeft, currentWord.length(), score);
 				setNewWord();
 			}
 		} else {
@@ -119,13 +112,13 @@ public class TimeAttackModel extends Model {
 		return isFinished;
 	}
 
-	public void setViews(TextView wordView, TextView nextWordView,
-			TextView timeView, TextView scoreView, ImageView powerUpView) {
-		this.wordView = wordView;
-		this.nextWordView = nextWordView;
-		this.timeView = timeView;
-		this.scoreView = scoreView;
-		this.powerUpView = powerUpView;
+	public void setViews(Activity a) {
+		super.setViews(a);
+		wordView = (TextView) a.findViewById(R.id.word);
+		nextWordView = (TextView) a.findViewById(R.id.next_word);
+		timeView = (TextView) a.findViewById(R.id.time);
+		scoreView = (TextView) a.findViewById(R.id.score);
+		powerUpView = (ImageView) a.findViewById(R.id.x2);
 	}
 
 	public void incScore() {
@@ -133,37 +126,7 @@ public class TimeAttackModel extends Model {
 		scoreView.setText("" + score);
 	}
 
-	public void useMultiplier() {
-		if (correctLettersInRow == 5) { // The numbers are way too low, will be
-										// changed later on.
-			multiplier = new PowerUp(powerUpMultiplier);
-			powerUpMultiplier = multiplier
-					.incrementMultiplier(powerUpMultiplier);
-			powerUpView.setVisibility(0);
-			powerUpView.setImageResource(R.drawable.x2);
-		}
-		if (correctLettersInRow == 10) {
-			powerUpMultiplier = multiplier
-					.incrementMultiplier(powerUpMultiplier);
-			powerUpView.setImageResource(R.drawable.x4);
-		}
-		if (correctLettersInRow == 15) {
-			powerUpMultiplier = multiplier
-					.incrementMultiplier(powerUpMultiplier);
-			powerUpView.setImageResource(R.drawable.x8);
-		}
-	}
-
-	public void startSpeedRewardTimer() {
+	public void startSpeedRewardTimer(long timeLeft, int lenghtOfWord, int score) {
 		speedReward = new PowerUp(timeLeft, currentWord.length(), score);
-	}
-
-	public void addSpeedReward() {
-		if (speedReward != null) {
-			if (speedReward.checkSpeedReward(timeLeft)) {
-				score = score + 5;
-				System.out.println("Speed reward given");
-			}
-		}
 	}
 }

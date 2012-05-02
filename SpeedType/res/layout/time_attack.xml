@@ -18,10 +18,10 @@
         android:id="@+id/x2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:contentDescription="@string/desc_x2"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/score"
         android:adjustViewBounds="true"
-        android:gravity="right" />
+        android:contentDescription="@string/desc_x2" />
 
     <TextView
         android:id="@+id/score"

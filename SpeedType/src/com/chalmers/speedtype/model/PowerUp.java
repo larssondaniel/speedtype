@@ -33,4 +33,13 @@ public class PowerUp {
 			return false;
 		}
 	}
+
+	public void addSpeedReward(PowerUp speedReward, long timeLeft, int score) {
+		if (speedReward != null) {
+			if (speedReward.checkSpeedReward(timeLeft)) {
+				score = score + 5;
+				System.out.println("Speed reward given");
+			}
+		}
+	}
 }

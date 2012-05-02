@@ -36,7 +36,7 @@ public class TimeAttackActivity extends GameMode {
 		setContentView(R.layout.time_attack);
 		setUpViews();
 		setUpInput();
-		model.setViews(wordView, nextWordView, timeView, scoreView, powerUpView);
+		model.setViews(this);
 	}
 
 	private void setUpViews() {
@@ -50,6 +50,7 @@ public class TimeAttackActivity extends GameMode {
 		nextWordView.setText(model.getNextWord());
 		scoreView.setText("0");
 		timeView.setText("10.0");
+		powerUpView.setVisibility(4);
 	}
 
 	protected void setUpInput() {
