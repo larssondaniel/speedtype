@@ -29,6 +29,7 @@ public class TimeAttackModel extends Model {
 	private boolean isFinished;
 
 	private PowerUp multiplier;
+	private PowerUp speedReward;
 
 	public TimeAttackModel(SQLiteDatabase database) {
 		super(database);
@@ -69,8 +70,7 @@ public class TimeAttackModel extends Model {
 				}.start();
 			}
 			if (currentChar == currentWord.length()) {
-				setNewWord();
-
+				addSpeedReward();
 				timer.cancel();
 				timer = new CountDownTimer(timeLeft += 4000, 1000) {
 
@@ -86,6 +86,8 @@ public class TimeAttackModel extends Model {
 						isFinished = true;
 					}
 				}.start();
+				startSpeedRewardTimer();
+				setNewWord();
 			}
 		} else {
 			correctLettersInRow = 0;
@@ -149,6 +151,19 @@ public class TimeAttackModel extends Model {
 			powerUpMultiplier = multiplier
 					.incrementMultiplier(powerUpMultiplier);
 			powerUpView.setImageResource(R.drawable.x8);
+		}
+	}
+
+	public void startSpeedRewardTimer() {
+		speedReward = new PowerUp(timeLeft, currentWord.length(), score);
+	}
+
+	public void addSpeedReward() {
+		if (speedReward != null) {
+			if (speedReward.checkSpeedReward(timeLeft)) {
+				score = score + 5;
+				System.out.println("Speed reward given");
+			}
 		}
 	}
 }
