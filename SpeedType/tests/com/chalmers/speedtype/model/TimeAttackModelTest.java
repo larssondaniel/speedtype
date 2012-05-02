@@ -1,4 +1,8 @@
+
 package com.chalmers.speedtype.model;
+
+=======
+package com.chalmers.speedtype.tests;
 
 import static org.junit.Assert.*;
 
@@ -56,5 +60,4 @@ public class TimeAttackModelTest {
 	public void testTimeAttackModel() {
 		fail("Not yet implemented"); // TODO
 	}
-
 }

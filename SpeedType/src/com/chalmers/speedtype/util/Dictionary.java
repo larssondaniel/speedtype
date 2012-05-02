@@ -10,25 +10,21 @@ import com.chalmers.speedtype.model.Word;
 
 public class Dictionary {
 	
-	private Stack<Word> dictionary;
-	private SQLiteDatabase database;
+	private static Stack<Word> dictionary;
+	private static SQLiteDatabase database;
 	
 	public Dictionary(SQLiteDatabase database){
-		this.database = database;
+		Dictionary.database = database;
 		
 		dictionary = new Stack<Word>();
-		String[] words = {"banana","apple","onion","orange","carrot"};
-		
-		for(String word: words )
-			addWord(new Word(word));
-		
+
 		loadWords();
 	}
-	public Word getNextWord(){
+	public static Word getNextWord(){
 		return dictionary.empty() ? null : dictionary.pop();
 	}
 	
-	private void addWord(Word word) {
+	public static void addWord(Word word) {
 		if(word != null) {
 			ContentValues values = new ContentValues();
 			values.put(DictionarySQLiteOpenHelper.WORD, word.toString());
@@ -37,7 +33,7 @@ public class Dictionary {
 		}
 	}
 	
-	private void loadWords() {
+	private static void loadWords() {
 		Cursor cursor = database.query(
 				DictionarySQLiteOpenHelper.DICTIONARY_TABLE, 
 				new String[] {DictionarySQLiteOpenHelper.WORD}, 

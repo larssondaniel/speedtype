@@ -1,7 +1,7 @@
 package com.chalmers.speedtype.model;
 
 import com.chalmers.speedtype.R;
-
+import com.chalmers.speedtype.util.Dictionary;
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
@@ -24,8 +24,8 @@ public class TimeAttackModel extends Model {
 
 	public TimeAttackModel(SQLiteDatabase database) {
 		super(database);
-		currentWord = dictionary.getNextWord();
-		nextWord = dictionary.getNextWord();
+		currentWord = Dictionary.getNextWord();
+		nextWord = Dictionary.getNextWord();
 	}
 
 	public CharSequence getCurrentWord() {
@@ -91,7 +91,7 @@ public class TimeAttackModel extends Model {
 
 	private void setNewWord() {
 		currentWord = nextWord;
-		nextWord = dictionary.getNextWord();
+		nextWord = Dictionary.getNextWord();
 		wordView.setText(currentWord);
 		nextWordView.setText(nextWord);
 		currentChar = 0;

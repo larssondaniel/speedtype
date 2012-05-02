@@ -1,5 +1,7 @@
 package com.chalmers.speedtype.util;
 
+import com.chalmers.speedtype.model.Word;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -13,11 +15,18 @@ public class DictionarySQLiteOpenHelper extends SQLiteOpenHelper {
 	public static final String WORD = "word";
 
 	public DictionarySQLiteOpenHelper(Context context) {
-		super(context, DB_NAME, null, VERSION);	}
+		super(context, DB_NAME, null, VERSION);
+	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		dropAndCreate(db);
+		
+		String[] words = {"banana","apple","onion","orange","carrot"};
+		
+		for(String word: words )
+			Dictionary.addWord(new Word(word));
+		
 	}
 
 	@Override
