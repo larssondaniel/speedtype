@@ -12,13 +12,13 @@ public class SpeedTypeApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		DictionarySQLiteOpenHelper helper = new DictionarySQLiteOpenHelper(this);
-        database = helper.getWritableDatabase();
+		//DictionarySQLiteOpenHelper helper = new DictionarySQLiteOpenHelper(this);
+        //database = helper.getWritableDatabase();
 	}
 	
 	@Override
 	public void onTerminate() {
-		database.close();
+		//database.close();
 		super.onTerminate();
 	}
 	

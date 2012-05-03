@@ -27,7 +27,7 @@ public abstract class Model {
 	private TextView powerUpView;
 
 	public Model(SQLiteDatabase database) {
-		dictionary = new Dictionary(database);
+		dictionary = new Dictionary(/*database*/);
 	}
 
 	protected Dictionary dictionary;

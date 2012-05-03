@@ -52,7 +52,6 @@ public class FallingWordsModel extends Model {
 					handler.post(new Runnable() {
 						@Override
 						public void run() {
-							Log.i("k","k");
 							even = !even;
 							if(even)
 								wordView.setBackgroundColor(Color.argb(255, 255, 0, 0));

@@ -13,12 +13,16 @@ public class Dictionary {
 	private static Stack<Word> dictionary;
 	private static SQLiteDatabase database;
 	
-	public Dictionary(SQLiteDatabase database){
-		Dictionary.database = database;
+	public Dictionary(/*SQLiteDatabase database*/){
+		//Dictionary.database = database;
 		
 		dictionary = new Stack<Word>();
-
-		loadWords();
+		String[] words = {"banan", "apelsin", "smultron"};
+		
+		for(String word:words)
+			dictionary.add(new Word(word));
+		
+		//loadWords();
 	}
 	public static Word getNextWord(){
 		return dictionary.empty() ? null : dictionary.pop();
