@@ -21,12 +21,6 @@ public class DictionarySQLiteOpenHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		dropAndCreate(db);
-		
-		String[] words = {"banana","apple","onion","orange","carrot"};
-		
-		for(String word: words )
-			Dictionary.addWord(new Word(word));
-		
 	}
 
 	@Override
