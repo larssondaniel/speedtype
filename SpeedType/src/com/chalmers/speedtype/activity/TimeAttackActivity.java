@@ -21,6 +21,8 @@ public class TimeAttackActivity extends GameMode {
 	private TextView timeView;
 	private TextView scoreView;
 	private TextView powerUpView;
+	private TextView speedBonusView;
+	private TextView speedBonusScoreView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,18 @@ public class TimeAttackActivity extends GameMode {
 		timeView = (TextView) findViewById(R.id.time);
 		scoreView = (TextView) findViewById(R.id.score);
 		powerUpView = (TextView) findViewById(R.id.multiplier);
+		speedBonusView = (TextView) findViewById(R.id.speed_bonus);
+		speedBonusScoreView = (TextView) findViewById(R.id.speed_bonus_score);
 
 		wordView.setText(model.getCurrentWord());
 		nextWordView.setText(model.getNextWord());
 		scoreView.setText("0");
 		timeView.setText("10.0");
 		powerUpView.setVisibility(4);
+		speedBonusView.setText("Speed bonus!");
+		speedBonusScoreView.setText("+5");
+		speedBonusView.setVisibility(4);
+		speedBonusScoreView.setVisibility(4);
 	}
 
 	protected void setUpInput() {

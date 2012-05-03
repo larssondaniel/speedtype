@@ -17,6 +17,9 @@ public class TimeAttackModel extends Model {
 	private TextView timeView;
 	private TextView scoreView;
 	private TextView powerUpView;
+	private TextView speedBonusView;
+	private TextView speedBonusScoreView;
+	private Activity activity;
 
 	CountDownTimer timer;
 	public long timeLeft = 10000;
@@ -63,7 +66,8 @@ public class TimeAttackModel extends Model {
 			}
 			if (currentChar == currentWord.length()) {
 				if (speedReward != null) {
-					speedReward.addSpeedReward(speedReward, timeLeft, score);
+					speedReward.addSpeedReward(speedReward, timeLeft, score,
+							speedBonusView, speedBonusScoreView, activity);
 				}
 				timer.cancel();
 				timer = new CountDownTimer(timeLeft += 4000, 1000) {
@@ -84,13 +88,16 @@ public class TimeAttackModel extends Model {
 				setNewWord();
 			}
 		} else {
+
+			if (powerUpMultiplier != 1) {
+				Animation multiplierGoneAnimation = AnimationUtils
+						.loadAnimation(getActivity().getApplicationContext(),
+								R.anim.multiplier_gone_animation);
+				powerUpView.startAnimation(multiplierGoneAnimation);
+			}
+
 			correctLettersInRow = 0;
 			powerUpMultiplier = 1;
-			Animation multiplierGoneAnimation = AnimationUtils.loadAnimation(
-					activity.getApplicationContext(),
-					R.anim.multipliergoneanimation);
-			powerUpView.startAnimation(multiplierGoneAnimation);
-			// powerUpView.setVisibility(4);
 		}
 	}
 
@@ -117,13 +124,17 @@ public class TimeAttackModel extends Model {
 		return isFinished;
 	}
 
-	public void setViews(Activity a) {
-		super.setViews(a);
-		wordView = (TextView) a.findViewById(R.id.word);
-		nextWordView = (TextView) a.findViewById(R.id.next_word);
-		timeView = (TextView) a.findViewById(R.id.time);
-		scoreView = (TextView) a.findViewById(R.id.score);
-		powerUpView = (TextView) a.findViewById(R.id.multiplier);
+	public void setViews(Activity activity) {
+		super.setViews(activity);
+		this.activity = activity;
+		wordView = (TextView) activity.findViewById(R.id.word);
+		nextWordView = (TextView) activity.findViewById(R.id.next_word);
+		timeView = (TextView) activity.findViewById(R.id.time);
+		scoreView = (TextView) activity.findViewById(R.id.score);
+		powerUpView = (TextView) activity.findViewById(R.id.multiplier);
+		speedBonusView = (TextView) activity.findViewById(R.id.speed_bonus);
+		speedBonusScoreView = (TextView) activity
+				.findViewById(R.id.speed_bonus_score);
 	}
 
 	public void incScore() {

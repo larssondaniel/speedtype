@@ -10,8 +10,10 @@ package com.chalmers.speedtype;
 public final class R {
     public static final class anim {
         public static final int animation=0x7f040000;
-        public static final int multiplieranimation=0x7f040001;
-        public static final int multipliergoneanimation=0x7f040002;
+        public static final int multiplier_animation=0x7f040001;
+        public static final int multiplier_gone_animation=0x7f040002;
+        public static final int speed_bonus_animation=0x7f040003;
+        public static final int speed_bonus_animation_2=0x7f040004;
     }
     public static final class attr {
     }
@@ -24,9 +26,11 @@ public final class R {
         public static final int input_edit_text=0x7f060003;
         public static final int multiplier=0x7f060009;
         public static final int new_game_button=0x7f060005;
-        public static final int next_word=0x7f06000a;
+        public static final int next_word=0x7f06000c;
         public static final int relativeLayout1=0x7f060000;
         public static final int score=0x7f060001;
+        public static final int speed_bonus=0x7f06000a;
+        public static final int speed_bonus_score=0x7f06000b;
         public static final int time=0x7f060008;
         public static final int trophy_room_button=0x7f060006;
         public static final int word=0x7f060002;

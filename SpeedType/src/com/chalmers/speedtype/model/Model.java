@@ -22,7 +22,7 @@ public abstract class Model {
 	protected PowerUp multiplier;
 	public PowerUp speedReward;
 
-	protected Activity activity;
+	private Activity activity;
 
 	private TextView powerUpView;
 
@@ -49,7 +49,7 @@ public abstract class Model {
 			powerUpView = (TextView) activity.findViewById(R.id.multiplier);
 			Animation multiplierAnimation = AnimationUtils.loadAnimation(
 					activity.getApplicationContext(),
-					R.anim.multiplieranimation);
+					R.anim.multiplier_animation);
 			powerUpView.setVisibility(0);
 			powerUpView.setText("x2");
 			powerUpView.startAnimation(multiplierAnimation);
@@ -59,7 +59,7 @@ public abstract class Model {
 					.incrementMultiplier(powerUpMultiplier);
 			Animation multiplierAnimation = AnimationUtils.loadAnimation(
 					activity.getApplicationContext(),
-					R.anim.multiplieranimation);
+					R.anim.multiplier_animation);
 			powerUpView.setText("x4");
 			powerUpView.startAnimation(multiplierAnimation);
 		}
@@ -68,7 +68,7 @@ public abstract class Model {
 					.incrementMultiplier(powerUpMultiplier);
 			Animation multiplierAnimation = AnimationUtils.loadAnimation(
 					activity.getApplicationContext(),
-					R.anim.multiplieranimation);
+					R.anim.multiplier_animation);
 			powerUpView.setText("x8");
 			powerUpView.startAnimation(multiplierAnimation);
 		}

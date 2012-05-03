@@ -1,5 +1,12 @@
 package com.chalmers.speedtype.model;
 
+import com.chalmers.speedtype.R;
+
+import android.app.Activity;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
+
 public class PowerUp {
 
 	private long timeLeftAtStart;
@@ -34,9 +41,20 @@ public class PowerUp {
 		}
 	}
 
-	public void addSpeedReward(PowerUp speedReward, long timeLeft, int score) {
+	public void addSpeedReward(PowerUp speedReward, long timeLeft, int score,
+			TextView speedBonusView, TextView speedBonusScoreView,
+			Activity activity) {
 		if (speedReward != null) {
 			if (speedReward.checkSpeedReward(timeLeft)) {
+				speedBonusView.setVisibility(0);
+				Animation speedBonusAnimation = AnimationUtils.loadAnimation(
+						activity.getApplicationContext(),
+						R.anim.speed_bonus_animation);
+				Animation speedBonusAnimation2 = AnimationUtils.loadAnimation(
+						activity.getApplicationContext(),
+						R.anim.speed_bonus_animation_2);
+				speedBonusView.startAnimation(speedBonusAnimation2);
+				speedBonusScoreView.startAnimation(speedBonusAnimation);
 				score = score + 5;
 				System.out.println("Speed reward given");
 			}
