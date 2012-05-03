@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chalmers.speedtype.R;
@@ -21,7 +20,7 @@ public class TimeAttackActivity extends GameMode {
 	private TextView nextWordView;
 	private TextView timeView;
 	private TextView scoreView;
-	private ImageView powerUpView;
+	private TextView powerUpView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class TimeAttackActivity extends GameMode {
 		nextWordView = (TextView) findViewById(R.id.next_word);
 		timeView = (TextView) findViewById(R.id.time);
 		scoreView = (TextView) findViewById(R.id.score);
-		powerUpView = (ImageView) findViewById(R.id.x2);
+		powerUpView = (TextView) findViewById(R.id.multiplier);
 
 		wordView.setText(model.getCurrentWord());
 		nextWordView.setText(model.getNextWord());

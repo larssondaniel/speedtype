@@ -2,7 +2,9 @@ package com.chalmers.speedtype.model;
 
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.ImageView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Dictionary;
@@ -20,9 +22,9 @@ public abstract class Model {
 	protected PowerUp multiplier;
 	public PowerUp speedReward;
 
-	private Activity activity;
+	protected Activity activity;
 
-	private ImageView powerUpView;
+	private TextView powerUpView;
 
 	public Model(SQLiteDatabase database) {
 		dictionary = new Dictionary(database);
@@ -44,19 +46,31 @@ public abstract class Model {
 			multiplier = new PowerUp(powerUpMultiplier);
 			powerUpMultiplier = multiplier
 					.incrementMultiplier(powerUpMultiplier);
-			powerUpView = (ImageView) activity.findViewById(R.id.x2);
+			powerUpView = (TextView) activity.findViewById(R.id.multiplier);
+			Animation multiplierAnimation = AnimationUtils.loadAnimation(
+					activity.getApplicationContext(),
+					R.anim.multiplieranimation);
 			powerUpView.setVisibility(0);
-			powerUpView.setImageResource(R.drawable.x2);
+			powerUpView.setText("x2");
+			powerUpView.startAnimation(multiplierAnimation);
 		}
 		if (correctLettersInRow == 10) {
 			powerUpMultiplier = multiplier
 					.incrementMultiplier(powerUpMultiplier);
-			powerUpView.setImageResource(R.drawable.x4);
+			Animation multiplierAnimation = AnimationUtils.loadAnimation(
+					activity.getApplicationContext(),
+					R.anim.multiplieranimation);
+			powerUpView.setText("x4");
+			powerUpView.startAnimation(multiplierAnimation);
 		}
 		if (correctLettersInRow == 15) {
 			powerUpMultiplier = multiplier
 					.incrementMultiplier(powerUpMultiplier);
-			powerUpView.setImageResource(R.drawable.x8);
+			Animation multiplierAnimation = AnimationUtils.loadAnimation(
+					activity.getApplicationContext(),
+					R.anim.multiplieranimation);
+			powerUpView.setText("x8");
+			powerUpView.startAnimation(multiplierAnimation);
 		}
 	}
 

@@ -6,7 +6,8 @@ import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
 import android.text.Html;
-import android.widget.ImageView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 public class TimeAttackModel extends Model {
@@ -15,7 +16,7 @@ public class TimeAttackModel extends Model {
 	private TextView nextWordView;
 	private TextView timeView;
 	private TextView scoreView;
-	private ImageView powerUpView;
+	private TextView powerUpView;
 
 	CountDownTimer timer;
 	public long timeLeft = 10000;
@@ -85,7 +86,11 @@ public class TimeAttackModel extends Model {
 		} else {
 			correctLettersInRow = 0;
 			powerUpMultiplier = 1;
-			powerUpView.setVisibility(4);
+			Animation multiplierGoneAnimation = AnimationUtils.loadAnimation(
+					activity.getApplicationContext(),
+					R.anim.multipliergoneanimation);
+			powerUpView.startAnimation(multiplierGoneAnimation);
+			// powerUpView.setVisibility(4);
 		}
 	}
 
@@ -118,7 +123,7 @@ public class TimeAttackModel extends Model {
 		nextWordView = (TextView) a.findViewById(R.id.next_word);
 		timeView = (TextView) a.findViewById(R.id.time);
 		scoreView = (TextView) a.findViewById(R.id.score);
-		powerUpView = (ImageView) a.findViewById(R.id.x2);
+		powerUpView = (TextView) a.findViewById(R.id.multiplier);
 	}
 
 	public void incScore() {
