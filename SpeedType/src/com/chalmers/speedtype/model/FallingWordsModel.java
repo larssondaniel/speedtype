@@ -6,7 +6,11 @@ import com.chalmers.speedtype.util.Dictionary;
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Handler;
 import android.text.Html;
+import android.util.Log;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,12 +30,58 @@ public class FallingWordsModel extends Model {
 	private boolean isFinished;
 
 	private Activity activity;
+	private Handler handler;
 	
-	public FallingWordsModel(SQLiteDatabase database, Activity a) {
+	public FallingWordsModel(SQLiteDatabase database, Activity a, final Handler handler) {
 		super(database);
 		activity = a;
 		currentWord = Dictionary.getNextWord();
 		nextWord = Dictionary.getNextWord();
+		this.handler = handler;
+		
+		Runnable runnable = new Runnable() {
+			boolean even = true;
+			@Override
+			public void run() {
+				while(true) {
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					handler.post(new Runnable() {
+						@Override
+						public void run() {
+							Log.i("k","k");
+							even = !even;
+							if(even)
+								wordView.setBackgroundColor(Color.argb(255, 255, 0, 0));
+							else
+								wordView.setBackgroundColor(Color.argb(255, 0, 0, 255));
+						}
+					});
+				}
+			}
+		};
+		new Thread(runnable).start();
+		
+		/*Thread thread = new Thread(){
+			
+			@Override
+			public void run(){
+				while(true){
+					try {
+						sleep(10);
+						//if(wordView.getY() > 100)
+							Log.i("l","l");
+					} catch (InterruptedException e){
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		
+		thread.start();*/
 	}
 
 	public CharSequence getCurrentWord() {
@@ -45,12 +95,16 @@ public class FallingWordsModel extends Model {
 
 	@Override
 	public void onTextChanged(CharSequence s) {
-		//wordView.setRotation(180);
 		Context context = activity.getApplicationContext();
 		WindowManager mWinMgr = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-		int displayWidth = mWinMgr.getDefaultDisplay().getWidth();
 		
-		wordView.setX((int)((displayWidth/2/*-wordWidth*/)*Math.random()));
+		int displayWidth = mWinMgr.getDefaultDisplay().getWidth();
+		ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)wordView.getLayoutParams();
+		
+		int wordWidth = wordView.getWidth();
+		int wordHeight = wordView.getHeight();
+		
+		mlp.setMargins((int)((displayWidth-wordWidth)*Math.random()),-wordHeight,0,0);
 		
 		Animation hyperspaceJump = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.animation);
 		wordView.startAnimation(hyperspaceJump);
@@ -65,6 +119,10 @@ public class FallingWordsModel extends Model {
 		}
 	}
 
+	public void updateWord(){
+		
+	}
+	
 	private void setNewWord() {
 		currentWord = nextWord;
 		nextWord = Dictionary.getNextWord();

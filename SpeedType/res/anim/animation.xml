@@ -2,14 +2,12 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:fillEnabled="true"
     android:fillBefore="true"
-    android:fillAfter="true"
-    android:shareInterpolator="true">
+    android:fillAfter="true">
 
 <translate
         android:fromXDelta="0"
         android:toXDelta="0"
         android:fromYDelta="0"
         android:toYDelta="100%p" 
-        android:duration="3000"
-        />
+        android:duration="3000" />
 </set>    

@@ -25,7 +25,7 @@ public class FallingWordsActivity extends GameMode{
 
 		app = (SpeedTypeApplication)getApplication();
 		controller = new Controller();
-		model = new FallingWordsModel(app.getDatabase(), this);
+		model = new FallingWordsModel(app.getDatabase(), this, handler);
 		controller.setModel(model);
 		controller.setActivity(this);
 
