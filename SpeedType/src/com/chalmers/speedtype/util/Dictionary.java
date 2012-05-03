@@ -1,5 +1,8 @@
 package com.chalmers.speedtype.util;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 
 import android.content.ContentValues;
@@ -10,23 +13,26 @@ import com.chalmers.speedtype.model.Word;
 
 public class Dictionary {
 	
-	private static Stack<Word> dictionary;
+	private static ArrayList<Word> dictionary;
 	private static SQLiteDatabase database;
 	
 	public Dictionary(SQLiteDatabase database){
 		Dictionary.database = database;
+	
+		dictionary = new ArrayList<Word>();
 		
-		dictionary = new Stack<Word>();
+		String[] words = {"banana","apple","onion","onion","orange","carrot"};
 		
-		String[] words = {"banana","apple","onion","orange","carrot"};
-		
-		for(String word: words)
-			Dictionary.addWord(new Word(word));
+		for(String word: words){
+			addWord(new Word(word));
+		}
 		
 		loadWords();
 	}
 	public static Word getNextWord(){
-		return dictionary.empty() ? null : dictionary.pop();
+		int size = dictionary.size();
+		int item = new Random().nextInt(size);
+		return dictionary.get(item);
 	}
 	
 	public static void addWord(Word word) {
@@ -34,7 +40,7 @@ public class Dictionary {
 			ContentValues values = new ContentValues();
 			values.put(DictionarySQLiteOpenHelper.WORD, word.toString());
 			
-			database.insert(DictionarySQLiteOpenHelper.DICTIONARY_TABLE, null, values);
+			database.insertWithOnConflict(DictionarySQLiteOpenHelper.DICTIONARY_TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 		}
 	}
 	
