@@ -1,7 +1,10 @@
 package com.chalmers.speedtype.model;
 
+import java.util.Map;
+
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Dictionary;
+import com.swarmconnect.SwarmAchievement;
 import com.swarmconnect.SwarmLeaderboard;
 
 import android.app.Activity;
@@ -22,17 +25,19 @@ public class TimeAttackModel extends Model {
 	private TextView speedBonusView;
 	private TextView speedBonusScoreView;
 	private Activity activity;
-	private SwarmLeaderboard timeAttackLeaderboard;
 
 	CountDownTimer timer;
 	public long timeLeft = 10000;
-	
+
 	private boolean isFinished;
 	
-	public TimeAttackModel(SQLiteDatabase database, Activity activity, SwarmLeaderboard timeAttackLeaderboard) {
+	public TimeAttackModel(SQLiteDatabase database, Activity activity, SwarmLeaderboard timeAttackLeaderboard,
+			Map<Integer, SwarmAchievement> timeAttackAchievements) {
 		super(database, activity);
+		
 		this.timeAttackLeaderboard = timeAttackLeaderboard;
-
+		this.timeAttackAchievements = timeAttackAchievements;
+		
 		currentWord = Dictionary.getNextWord();
 		nextWord = Dictionary.getNextWord();
 	}
@@ -65,9 +70,9 @@ public class TimeAttackModel extends Model {
 					public void onFinish() {
 						if (timeAttackLeaderboard != null) {
 
-						    // Then submit the score
+							// Then submit the score
 							timeAttackLeaderboard.submitScore(score);
-						} 
+						}
 						timeView.setText("");
 						nextWordView.setText("Game over!");
 						wordView.setText("Score: " + score);
@@ -91,9 +96,9 @@ public class TimeAttackModel extends Model {
 					public void onFinish() {
 						if (timeAttackLeaderboard != null) {
 
-						    // Then submit the score
+							// Then submit the score
 							timeAttackLeaderboard.submitScore(score);
-						} 
+						}
 						timeView.setText("");
 						nextWordView.setText("Game over!");
 						wordView.setText("Score: " + score);
@@ -101,7 +106,9 @@ public class TimeAttackModel extends Model {
 					}
 				}.start();
 				startSpeedRewardTimer(timeLeft, currentWord.length(), score);
+				setAchievement();
 				setNewWord();
+
 			}
 		} else {
 
@@ -123,6 +130,10 @@ public class TimeAttackModel extends Model {
 		wordView.setText(currentWord);
 		nextWordView.setText(nextWord);
 		currentChar = 0;
+	}
+
+	protected void setAchievement() {
+		super.setAchievement();
 	}
 
 	private void setTextColors() {

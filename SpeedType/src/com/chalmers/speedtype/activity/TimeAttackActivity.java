@@ -1,5 +1,7 @@
 package com.chalmers.speedtype.activity;
 
+import java.util.Map;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +12,8 @@ import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.controller.Controller;
 import com.chalmers.speedtype.model.TimeAttackModel;
+import com.swarmconnect.SwarmAchievement;
+import com.swarmconnect.SwarmAchievement.GotAchievementsMapCB;
 import com.swarmconnect.SwarmLeaderboard;
 import com.swarmconnect.SwarmLeaderboard.GotLeaderboardCB;
 
@@ -25,7 +29,8 @@ public class TimeAttackActivity extends GameMode {
 	private TextView powerUpView;
 	private TextView speedBonusView;
 	private TextView speedBonusScoreView;
-	public SwarmLeaderboard timeAttackLeaderboard;
+	private SwarmLeaderboard timeAttackLeaderboard;
+	private	Map<Integer, SwarmAchievement> timeAttackAchievements;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,11 +40,11 @@ public class TimeAttackActivity extends GameMode {
 		controller = new Controller();
 
 		setUpSwarm();
-		model = new TimeAttackModel(app.getDatabase(), this, timeAttackLeaderboard);
+
+		model = new TimeAttackModel(app.getDatabase(), this, timeAttackLeaderboard, timeAttackAchievements);
 
 		controller.setModel(model);
 		controller.setActivity(this);
-
 		setContentView(R.layout.time_attack);
 		setUpViews();
 		setUpInput();
@@ -83,7 +88,7 @@ public class TimeAttackActivity extends GameMode {
 		});
 	}
 	private void setUpSwarm(){
-		GotLeaderboardCB callback = new GotLeaderboardCB() {
+		GotLeaderboardCB leaderboardCB = new GotLeaderboardCB() {
 		    public void gotLeaderboard(SwarmLeaderboard leaderboard) {
 		
 			if (leaderboard != null) {
@@ -93,6 +98,17 @@ public class TimeAttackActivity extends GameMode {
 		        }
 		    }
 		};
-		SwarmLeaderboard.getLeaderboardById(826, callback);
+		SwarmLeaderboard.getLeaderboardById(826, leaderboardCB);
+		
+		
+		GotAchievementsMapCB achievementCB = new GotAchievementsMapCB() {
+
+		    public void gotMap(Map<Integer, SwarmAchievement> achievements) {
+
+		        // Store the map of achievements somewhere to be used later.
+		        timeAttackAchievements = achievements;
+		    }
+		}; 
+		SwarmAchievement.getAchievementsMap(achievementCB);
 	}
 }

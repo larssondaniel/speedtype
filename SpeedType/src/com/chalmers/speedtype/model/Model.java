@@ -1,5 +1,7 @@
 package com.chalmers.speedtype.model;
 
+import java.util.Map;
+
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Dictionary;
+import com.swarmconnect.SwarmAchievement;
+import com.swarmconnect.SwarmLeaderboard;
 
 public abstract class Model {
 
@@ -21,6 +25,8 @@ public abstract class Model {
 	protected int currentChar = 0;
 	protected int powerUpMultiplier = 1;
 	protected int correctLettersInRow;
+	protected SwarmLeaderboard timeAttackLeaderboard;
+	protected Map<Integer, SwarmAchievement> timeAttackAchievements;
 
 	protected PowerUp multiplier;
 	public PowerUp speedReward;
@@ -117,5 +123,32 @@ public abstract class Model {
 	}
 	public int getScore(){
 		return score;
+	}
+	protected void setAchievement(){
+		if (score > 1000) {
+			giveAchievement(1340);
+			if (score > 5000){
+				giveAchievement(1350);
+				if (score > 10000)
+					giveAchievement(1352);
+			}
+		}
+		if (correctLettersInRow > 20) {
+			giveAchievement(1348);
+			if (correctLettersInRow > 80){
+				giveAchievement(1356);
+				if (correctLettersInRow > 500)
+					giveAchievement(1354);
+			}
+		}
+			
+	}
+	protected void giveAchievement(int id) {
+		if (timeAttackAchievements != null) {
+			SwarmAchievement achievement = timeAttackAchievements.get(id);
+			if (achievement != null && achievement.unlocked == false) {
+				achievement.unlock();
+			}
+		}
 	}
 }
