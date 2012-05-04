@@ -29,9 +29,10 @@ public class TimeAttackModel extends Model {
 	
 	private boolean isFinished;
 	
-	public TimeAttackModel(SQLiteDatabase database, SwarmLeaderboard timeAttackLeaderboard) {
-		super(database);
+	public TimeAttackModel(SQLiteDatabase database, Activity activity, SwarmLeaderboard timeAttackLeaderboard) {
+		super(database, activity);
 		this.timeAttackLeaderboard = timeAttackLeaderboard;
+
 		currentWord = Dictionary.getNextWord();
 		nextWord = Dictionary.getNextWord();
 	}

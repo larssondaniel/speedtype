@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Handler;
 import android.text.Html;
 import android.view.ViewGroup;
@@ -31,8 +32,10 @@ public class FallingWordsModel extends Model {
 	private Activity activity;
 	private Handler handler;
 	
+	private int durationMillis = 3000;
+	
 	public FallingWordsModel(SQLiteDatabase database, Activity a, final Handler handler) {
-		super(database);
+		super(database, a);
 		activity = a;
 		currentWord = Dictionary.getNextWord();
 		nextWord = Dictionary.getNextWord();
@@ -43,7 +46,7 @@ public class FallingWordsModel extends Model {
 			public void run() {
 				while(true) {
 					try {
-						Thread.sleep(3000);
+						Thread.sleep(durationMillis);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -106,18 +109,17 @@ public class FallingWordsModel extends Model {
 	private void startAnimation() {
 		setNewWord();
 		
-		Context context = activity.getApplicationContext();
-		WindowManager mWinMgr = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+		int wordPositionX = (int)((getDisplayWidth()-wordView.getWidth())*Math.random());
+		int wordPositionY = -wordView.getHeight();
 		
-		int displayWidth = mWinMgr.getDefaultDisplay().getWidth();
 		ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)wordView.getLayoutParams();
-		
-		int wordWidth = wordView.getWidth();
-		int wordHeight = wordView.getHeight();
-		
-		mlp.setMargins((int)((displayWidth-wordWidth)*Math.random()),-wordHeight,0,0);
+		mlp.setMargins(wordPositionX, wordPositionY, 0, 0);
 		
 		Animation fallAnimation = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.fall_animation);
+		
+		durationMillis *= 0.99;
+		fallAnimation.setDuration(durationMillis);
+		
 		wordView.startAnimation(fallAnimation);
 	}
 

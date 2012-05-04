@@ -1,7 +1,10 @@
 package com.chalmers.speedtype.model;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Point;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -25,9 +28,12 @@ public abstract class Model {
 	private Activity activity;
 
 	private TextView powerUpView;
+	
+	private Point displaySize;
 
-	public Model(SQLiteDatabase database) {
+	public Model(SQLiteDatabase database, Activity activity) {
 		dictionary = new Dictionary(database);
+		this.activity = activity;
 	}
 
 	protected Dictionary dictionary;
@@ -72,6 +78,34 @@ public abstract class Model {
 			powerUpView.setText("x8");
 			powerUpView.startAnimation(multiplierAnimation);
 		}
+	}
+	
+	public Context getContext(){
+		return activity.getApplicationContext();
+	}
+	
+	public int getDisplayWidth(){
+		if(displaySize != null)
+			return displaySize.x;
+		
+		displaySize = new Point();
+		
+		WindowManager mWinMgr = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
+		mWinMgr.getDefaultDisplay().getSize(displaySize);
+		
+		return displaySize.x;
+	}
+	
+	public int getDisplayHeight(){
+		if(displaySize != null)
+			return displaySize.y;
+		
+		displaySize = new Point();
+		
+		WindowManager mWinMgr = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
+		mWinMgr.getDefaultDisplay().getSize(displaySize);
+		
+		return displaySize.y;
 	}
 
 	public void setViews(Activity activity) {

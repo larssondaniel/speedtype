@@ -33,8 +33,10 @@ public class TimeAttackActivity extends GameMode {
 
 		app = (SpeedTypeApplication) getApplication();
 		controller = new Controller();
+
 		setUpSwarm();
-		model = new TimeAttackModel(app.getDatabase(), timeAttackLeaderboard);
+		model = new TimeAttackModel(app.getDatabase(), this, timeAttackLeaderboard);
+
 		controller.setModel(model);
 		controller.setActivity(this);
 
