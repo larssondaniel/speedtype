@@ -81,4 +81,7 @@ public abstract class Model {
 	public Activity getActivity() {
 		return activity;
 	}
+	public int getScore(){
+		return score;
+	}
 }

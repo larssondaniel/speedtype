@@ -10,6 +10,8 @@ import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.controller.Controller;
 import com.chalmers.speedtype.model.TimeAttackModel;
+import com.swarmconnect.SwarmLeaderboard;
+import com.swarmconnect.SwarmLeaderboard.GotLeaderboardCB;
 
 public class TimeAttackActivity extends GameMode {
 
@@ -23,6 +25,7 @@ public class TimeAttackActivity extends GameMode {
 	private TextView powerUpView;
 	private TextView speedBonusView;
 	private TextView speedBonusScoreView;
+	public SwarmLeaderboard timeAttackLeaderboard;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,8 @@ public class TimeAttackActivity extends GameMode {
 
 		app = (SpeedTypeApplication) getApplication();
 		controller = new Controller();
-		model = new TimeAttackModel(app.getDatabase());
+		setUpSwarm();
+		model = new TimeAttackModel(app.getDatabase(), timeAttackLeaderboard);
 		controller.setModel(model);
 		controller.setActivity(this);
 
@@ -75,5 +79,18 @@ public class TimeAttackActivity extends GameMode {
 			public void afterTextChanged(Editable s) {
 			}
 		});
+	}
+	private void setUpSwarm(){
+		GotLeaderboardCB callback = new GotLeaderboardCB() {
+		    public void gotLeaderboard(SwarmLeaderboard leaderboard) {
+		
+			if (leaderboard != null) {
+		
+		            // Save the leaderboard for later use
+		            timeAttackLeaderboard = leaderboard;
+		        }
+		    }
+		};
+		SwarmLeaderboard.getLeaderboardById(826, callback);
 	}
 }

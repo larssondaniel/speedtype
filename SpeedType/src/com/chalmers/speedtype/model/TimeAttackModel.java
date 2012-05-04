@@ -2,6 +2,8 @@ package com.chalmers.speedtype.model;
 
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Dictionary;
+import com.swarmconnect.SwarmLeaderboard;
+
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
@@ -20,14 +22,16 @@ public class TimeAttackModel extends Model {
 	private TextView speedBonusView;
 	private TextView speedBonusScoreView;
 	private Activity activity;
+	private SwarmLeaderboard timeAttackLeaderboard;
 
 	CountDownTimer timer;
 	public long timeLeft = 10000;
-
+	
 	private boolean isFinished;
-
-	public TimeAttackModel(SQLiteDatabase database) {
+	
+	public TimeAttackModel(SQLiteDatabase database, SwarmLeaderboard timeAttackLeaderboard) {
 		super(database);
+		this.timeAttackLeaderboard = timeAttackLeaderboard;
 		currentWord = Dictionary.getNextWord();
 		nextWord = Dictionary.getNextWord();
 	}
@@ -58,9 +62,14 @@ public class TimeAttackModel extends Model {
 					}
 
 					public void onFinish() {
-						timeView.setText("");
-						nextWordView.setText("Game over!");
-						wordView.setText("Score: 1337");
+						if (timeAttackLeaderboard != null) {
+
+						    // Then submit the score
+							timeAttackLeaderboard.submitScore(score);
+						} 
+						//timeView.setText("");
+						//nextWordView.setText("Game over!");
+						//wordView.setText("Score: " + score);
 					}
 				}.start();
 			}
@@ -79,9 +88,14 @@ public class TimeAttackModel extends Model {
 					}
 
 					public void onFinish() {
-						timeView.setText("");
-						nextWordView.setText("Game over!");
-						wordView.setText("Score: 1337");
+						if (timeAttackLeaderboard != null) {
+
+						    // Then submit the score
+							timeAttackLeaderboard.submitScore(score);
+						} 
+						//timeView.setText("");
+						//nextWordView.setText("Game over!");
+						//wordView.setText("Score: " + score);
 						isFinished = true;
 					}
 				}.start();

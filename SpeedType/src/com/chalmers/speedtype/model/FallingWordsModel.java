@@ -41,7 +41,6 @@ public class FallingWordsModel extends Model {
 		
 		Runnable runnable = new Runnable() {
 			boolean even = true;
-			@Override
 			public void run() {
 				while(true) {
 					try {
@@ -50,7 +49,6 @@ public class FallingWordsModel extends Model {
 						e.printStackTrace();
 					}
 					handler.post(new Runnable() {
-						@Override
 						public void run() {
 							even = !even;
 							if(even)

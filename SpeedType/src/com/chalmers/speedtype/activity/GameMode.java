@@ -1,11 +1,12 @@
 package com.chalmers.speedtype.activity;
 
-import android.app.Activity;
+import com.swarmconnect.SwarmActivity;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
-public abstract class GameMode extends Activity {
+public abstract class GameMode extends SwarmActivity {
 	protected Handler handler;
 	
 	@Override
