@@ -43,9 +43,10 @@ public class PowerUp {
 
 	public void addSpeedReward(PowerUp speedReward, long timeLeft, int score,
 			TextView speedBonusView, TextView speedBonusScoreView,
-			Activity activity) {
+			TextView scoreView, Activity activity) {
 		if (speedReward != null) {
 			if (speedReward.checkSpeedReward(timeLeft)) {
+				speedBonusScoreView.setVisibility(0);
 				speedBonusView.setVisibility(0);
 				Animation speedBonusAnimation = AnimationUtils.loadAnimation(
 						activity.getApplicationContext(),
@@ -53,8 +54,13 @@ public class PowerUp {
 				Animation speedBonusAnimation2 = AnimationUtils.loadAnimation(
 						activity.getApplicationContext(),
 						R.anim.speed_bonus_animation_2);
+				Animation speedBonusAnimation3 = AnimationUtils.loadAnimation(
+						activity.getApplicationContext(),
+						R.anim.speed_bonus_animation_3);
 				speedBonusView.startAnimation(speedBonusAnimation2);
 				speedBonusScoreView.startAnimation(speedBonusAnimation);
+				scoreView.startAnimation(speedBonusAnimation3);
+
 				score = score + 5;
 				System.out.println("Speed reward given");
 			}

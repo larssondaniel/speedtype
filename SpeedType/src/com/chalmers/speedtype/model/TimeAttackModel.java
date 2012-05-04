@@ -67,7 +67,8 @@ public class TimeAttackModel extends Model {
 			if (currentChar == currentWord.length()) {
 				if (speedReward != null) {
 					speedReward.addSpeedReward(speedReward, timeLeft, score,
-							speedBonusView, speedBonusScoreView, activity);
+							speedBonusView, speedBonusScoreView, scoreView,
+							activity);
 				}
 				timer.cancel();
 				timer = new CountDownTimer(timeLeft += 4000, 1000) {
