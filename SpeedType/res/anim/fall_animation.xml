@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fillEnabled="true"
+    android:fillAfter="true"
     android:fillBefore="true"
-    android:fillAfter="true">
+    android:fillEnabled="true" >
 
-<translate
+    <translate
+        android:duration="3000"
         android:fromXDelta="0"
-        android:toXDelta="0"
         android:fromYDelta="0"
-        android:toYDelta="100%p" 
-        android:duration="3000" />
-</set>    
+        android:toXDelta="0"
+        android:toYDelta="100%p" />
+
+</set>

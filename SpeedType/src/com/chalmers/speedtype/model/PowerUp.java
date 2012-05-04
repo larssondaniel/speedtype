@@ -13,7 +13,7 @@ public class PowerUp {
 	private int lengthOfWord;
 
 	public PowerUp(int powerUpMultiplier) {
-		powerUpMultiplier = powerUpMultiplier * 2;
+		// powerUpMultiplier = powerUpMultiplier * 2;
 	}
 
 	public PowerUp(long timeLeftAtStart, int lengthOfWord, int score) {
@@ -22,8 +22,7 @@ public class PowerUp {
 	}
 
 	public int incrementMultiplier(int powerUpMultiplier) {
-		powerUpMultiplier = powerUpMultiplier * 2;
-		return powerUpMultiplier;
+		return powerUpMultiplier * 2;
 	}
 
 	/*
@@ -65,5 +64,19 @@ public class PowerUp {
 				System.out.println("Speed reward given");
 			}
 		}
+	}
+
+	public void useMultiplier(int correctLettersInRow, int powerUpMultiplier,
+			TextView powerUpView, Activity activity) {
+		// powerUpMultiplier = incrementMultiplier(powerUpMultiplier);
+		// powerUpMultiplier = powerUpMultiplier * 2;
+		powerUpView = (TextView) activity.findViewById(R.id.multiplier);
+		Animation multiplierAnimation = AnimationUtils.loadAnimation(
+				activity.getApplicationContext(), R.anim.multiplier_animation);
+		powerUpView.setVisibility(0);
+		powerUpView.setText("x" + powerUpMultiplier);
+		powerUpView.startAnimation(multiplierAnimation);
+		System.out.println("useMultiplier");
+		System.out.println("multiplier = " + powerUpMultiplier);
 	}
 }

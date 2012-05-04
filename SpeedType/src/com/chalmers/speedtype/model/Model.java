@@ -7,11 +7,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-
-import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Dictionary;
 import com.swarmconnect.SwarmAchievement;
 import com.swarmconnect.SwarmLeaderboard;
@@ -29,12 +25,14 @@ public abstract class Model {
 	protected Map<Integer, SwarmAchievement> timeAttackAchievements;
 
 	protected PowerUp multiplier;
-	public PowerUp speedReward;
+	protected PowerUp speedReward;
 
 	private Activity activity;
+	protected TextView speedBonusView;
+	protected TextView speedBonusScoreView;
 
-	private TextView powerUpView;
-	
+	protected TextView powerUpView;
+
 	private Point displaySize;
 
 	public Model(SQLiteDatabase database, Activity activity) {
@@ -52,65 +50,33 @@ public abstract class Model {
 
 	public abstract boolean isFinished();
 
-	public void useMultiplier() {
-		if (correctLettersInRow == 5) { // The numbers are way too low, will be
-										// changed later on.
-			multiplier = new PowerUp(powerUpMultiplier);
-			powerUpMultiplier = multiplier
-					.incrementMultiplier(powerUpMultiplier);
-			powerUpView = (TextView) activity.findViewById(R.id.multiplier);
-			Animation multiplierAnimation = AnimationUtils.loadAnimation(
-					activity.getApplicationContext(),
-					R.anim.multiplier_animation);
-			powerUpView.setVisibility(0);
-			powerUpView.setText("x2");
-			powerUpView.startAnimation(multiplierAnimation);
-		}
-		if (correctLettersInRow == 10) {
-			powerUpMultiplier = multiplier
-					.incrementMultiplier(powerUpMultiplier);
-			Animation multiplierAnimation = AnimationUtils.loadAnimation(
-					activity.getApplicationContext(),
-					R.anim.multiplier_animation);
-			powerUpView.setText("x4");
-			powerUpView.startAnimation(multiplierAnimation);
-		}
-		if (correctLettersInRow == 15) {
-			powerUpMultiplier = multiplier
-					.incrementMultiplier(powerUpMultiplier);
-			Animation multiplierAnimation = AnimationUtils.loadAnimation(
-					activity.getApplicationContext(),
-					R.anim.multiplier_animation);
-			powerUpView.setText("x8");
-			powerUpView.startAnimation(multiplierAnimation);
-		}
-	}
-	
-	public Context getContext(){
+	public Context getContext() {
 		return activity.getApplicationContext();
 	}
-	
-	public int getDisplayWidth(){
-		if(displaySize != null)
+
+	public int getDisplayWidth() {
+		if (displaySize != null)
 			return displaySize.x;
-		
+
 		displaySize = new Point();
-		
-		WindowManager mWinMgr = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
+
+		WindowManager mWinMgr = (WindowManager) getContext().getSystemService(
+				Context.WINDOW_SERVICE);
 		mWinMgr.getDefaultDisplay().getSize(displaySize);
-		
+
 		return displaySize.x;
 	}
-	
-	public int getDisplayHeight(){
-		if(displaySize != null)
+
+	public int getDisplayHeight() {
+		if (displaySize != null)
 			return displaySize.y;
-		
+
 		displaySize = new Point();
-		
-		WindowManager mWinMgr = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
+
+		WindowManager mWinMgr = (WindowManager) getContext().getSystemService(
+				Context.WINDOW_SERVICE);
 		mWinMgr.getDefaultDisplay().getSize(displaySize);
-		
+
 		return displaySize.y;
 	}
 
@@ -121,9 +87,11 @@ public abstract class Model {
 	public Activity getActivity() {
 		return activity;
 	}
-	public int getScore(){
+
+	public int getScore() {
 		return score;
 	}
+
 	protected void setAchievement(){
 		if (score > 1000) {
 			giveAchievement(1340);
@@ -149,6 +117,21 @@ public abstract class Model {
 			if (achievement != null && achievement.unlocked == false) {
 				achievement.unlock();
 			}
+		}
+	}
+
+	public void startSpeedRewardTimer(long timeLeft, int lenghtOfWord, int score) {
+		speedReward = new PowerUp(timeLeft, currentWord.length(), score);
+	}
+
+	public void tryMultiplierPowerUp() {
+		if (correctLettersInRow == 5 || correctLettersInRow == 10
+				|| correctLettersInRow == 20) {
+			multiplier = new PowerUp(powerUpMultiplier);
+			powerUpMultiplier = multiplier
+					.incrementMultiplier(powerUpMultiplier);
+			multiplier.useMultiplier(correctLettersInRow, powerUpMultiplier,
+					powerUpView, activity);
 		}
 	}
 }

@@ -21,9 +21,6 @@ public class TimeAttackModel extends Model {
 	private TextView nextWordView;
 	private TextView timeView;
 	private TextView scoreView;
-	private TextView powerUpView;
-	private TextView speedBonusView;
-	private TextView speedBonusScoreView;
 	private Activity activity;
 
 	CountDownTimer timer;
@@ -33,6 +30,7 @@ public class TimeAttackModel extends Model {
 	
 	public TimeAttackModel(SQLiteDatabase database, Activity activity, SwarmLeaderboard timeAttackLeaderboard,
 			Map<Integer, SwarmAchievement> timeAttackAchievements) {
+
 		super(database, activity);
 		
 		this.timeAttackLeaderboard = timeAttackLeaderboard;
@@ -53,7 +51,6 @@ public class TimeAttackModel extends Model {
 
 	@Override
 	public void onTextChanged(CharSequence s) {
-		useMultiplier();
 		if (s.length() > 0 && s.charAt(s.length() - 1) == getLastChar()) {
 			setTextColors();
 			currentChar++;
@@ -112,16 +109,19 @@ public class TimeAttackModel extends Model {
 			}
 		} else {
 
+			System.out.println("powerUpMultiplier = " + powerUpMultiplier);
 			if (powerUpMultiplier != 1) {
 				Animation multiplierGoneAnimation = AnimationUtils
 						.loadAnimation(getActivity().getApplicationContext(),
 								R.anim.multiplier_gone_animation);
 				powerUpView.startAnimation(multiplierGoneAnimation);
+				System.out.println("Multiplier gone!");
 			}
-
+			System.out.println("Cleared multiplier!");
 			correctLettersInRow = 0;
 			powerUpMultiplier = 1;
 		}
+		tryMultiplierPowerUp();
 	}
 
 	private void setNewWord() {
@@ -167,9 +167,5 @@ public class TimeAttackModel extends Model {
 	public void incScore() {
 		score = score + powerUpMultiplier;
 		scoreView.setText("" + score);
-	}
-
-	public void startSpeedRewardTimer(long timeLeft, int lenghtOfWord, int score) {
-		speedReward = new PowerUp(timeLeft, currentWord.length(), score);
 	}
 }
