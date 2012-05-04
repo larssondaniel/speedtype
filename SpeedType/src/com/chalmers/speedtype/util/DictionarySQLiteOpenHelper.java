@@ -1,7 +1,5 @@
 package com.chalmers.speedtype.util;
 
-import com.chalmers.speedtype.model.Word;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
