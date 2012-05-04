@@ -13,7 +13,8 @@ public class MenuActivity extends SwarmActivity {
     
 	private Button newGameButton;
 	private Button exitButton;
-	private Button trophyRoomButton;
+	private Button leaderboards;
+	private Button achievements;
 
 	private GameModeFactory gameFactory;
 	
@@ -30,12 +31,12 @@ public class MenuActivity extends SwarmActivity {
     
 	private void setUpViews() {
 		newGameButton = (Button) findViewById(R.id.new_game_button);
-		trophyRoomButton = (Button) findViewById(R.id.trophy_room_button);
+		leaderboards = (Button) findViewById(R.id.leaderboards);
+		achievements = (Button) findViewById(R.id.achievements);
 		exitButton = (Button) findViewById(R.id.exit_button);
 	}
 	private void setUpSwarm(){
         Swarm.init(this, 638, "66eebd36a2c3a1541b00530f532d16aa");
-        
    	}
 	
 	private void setUpListeners() {
@@ -44,9 +45,14 @@ public class MenuActivity extends SwarmActivity {
 				startGame();
 			}
 		});
-		trophyRoomButton.setOnClickListener(new View.OnClickListener() {
+		leaderboards.setOnClickListener(new View.OnClickListener() {
 		    public void onClick(View v) {
-		        Swarm.showDashboard();
+		        Swarm.showLeaderboards();
+		    }
+		});
+		achievements.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+		        Swarm.showAchievements();
 		    }
 		});
 		exitButton.setOnClickListener(new View.OnClickListener() {

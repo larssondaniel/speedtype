@@ -4,7 +4,8 @@
 	<string name="new_game">New Game</string>
 	<string name="back">Back</string>
 	<string name="word">Sample word</string>
-	<string name="trophy_room">Trophy Room</string>
 	<string name="exit_button">Exit</string>
 	<string name="desc_x2">Shows when times 2 multiplier is active</string>
+	<string name="leaderboards">Leaderboards</string>
+	<string name="achievements">Achievements</string>
 </resources>

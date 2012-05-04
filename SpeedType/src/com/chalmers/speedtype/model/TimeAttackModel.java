@@ -67,9 +67,9 @@ public class TimeAttackModel extends Model {
 						    // Then submit the score
 							timeAttackLeaderboard.submitScore(score);
 						} 
-						//timeView.setText("");
-						//nextWordView.setText("Game over!");
-						//wordView.setText("Score: " + score);
+						timeView.setText("");
+						nextWordView.setText("Game over!");
+						wordView.setText("Score: " + score);
 					}
 				}.start();
 			}
@@ -93,9 +93,9 @@ public class TimeAttackModel extends Model {
 						    // Then submit the score
 							timeAttackLeaderboard.submitScore(score);
 						} 
-						//timeView.setText("");
-						//nextWordView.setText("Game over!");
-						//wordView.setText("Score: " + score);
+						timeView.setText("");
+						nextWordView.setText("Game over!");
+						wordView.setText("Score: " + score);
 						isFinished = true;
 					}
 				}.start();
