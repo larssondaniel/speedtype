@@ -64,7 +64,7 @@ public class MenuActivity extends SwarmActivity {
 
 	private void startGame() {
 		GameMode g = gameFactory.createGameMode("TimeAttack");
-
+		
 		if (g == null) {
 			System.out.print("No activity recieved by gameFactory");
 		} else {

@@ -9,12 +9,11 @@ package com.chalmers.speedtype;
 
 public final class R {
     public static final class anim {
-        public static final int animation=0x7f040000;
-        public static final int multiplier_animation=0x7f040001;
-        public static final int multiplier_gone_animation=0x7f040002;
-        public static final int speed_bonus_animation=0x7f040003;
-        public static final int speed_bonus_animation_2=0x7f040004;
-        public static final int speed_bonus_animation_3=0x7f040005;
+        public static final int multiplier_animation=0x7f040000;
+        public static final int multiplier_gone_animation=0x7f040001;
+        public static final int speed_bonus_animation=0x7f040002;
+        public static final int speed_bonus_animation_2=0x7f040003;
+        public static final int speed_bonus_animation_3=0x7f040004;
     }
     public static final class attr {
     }

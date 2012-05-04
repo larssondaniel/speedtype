@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Handler;
 import android.text.Html;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -44,7 +43,7 @@ public class FallingWordsModel extends Model {
 			public void run() {
 				while(true) {
 					try {
-						Thread.sleep(100);
+						Thread.sleep(3000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -55,6 +54,8 @@ public class FallingWordsModel extends Model {
 								wordView.setBackgroundColor(Color.argb(255, 255, 0, 0));
 							else
 								wordView.setBackgroundColor(Color.argb(255, 0, 0, 255));
+							
+							startAnimation();
 						}
 					});
 				}
@@ -92,6 +93,19 @@ public class FallingWordsModel extends Model {
 
 	@Override
 	public void onTextChanged(CharSequence s) {
+		if (s.length() > 0 && s.charAt(s.length() - 1) == getLastChar()) {
+			setTextColors();
+			currentChar++;
+			scoreView.setText("" + ++score);
+			if (currentChar == currentWord.length()) {
+				setNewWord();
+			}
+		}
+	}
+
+	private void startAnimation() {
+		setNewWord();
+		
 		Context context = activity.getApplicationContext();
 		WindowManager mWinMgr = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
 		
@@ -103,17 +117,8 @@ public class FallingWordsModel extends Model {
 		
 		mlp.setMargins((int)((displayWidth-wordWidth)*Math.random()),-wordHeight,0,0);
 		
-		Animation hyperspaceJump = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.animation);
-		wordView.startAnimation(hyperspaceJump);
-		
-		if (s.length() > 0 && s.charAt(s.length() - 1) == getLastChar()) {
-			setTextColors();
-			currentChar++;
-			scoreView.setText("" + ++score);
-			if (currentChar == currentWord.length()) {
-				setNewWord();
-			}
-		}
+		Animation fallAnimation = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.fall_animation);
+		wordView.startAnimation(fallAnimation);
 	}
 
 	public void updateWord(){
@@ -124,7 +129,7 @@ public class FallingWordsModel extends Model {
 		currentWord = nextWord;
 		nextWord = Dictionary.getNextWord();
 		wordView.setText(currentWord);
-		nextWordView.setText(nextWord);
+		//nextWordView.setText(nextWord);
 		currentChar = 0;
 	}
 
