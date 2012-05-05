@@ -30,7 +30,7 @@ public class TimeAttackActivity extends GameMode {
 	private TextView speedBonusView;
 	private TextView speedBonusScoreView;
 	private SwarmLeaderboard timeAttackLeaderboard;
-	private	Map<Integer, SwarmAchievement> timeAttackAchievements;
+	private Map<Integer, SwarmAchievement> timeAttackAchievements;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,8 @@ public class TimeAttackActivity extends GameMode {
 
 		setUpSwarm();
 
-		model = new TimeAttackModel(app.getDatabase(), this, timeAttackLeaderboard, timeAttackAchievements);
+		model = new TimeAttackModel(app.getDatabase(), this,
+				timeAttackLeaderboard, timeAttackAchievements);
 
 		controller.setModel(model);
 		controller.setActivity(this);
@@ -59,16 +60,6 @@ public class TimeAttackActivity extends GameMode {
 		powerUpView = (TextView) findViewById(R.id.multiplier);
 		speedBonusView = (TextView) findViewById(R.id.speed_bonus);
 		speedBonusScoreView = (TextView) findViewById(R.id.speed_bonus_score);
-
-		wordView.setText(model.getCurrentWord());
-		nextWordView.setText(model.getNextWord());
-		scoreView.setText("0");
-		timeView.setText("10.0");
-		powerUpView.setVisibility(4);
-		speedBonusView.setText("Speed bonus!");
-		speedBonusScoreView.setText("+5");
-		speedBonusView.setVisibility(4);
-		speedBonusScoreView.setVisibility(4);
 	}
 
 	protected void setUpInput() {
@@ -87,28 +78,28 @@ public class TimeAttackActivity extends GameMode {
 			}
 		});
 	}
-	private void setUpSwarm(){
+
+	private void setUpSwarm() {
 		GotLeaderboardCB leaderboardCB = new GotLeaderboardCB() {
-		    public void gotLeaderboard(SwarmLeaderboard leaderboard) {
-		
-			if (leaderboard != null) {
-		
-		            // Save the leaderboard for later use
-		            timeAttackLeaderboard = leaderboard;
-		        }
-		    }
+			public void gotLeaderboard(SwarmLeaderboard leaderboard) {
+
+				if (leaderboard != null) {
+
+					// Save the leaderboard for later use
+					timeAttackLeaderboard = leaderboard;
+				}
+			}
 		};
 		SwarmLeaderboard.getLeaderboardById(826, leaderboardCB);
-		
-		
+
 		GotAchievementsMapCB achievementCB = new GotAchievementsMapCB() {
 
-		    public void gotMap(Map<Integer, SwarmAchievement> achievements) {
+			public void gotMap(Map<Integer, SwarmAchievement> achievements) {
 
-		        // Store the map of achievements somewhere to be used later.
-		        timeAttackAchievements = achievements;
-		    }
-		}; 
+				// Store the map of achievements somewhere to be used later.
+				timeAttackAchievements = achievements;
+			}
+		};
 		SwarmAchievement.getAchievementsMap(achievementCB);
 	}
 }

@@ -171,6 +171,16 @@ public class TimeAttackModel extends Model {
 		speedBonusView = (TextView) activity.findViewById(R.id.speed_bonus);
 		speedBonusScoreView = (TextView) activity
 				.findViewById(R.id.speed_bonus_score);
+
+		wordView.setText(getCurrentWord());
+		nextWordView.setText(getNextWord());
+		scoreView.setText("0");
+		timeView.setText("10.0");
+		powerUpView.setVisibility(4);
+		speedBonusView.setText("Speed bonus!");
+		speedBonusScoreView.setText("+5");
+		speedBonusView.setVisibility(4);
+		speedBonusScoreView.setVisibility(4);
 	}
 
 	public void incScore() {

@@ -4,38 +4,44 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-	<TextView 
-		android:id="@+id/header"
-	    android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content"
-	    android:layout_marginTop="20sp" 
-	    android:textSize="40sp"
-	    android:gravity="center_horizontal"
-	    android:textStyle="bold"
-	    android:text="@string/app_name"/>
-	<Button
-		android:id="@+id/new_game_button"
- 		android:layout_width="wrap_content"
- 		android:layout_height="wrap_content"
- 		android:text="@string/new_game"/>
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:gravity="center_horizontal"
+        android:text="@string/app_name"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
-	<Button
-	    android:id="@+id/leaderboards"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/leaderboards" />
-		
-	<Button
-	    android:id="@+id/achievements"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/achievements" />
-	
-	
-	<Button
-	    android:id="@+id/exit_button"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/exit_button" />
+    <Button
+        android:id="@+id/new_game_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_game" />
+
+    <Button
+        android:id="@+id/leaderboards"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/leaderboards" />
+
+    <Button
+        android:id="@+id/achievements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/achievements" />
+
+    <Button
+        android:id="@+id/settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings" />
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exit_button" />
 
 </LinearLayout>
