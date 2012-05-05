@@ -7,6 +7,8 @@ import com.chalmers.speedtype.util.Dictionary;
 import com.swarmconnect.SwarmAchievement;
 import com.swarmconnect.SwarmLeaderboard;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
@@ -27,15 +29,16 @@ public class TimeAttackModel extends Model {
 	public long timeLeft = 10000;
 
 	private boolean isFinished;
-	
-	public TimeAttackModel(SQLiteDatabase database, Activity activity, SwarmLeaderboard timeAttackLeaderboard,
+
+	public TimeAttackModel(SQLiteDatabase database, Activity activity,
+			SwarmLeaderboard timeAttackLeaderboard,
 			Map<Integer, SwarmAchievement> timeAttackAchievements) {
 
 		super(database, activity);
-		
+
 		this.timeAttackLeaderboard = timeAttackLeaderboard;
 		this.timeAttackAchievements = timeAttackAchievements;
-		
+
 		currentWord = Dictionary.getNextWord();
 		nextWord = Dictionary.getNextWord();
 	}
@@ -51,6 +54,7 @@ public class TimeAttackModel extends Model {
 
 	@Override
 	public void onTextChanged(CharSequence s) {
+		
 		if (s.length() > 0 && s.charAt(s.length() - 1) == getLastChar()) {
 			setTextColors();
 			currentChar++;
@@ -76,6 +80,7 @@ public class TimeAttackModel extends Model {
 					}
 				}.start();
 			}
+
 			if (currentChar == currentWord.length()) {
 				if (speedReward != null) {
 					speedReward.addSpeedReward(speedReward, timeLeft, score,
@@ -108,16 +113,13 @@ public class TimeAttackModel extends Model {
 
 			}
 		} else {
-
-			System.out.println("powerUpMultiplier = " + powerUpMultiplier);
+			setFalseTextColors();
 			if (powerUpMultiplier != 1) {
 				Animation multiplierGoneAnimation = AnimationUtils
 						.loadAnimation(getActivity().getApplicationContext(),
 								R.anim.multiplier_gone_animation);
 				powerUpView.startAnimation(multiplierGoneAnimation);
-				System.out.println("Multiplier gone!");
 			}
-			System.out.println("Cleared multiplier!");
 			correctLettersInRow = 0;
 			powerUpMultiplier = 1;
 		}
@@ -141,6 +143,13 @@ public class TimeAttackModel extends Model {
 				+ currentWord.substring(0, currentChar + 1) + "</font>"));
 		wordView.append(currentWord.substring(currentChar + 1,
 				currentWord.length()));
+	}
+
+	private void setFalseTextColors() {
+		AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(),
+			    R.anim.wrong_input);
+		set.setTarget(wordView);
+		set.start();		
 	}
 
 	private char getLastChar() {
