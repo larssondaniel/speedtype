@@ -10,7 +10,6 @@ import com.swarmconnect.SwarmLeaderboard;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.app.Activity;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
 import android.text.Html;
 import android.view.animation.Animation;
@@ -30,11 +29,11 @@ public class TimeAttackModel extends Model {
 
 	private boolean isFinished;
 
-	public TimeAttackModel(SQLiteDatabase database, Activity activity,
+	public TimeAttackModel(Activity activity,
 			SwarmLeaderboard timeAttackLeaderboard,
 			Map<Integer, SwarmAchievement> timeAttackAchievements) {
 
-		super(database, activity);
+		super(activity);
 
 		this.timeAttackLeaderboard = timeAttackLeaderboard;
 		this.timeAttackAchievements = timeAttackAchievements;

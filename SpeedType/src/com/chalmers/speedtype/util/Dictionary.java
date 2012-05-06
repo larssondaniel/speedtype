@@ -1,10 +1,7 @@
 package com.chalmers.speedtype.util;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.Stack;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,19 +15,21 @@ private static Random random = new Random();
 	private static ArrayList<Word> dictionary;
 	private static SQLiteDatabase database;
 	
-	public Dictionary(SQLiteDatabase database){
-		Dictionary.database = database;
-	
-		dictionary = new ArrayList<Word>();
-		
-		String[] words = {"banana","apple","onion","onion","orange","carrot"};
-		
-		for(String word: words){
-			addWord(new Word(word));
+	public static void init(SQLiteDatabase database){
+		if(Dictionary.database == null) {
+			Dictionary.database = database;
+			dictionary = new ArrayList<Word>();
+			
+			String[] words = {"banana","apple","onion","onion","orange","carrot"};
+			
+			for(String word: words){
+				addWord(new Word(word));
+			}
+			
+			loadWords();
 		}
-		
-		loadWords();
 	}
+	
 	public static Word getNextWord(){
 		int size = dictionary.size();
 		int item = random.nextInt(size);

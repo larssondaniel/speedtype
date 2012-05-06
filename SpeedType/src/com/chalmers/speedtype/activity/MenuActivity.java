@@ -1,13 +1,14 @@
 package com.chalmers.speedtype.activity;
 
 import com.chalmers.speedtype.R;
+import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.util.BackgroundSoundService;
-import com.chalmers.speedtype.util.Util;
+import com.chalmers.speedtype.util.Dictionary;
 import com.swarmconnect.Swarm;
 import com.swarmconnect.SwarmActivity;
 
+import android.app.Application;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,18 +20,26 @@ public class MenuActivity extends SwarmActivity {
 	private Button leaderboards;
 	private Button achievements;
 	private Button settingsButton;
-	private GameModeFactory gameFactory;
 	
+	private SpeedTypeApplication app;
+	
+	private GameModeFactory gameFactory;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu);
+		
+		app = (SpeedTypeApplication) getApplication();
+		
 		setUpViews();
 		setUpListeners();
 		setUpSwarm();
-		startService(new Intent(this, BackgroundSoundService.class));
-		gameFactory = new GameModeFactory();
 		
+		startService(new Intent(this, BackgroundSoundService.class));
+		
+		gameFactory = new GameModeFactory();
+
 	}
 
 	private void setUpViews() {
@@ -49,7 +58,7 @@ public class MenuActivity extends SwarmActivity {
 		newGameButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				startGame();
-	
+
 			}
 		});
 		leaderboards.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +86,8 @@ public class MenuActivity extends SwarmActivity {
 	}
 
 	private void startGame() {
+		Dictionary.init(app.getDatabase());
+		
 		GameMode g = gameFactory.createGameMode("TimeAttack");
 		stopService(new Intent(this, BackgroundSoundService.class));
 
@@ -86,15 +97,15 @@ public class MenuActivity extends SwarmActivity {
 			startActivity(new Intent(getApplicationContext(), g.getClass()));
 		}
 	}
-	
-    public void onPause(){
-    	super.onPause();
-    	stopService(new Intent(this, BackgroundSoundService.class));
-    }
-    
-    public void onResume(){
-    	super.onResume();
-    	startService(new Intent(this, BackgroundSoundService.class));
-    }
-    
+
+	public void onPause() {
+		super.onPause();
+		stopService(new Intent(this, BackgroundSoundService.class));
+	}
+
+	public void onResume() {
+		super.onResume();
+		startService(new Intent(this, BackgroundSoundService.class));
+	}
+
 }

@@ -4,22 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.chalmers.speedtype.R;
-import com.chalmers.speedtype.activity.FallingWordsActivity;
 import com.chalmers.speedtype.util.Dictionary;
-
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.app.Activity;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Handler;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class FallingWordsModel extends Model {
@@ -40,13 +32,12 @@ public class FallingWordsModel extends Model {
 	private int wordNumber = 0;
 	
 	private boolean isFinished;
-	private boolean once = true;
 	
 	private int durationMillis = 30000;
 
-	public FallingWordsModel(SQLiteDatabase database, Activity activity,
+	public FallingWordsModel(Activity activity,
 			final Handler handler) {
-		super(database, activity);
+		super(activity);
 		
 		currentWord = Dictionary.getNextWord();
 		nextWord = Dictionary.getNextWord();

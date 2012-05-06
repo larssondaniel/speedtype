@@ -4,7 +4,6 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -35,8 +34,7 @@ public abstract class Model {
 
 	private Point displaySize;
 
-	public Model(SQLiteDatabase database, Activity activity) {
-		dictionary = new Dictionary(database);
+	public Model(Activity activity) {
 		this.activity = activity;
 	}
 

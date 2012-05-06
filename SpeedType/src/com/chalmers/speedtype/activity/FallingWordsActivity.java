@@ -7,19 +7,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.graphics.drawable.TransitionDrawable;
-
-
 import com.chalmers.speedtype.R;
-import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.controller.Controller;
 import com.chalmers.speedtype.model.FallingWordsModel;
 
 public class FallingWordsActivity extends GameMode {
 
-	private SpeedTypeApplication app;
 	private Controller controller;
 	private FallingWordsModel model;
 
@@ -31,9 +25,8 @@ public class FallingWordsActivity extends GameMode {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		app = (SpeedTypeApplication) getApplication();
 		controller = new Controller();
-		model = new FallingWordsModel(app.getDatabase(), this, handler);
+		model = new FallingWordsModel(this, handler);
 		controller.setModel(model);
 		controller.setActivity(this);
 
