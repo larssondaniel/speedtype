@@ -7,12 +7,41 @@
     <uses-sdk android:minSdkVersion="15" />
 
     <application
-        android:icon="@drawable/ic_launcher"
         android:name=".application.SpeedTypeApplication"
-        android:label="@string/app_name" 
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         <activity
             android:name=".activity.MenuActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.TimeAttackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FallingWordsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.swarmconnect.SwarmMainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden" />
+
+        <service
+            android:name="com.swarmconnect.NotificationService"
+            android:process=":swarm" />
+
+        <activity
+            android:name=".ServicesDemo"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,16 +49,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TimeAttackActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.FallingWordsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.SettingsActivity" android:screenOrientation="portrait"/>
-    	<activity android:name="com.swarmconnect.SwarmMainActivity"
-		    android:configChanges="orientation|keyboardHidden"
-		    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-		    android:windowSoftInputMode="stateHidden" />
-		<service android:name="com.swarmconnect.NotificationService" android:process=":swarm"/>
-	</application>
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" /> 
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+        <service
+            android:name=".util.BackgroundSoundService"
+            android:enabled="true" />
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 </manifest>
