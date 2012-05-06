@@ -8,6 +8,9 @@ public class Word implements CharSequence {
 	public char charAt(int index) {
 		return word.charAt(index);
 	}
+	public char getLastChar(){
+		return charAt(length()-1);
+	}
 
 	public int length() {
 		return word.length();

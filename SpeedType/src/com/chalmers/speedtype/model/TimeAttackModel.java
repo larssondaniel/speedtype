@@ -46,9 +46,7 @@ public class TimeAttackModel extends Model {
 	public CharSequence getCurrentWord() {
 		return currentWord;
 	}
-
-	@Override
-	public CharSequence getNextWord() {
+	public CharSequence getNextWord(){
 		return nextWord;
 	}
 

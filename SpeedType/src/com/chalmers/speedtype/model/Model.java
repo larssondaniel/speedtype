@@ -42,10 +42,6 @@ public abstract class Model {
 
 	protected Dictionary dictionary;
 
-	public abstract CharSequence getCurrentWord();
-
-	public abstract CharSequence getNextWord();
-
 	public abstract void onTextChanged(CharSequence s);
 
 	public abstract boolean isFinished();

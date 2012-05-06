@@ -13,6 +13,8 @@ import com.chalmers.speedtype.model.Word;
 
 public class Dictionary {
 	
+private static Random random = new Random();
+	
 	private static ArrayList<Word> dictionary;
 	private static SQLiteDatabase database;
 	
@@ -31,7 +33,7 @@ public class Dictionary {
 	}
 	public static Word getNextWord(){
 		int size = dictionary.size();
-		int item = new Random().nextInt(size);
+		int item = random.nextInt(size);
 		return dictionary.get(item);
 	}
 	

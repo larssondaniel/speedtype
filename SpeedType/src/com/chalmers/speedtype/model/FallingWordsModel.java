@@ -1,157 +1,162 @@
 package com.chalmers.speedtype.model;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import com.chalmers.speedtype.R;
+import com.chalmers.speedtype.activity.FallingWordsActivity;
 import com.chalmers.speedtype.util.Dictionary;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.app.Activity;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Handler;
 import android.text.Html;
+import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class FallingWordsModel extends Model {
 
 	private Word currentWord;
 	private Word nextWord;
+	private Word activeWord;
 
-	private TextView wordView;
-	private TextView nextWordView;
+	private ArrayList<TextView> wordViews;
+	private LinkedList<TextView> wordQue = new LinkedList<TextView>();
+	
+	private TextView currentWordView;
+	private TextView activeWordView;
 	private TextView scoreView;
 
 	private int score = 0;
 	private int currentChar = 0;
+	private int wordNumber = 0;
+	
 	private boolean isFinished;
+	private boolean once = true;
+	
+	private int durationMillis = 30000;
 
-	private Activity activity;
-	private Handler handler;
-	
-	private int durationMillis = 3000;
-	
-	public FallingWordsModel(SQLiteDatabase database, Activity a, final Handler handler) {
-		super(database, a);
-		activity = a;
+	public FallingWordsModel(SQLiteDatabase database, Activity activity,
+			final Handler handler) {
+		super(database, activity);
+		
 		currentWord = Dictionary.getNextWord();
 		nextWord = Dictionary.getNextWord();
-		this.handler = handler;
+
+		//setNewWord();
+		//startAnimation(currentWordView);
 		
 		Runnable runnable = new Runnable() {
-			boolean even = true;
 			public void run() {
-				while(true) {
+				
+				//setNewWord();
+				//startAnimation(currentWordView);
+				
+				while (true) {
 					try {
-						Thread.sleep(durationMillis);
+						Thread.sleep(durationMillis/5);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					handler.post(new Runnable() {
 						public void run() {
-							even = !even;
-							if(even)
-								wordView.setBackgroundColor(Color.argb(255, 255, 0, 0));
-							else
-								wordView.setBackgroundColor(Color.argb(255, 0, 0, 255));
-							
-							startAnimation();
+							setNewWord();
+							startAnimation(currentWordView);
 						}
 					});
 				}
 			}
 		};
 		new Thread(runnable).start();
-		
-		/*Thread thread = new Thread(){
-			
-			@Override
-			public void run(){
-				while(true){
-					try {
-						sleep(10);
-						//if(wordView.getY() > 100)
-							Log.i("l","l");
-					} catch (InterruptedException e){
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-		
-		thread.start();*/
 	}
 
-	public CharSequence getCurrentWord() {
-		return currentWord;
-	}
-
-	@Override
-	public CharSequence getNextWord() {
-		return nextWord;
+	private TextView getNextWordView() {
+		TextView word = wordViews.get(wordNumber);
+		wordQue.add(word);
+		wordNumber++;
+		wordNumber%=5;
+		
+		return word;
 	}
 
 	@Override
 	public void onTextChanged(CharSequence s) {
-		if (s.length() > 0 && s.charAt(s.length() - 1) == getLastChar()) {
-			setTextColors();
+		
+		activeWordView = wordQue.getFirst();
+		activeWord = new Word(activeWordView.getText().toString());
+		
+		System.out.println(activeWord.toString());
+		System.out.println(activeWord.charAt(currentChar));
+		System.out.println(currentChar);
+		if (s.length() > 0 && s.charAt(s.length() - 1) == activeWord.charAt(currentChar)) {
+			setTextColors(activeWord, activeWordView);
 			currentChar++;
 			scoreView.setText("" + ++score);
-			if (currentChar == currentWord.length()) {
-				setNewWord();
+			if (currentChar == activeWord.length()) {
+				wordQue.removeFirst();
+				currentChar = 0;
+				hideWord(activeWordView);
 			}
 		}
 	}
 
-	private void startAnimation() {
-		setNewWord();
+	private void hideWord(TextView word) {
+		word.setAlpha(0);
+	}
+
+	private void startAnimation(TextView word) {
+		int wordPosX = (int) ((getDisplayWidth() - word.getWidth()) * Math.random());
+		int wordPosY = -word.getHeight();
 		
-		int wordPositionX = (int)((getDisplayWidth()-wordView.getWidth())*Math.random());
-		int wordPositionY = -wordView.getHeight();
+		ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) word
+				.getLayoutParams();
+
+		mlp.setMargins(wordPosX, wordPosY, 0, 0);
 		
-		ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams)wordView.getLayoutParams();
-		mlp.setMargins(wordPositionX, wordPositionY, 0, 0);
-		
-		Animation fallAnimation = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.fall_animation);
-		
+		Animation fallAnimation = AnimationUtils.loadAnimation(
+				getActivity(), R.anim.fall_animation);
+
 		durationMillis *= 0.99;
 		fallAnimation.setDuration(durationMillis);
-		
-		wordView.startAnimation(fallAnimation);
+
+		word.startAnimation(fallAnimation);
 	}
 
-	public void updateWord(){
-		
-	}
-	
 	private void setNewWord() {
 		currentWord = nextWord;
+		currentWordView = getNextWordView();
+		currentWordView.setText(currentWord);
+		
+		int fontSize = (int)(Math.random()*20 + 30);
+		currentWordView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+		
 		nextWord = Dictionary.getNextWord();
-		wordView.setText(currentWord);
-		//nextWordView.setText(nextWord);
-		currentChar = 0;
 	}
 
-	private void setTextColors() {
-		wordView.setText(Html.fromHtml("<font color=#00ff00>"
-				+ currentWord.substring(0, currentChar + 1) + "</font>"));
-		wordView.append(currentWord.substring(currentChar + 1,
-				currentWord.length()));
+	private void setTextColors(Word activeWord, TextView activeWordView) {
+		System.out.println(activeWord + "!");
+		activeWordView.setText(Html.fromHtml("<font color=#00b4ff><b>"
+				+ activeWord.substring(0, currentChar + 1) + "</b></font>"));
+		activeWordView.append(activeWord.substring(currentChar + 1,
+				activeWord.length()));
 	}
 
-	private char getLastChar() {
-		return currentWord.charAt(currentChar);
-	}
-	public boolean isFinished(){
+	public boolean isFinished() {
 		return isFinished;
 	}
 
-	public void setViews(TextView wordView, TextView nextWordView, TextView scoreView) {
-		this.wordView = wordView;
-		this.nextWordView = nextWordView;
+	public void setUpViews(ArrayList<TextView> wordViews, TextView scoreView) {
+		this.wordViews = wordViews;
 		this.scoreView = scoreView;
+		
+		scoreView.setText("0");
 	}
 }
