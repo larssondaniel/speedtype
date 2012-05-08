@@ -28,9 +28,6 @@
             android:name=".activity.FallingWordsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ExampleGameMode"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
