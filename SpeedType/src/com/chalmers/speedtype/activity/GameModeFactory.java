@@ -1,7 +1,7 @@
 package com.chalmers.speedtype.activity;
 
 public class GameModeFactory {
-	
+	/*
 	String TA = "TimeAttack";
 	String FW = "FallingWords";
 	
@@ -18,4 +18,5 @@ public class GameModeFactory {
 		String[] GameModes = {TA};
 		return GameModes;
 	}
+	*/
 }

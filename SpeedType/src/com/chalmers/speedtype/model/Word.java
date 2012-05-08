@@ -1,13 +1,17 @@
 package com.chalmers.speedtype.model;
 
 public class Word implements CharSequence {
+	
 	private String word;
+	
 	public Word(String word){
 		this.word = word;
 	}
+	
 	public char charAt(int index) {
 		return word.charAt(index);
 	}
+	
 	public char getLastChar(){
 		return charAt(length()-1);
 	}

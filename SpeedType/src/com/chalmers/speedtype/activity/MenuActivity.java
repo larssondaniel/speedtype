@@ -23,8 +23,6 @@ public class MenuActivity extends SwarmActivity {
 	
 	private SpeedTypeApplication app;
 	
-	private GameModeFactory gameFactory;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,12 +32,6 @@ public class MenuActivity extends SwarmActivity {
 		
 		setUpViews();
 		setUpListeners();
-		setUpSwarm();
-		
-		startService(new Intent(this, BackgroundSoundService.class));
-		
-		gameFactory = new GameModeFactory();
-
 	}
 
 	private void setUpViews() {
@@ -48,10 +40,6 @@ public class MenuActivity extends SwarmActivity {
 		achievements = (Button) findViewById(R.id.achievements);
 		settingsButton = (Button) findViewById(R.id.settings_button);
 		exitButton = (Button) findViewById(R.id.exit_button);
-	}
-
-	private void setUpSwarm() {
-		Swarm.init(this, 638, "66eebd36a2c3a1541b00530f532d16aa");
 	}
 
 	private void setUpListeners() {
@@ -88,24 +76,8 @@ public class MenuActivity extends SwarmActivity {
 	private void startGame() {
 		Dictionary.init(app.getDatabase());
 		
-		GameMode g = gameFactory.createGameMode("TimeAttack");
-		stopService(new Intent(this, BackgroundSoundService.class));
-
-		if (g == null) {
-			System.out.print("No activity recieved by gameFactory");
-		} else {
-			startActivity(new Intent(getApplicationContext(), g.getClass()));
-		}
+		Intent game = new Intent(this, new ExampleGameMode().getClass());
+		game.putExtra("gameMode", "Example");
+		startActivity(game);
 	}
-
-	public void onPause() {
-		super.onPause();
-		stopService(new Intent(this, BackgroundSoundService.class));
-	}
-
-	public void onResume() {
-		super.onResume();
-		startService(new Intent(this, BackgroundSoundService.class));
-	}
-
 }
