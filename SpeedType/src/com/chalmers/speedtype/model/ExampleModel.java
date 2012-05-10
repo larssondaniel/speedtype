@@ -1,5 +1,7 @@
 package com.chalmers.speedtype.model;
 
+import android.view.KeyEvent;
+
 import com.chalmers.speedtype.R;
 
 public class ExampleModel extends Model{
@@ -21,8 +23,6 @@ public class ExampleModel extends Model{
 	public int getViewId() {
 		return VIEW_ID;
 	}
-
-	@Override
 	public void gravity() {
 		y++;
 		listener.propertyChange(null);
@@ -30,5 +30,11 @@ public class ExampleModel extends Model{
 	
 	public int getY(){
 		return y;
+	}
+
+	@Override
+	public void onInput(KeyEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 }

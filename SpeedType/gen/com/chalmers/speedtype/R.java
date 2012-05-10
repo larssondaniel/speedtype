@@ -72,7 +72,7 @@ public final class R {
         public static final int add=0x7f070031;
         public static final int add_friend_username=0x7f070030;
         public static final int background=0x7f07001f;
-        public static final int background_transition=0x7f07007d;
+        public static final int background_transition=0x7f070078;
         public static final int benefits=0x7f07002b;
         public static final int button1=0x7f070017;
         public static final int cancel=0x7f070060;
@@ -120,11 +120,9 @@ public final class R {
         public static final int message=0x7f07004b;
         public static final int messages=0x7f07003d;
         public static final int more=0x7f07004f;
-        public static final int multiplier=0x7f070078;
         public static final int name=0x7f07001d;
         public static final int new_game_button=0x7f07000b;
         public static final int new_password=0x7f070067;
-        public static final int next_word=0x7f07007b;
         public static final int notifications=0x7f07006c;
         public static final int num_items=0x7f070070;
         public static final int offline_error=0x7f070048;
@@ -145,7 +143,6 @@ public final class R {
         public static final int publisher=0x7f07001e;
         public static final int purchase=0x7f07005f;
         public static final int rank=0x7f07004e;
-        public static final int relativeLayout1=0x7f070076;
         public static final int reply=0x7f070071;
         public static final int row=0x7f070055;
         public static final int score=0x7f070003;
@@ -167,8 +164,6 @@ public final class R {
         public static final int sheader_icon=0x7f070040;
         public static final int sheader_title=0x7f070041;
         public static final int speech_bubble=0x7f070073;
-        public static final int speed_bonus=0x7f070079;
-        public static final int speed_bonus_score=0x7f07007a;
         public static final int submit=0x7f070057;
         public static final int success=0x7f070058;
         public static final int swarm_purchase_popup=0x7f070059;
@@ -176,7 +171,8 @@ public final class R {
         public static final int terms=0x7f07002c;
         public static final int textView1=0x7f070010;
         public static final int textView2=0x7f070014;
-        public static final int time=0x7f070077;
+        public static final int time_attack_layout=0x7f070076;
+        public static final int time_attack_view=0x7f070077;
         public static final int title=0x7f07001a;
         public static final int unfriended_section=0x7f070035;
         public static final int upgrade=0x7f070064;
@@ -184,7 +180,6 @@ public final class R {
         public static final int username=0x7f07002a;
         public static final int username_error=0x7f070029;
         public static final int webview=0x7f070075;
-        public static final int word=0x7f07007c;
         public static final int word1=0x7f070004;
         public static final int word2=0x7f070005;
         public static final int word3=0x7f070006;
@@ -230,7 +225,7 @@ public final class R {
         public static final int swarm_thread_row_self=0x7f030022;
         public static final int swarm_upgrade_guest=0x7f030023;
         public static final int swarm_webview=0x7f030024;
-        public static final int time_attack=0x7f030025;
+        public static final int time_attack_layout=0x7f030025;
     }
     public static final class raw {
         public static final int menu_music=0x7f050000;

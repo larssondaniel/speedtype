@@ -3,6 +3,7 @@ package com.chalmers.speedtype.activity;
 import android.content.Context;
 import com.chalmers.speedtype.model.ExampleModel;
 import com.chalmers.speedtype.model.Model;
+import com.chalmers.speedtype.model.TimeAttackModel;
 
 public class GameModeFactory {
 	
@@ -11,7 +12,7 @@ public class GameModeFactory {
 	
 	public static Model createGameMode (Context activity, String game) {
 		if(game.equals(TA)){
-			return null; //new TimeAttackActivity();
+			return new TimeAttackModel();
 		}else if(game.equals(FW)){
 			return new ExampleModel();
 		}else{

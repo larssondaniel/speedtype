@@ -18,7 +18,7 @@ public class Controller extends Thread {
         while (true) {
             try {
             	sleep(30);
-                model.gravity();
+//                model.gravity();
             } catch (InterruptedException e) {
 				e.printStackTrace();
 			} finally {
@@ -28,7 +28,7 @@ public class Controller extends Thread {
     }
 
 	public boolean onKey(KeyEvent event) {
-		model.setWord("" + (char)event.getUnicodeChar());
+		model.onInput(event);
 		return true;
 	}
 }

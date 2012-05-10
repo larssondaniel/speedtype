@@ -7,7 +7,10 @@ import com.chalmers.speedtype.model.Model;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -19,6 +22,10 @@ public abstract class GameView extends View implements PropertyChangeListener {
 
 	protected int displayWidth;
 	protected int displayHeight;
+	protected Paint whitePaint;
+	protected Paint grayPaint;
+	protected Paint greenPaint;
+	protected Paint redPaint;
 
 	public GameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -33,6 +40,26 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	private void initView() {
 		mensch = Typeface.createFromAsset(getResources().getAssets(),
 				"fonts/mensch.ttf");
+		
+		whitePaint = new Paint();
+		whitePaint.setColor(Color.WHITE);
+		whitePaint.setAntiAlias(true);
+		whitePaint.setStyle(Style.FILL);
+		
+		grayPaint = new Paint();
+		grayPaint.setColor(Color.GRAY);
+		grayPaint.setAntiAlias(true);
+		grayPaint.setStyle(Style.FILL);
+		
+		greenPaint = new Paint();
+		greenPaint.setColor(Color.GREEN);
+		greenPaint.setAntiAlias(true);
+		greenPaint.setStyle(Style.FILL);
+		
+		redPaint = new Paint();
+		redPaint.setColor(Color.RED);
+		redPaint.setAntiAlias(true);
+		redPaint.setStyle(Style.FILL);
 		
 		setFocusable(true);
 		requestFocus();
