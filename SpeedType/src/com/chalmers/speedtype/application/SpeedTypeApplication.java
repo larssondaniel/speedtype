@@ -1,5 +1,6 @@
 package com.chalmers.speedtype.application;
 
+import com.chalmers.speedtype.util.Dictionary;
 import com.chalmers.speedtype.util.DictionarySQLiteOpenHelper;
 
 import android.app.Application;
@@ -12,17 +13,15 @@ public class SpeedTypeApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		
 		DictionarySQLiteOpenHelper helper = new DictionarySQLiteOpenHelper(this);
         database = helper.getWritableDatabase();
+        Dictionary.init(database);
 	}
 	
 	@Override
 	public void onTerminate() {
 		database.close();
 		super.onTerminate();
-	}
-	
-	public SQLiteDatabase getDatabase() {
-		return database;
 	}
 }

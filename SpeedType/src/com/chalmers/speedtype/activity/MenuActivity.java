@@ -1,13 +1,10 @@
 package com.chalmers.speedtype.activity;
 
 import com.chalmers.speedtype.R;
-import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.util.BackgroundSoundService;
-import com.chalmers.speedtype.util.Dictionary;
 import com.swarmconnect.Swarm;
 import com.swarmconnect.SwarmActivity;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,26 +17,17 @@ public class MenuActivity extends SwarmActivity {
 	private Button leaderboards;
 	private Button achievements;
 	private Button settingsButton;
-	
-	private SpeedTypeApplication app;
-	
-	private GameModeFactory gameFactory;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu);
 		
-		app = (SpeedTypeApplication) getApplication();
-		
 		setUpViews();
 		setUpListeners();
 		setUpSwarm();
 		
 		startService(new Intent(this, BackgroundSoundService.class));
-		
-		gameFactory = new GameModeFactory();
-
 	}
 
 	private void setUpViews() {
@@ -57,8 +45,7 @@ public class MenuActivity extends SwarmActivity {
 	private void setUpListeners() {
 		newGameButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				startGame();
-
+				startGame("FallingWords");
 			}
 		});
 		leaderboards.setOnClickListener(new View.OnClickListener() {
@@ -85,17 +72,14 @@ public class MenuActivity extends SwarmActivity {
 		});
 	}
 
-	private void startGame() {
-		Dictionary.init(app.getDatabase());
+	private void startGame(String gameMode) {
+		Intent intent = new Intent(this, GameMode.class);
 		
-		GameMode g = gameFactory.createGameMode("TimeAttack");
-		stopService(new Intent(this, BackgroundSoundService.class));
-
-		if (g == null) {
-			System.out.print("No activity recieved by gameFactory");
-		} else {
-			startActivity(new Intent(getApplicationContext(), g.getClass()));
-		}
+		Bundle bundle = new Bundle();
+		bundle.putString("gameMode", gameMode);
+		intent.putExtras(bundle);
+		
+		startActivity(intent);
 	}
 
 	public void onPause() {
@@ -107,5 +91,4 @@ public class MenuActivity extends SwarmActivity {
 		super.onResume();
 		startService(new Intent(this, BackgroundSoundService.class));
 	}
-
 }

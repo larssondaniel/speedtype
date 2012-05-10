@@ -1,21 +1,25 @@
 package com.chalmers.speedtype.activity;
 
+import android.content.Context;
+import com.chalmers.speedtype.model.ExampleModel;
+import com.chalmers.speedtype.model.Model;
+
 public class GameModeFactory {
 	
-	String TA = "TimeAttack";
-	String FW = "FallingWords";
+	private static final String TA = "TimeAttack";
+	private static final String FW = "FallingWords";
 	
-	public GameMode createGameMode (String game){
+	public static Model createGameMode (Context activity, String game) {
 		if(game.equals(TA)){
-			return new TimeAttackActivity();
+			return null; //new TimeAttackActivity();
 		}else if(game.equals(FW)){
-			return new FallingWordsActivity();
+			return new ExampleModel();
 		}else{
 			return null;
 		}
 	}
-	public String[] GetGamesModes(){
-		String[] GameModes = {TA};
+	public static String[] getGamesModes() {
+		String[] GameModes = {TA, FW};
 		return GameModes;
 	}
 }
