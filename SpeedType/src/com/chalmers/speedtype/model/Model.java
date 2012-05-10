@@ -1,14 +1,14 @@
 package com.chalmers.speedtype.model;
 
 import java.beans.PropertyChangeListener;
-
 import com.chalmers.speedtype.util.Dictionary;
-
 import android.view.KeyEvent;
+import android.hardware.SensorEvent;
 
 public abstract class Model {
 
 	protected PropertyChangeListener listener;
+
 	
 	protected Word activeWord;
 	protected Word nextWord;
@@ -20,12 +20,11 @@ public abstract class Model {
 		activeWord = Dictionary.getNextWord();
 		nextWord = Dictionary.getNextWord();
 	}
-	
 
 	public void addChangeListener(PropertyChangeListener newListener) {
 		listener = newListener;
 	}
-	
+
 	public Word getActiveWord() {
 		return activeWord;
 	}
@@ -44,7 +43,6 @@ public abstract class Model {
 	
 	protected void incCurrentCharPos(){
 		currentCharPos++;
-		listener.propertyChange(null);
 	}
 	
 	protected void incScore(int i){
@@ -64,6 +62,11 @@ public abstract class Model {
 	
 
 	public abstract void onInput(KeyEvent event);	
+
 	public abstract int getLayoutId();
+
 	public abstract int getViewId();
+
+	public void onSensorChanged(SensorEvent event) {
+	}
 }
