@@ -6,7 +6,7 @@ public class ExampleModel extends Model{
 	private static final int LAYOUT_ID = R.layout.example_layout;
 	private static final int VIEW_ID = R.id.example_view;
 	
-	private int y = 0;
+	private int y = 200;
 	
 	public ExampleModel() {
 		

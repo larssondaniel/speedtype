@@ -15,6 +15,7 @@ public abstract class Model {
 	public void setWord(String string) {
 		word = string;
 		listener.propertyChange(null);
+		System.out.println("word set");
 	}
 	
 	public String getWord() {

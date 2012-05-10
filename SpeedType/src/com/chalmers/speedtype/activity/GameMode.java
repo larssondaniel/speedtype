@@ -42,7 +42,6 @@ public class GameMode extends SwarmActivity implements SensorEventListener{
 		setContentView(model.getLayoutId());
 		view = (GameView) findViewById(model.getViewId());
 		view.setModel(model);
-		//controller.start();
 	}
 
 	private void setUpListeners() {
@@ -57,12 +56,12 @@ public class GameMode extends SwarmActivity implements SensorEventListener{
 		Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST);
 	}
-	
+/*	
 	protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
-
+*/
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);

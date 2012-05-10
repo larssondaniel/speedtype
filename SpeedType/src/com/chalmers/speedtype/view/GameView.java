@@ -45,7 +45,7 @@ public abstract class GameView extends View implements PropertyChangeListener {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-
+		super.onDraw(canvas);
 	}
 
 	@Override
