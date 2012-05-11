@@ -1,4 +1,4 @@
-/*package com.chalmers.speedtype.activity;
+package com.chalmers.speedtype.activity;
 
 import java.util.Map;
 
@@ -18,7 +18,7 @@ import com.swarmconnect.SwarmLeaderboard;
 import com.swarmconnect.SwarmLeaderboard.GotLeaderboardCB;
 
 public class TimeAttackActivity extends GameMode {
-/*
+
 	private SpeedTypeApplication app;
 	private Controller controller;
 	private TimeAttackModel model;
@@ -37,11 +37,11 @@ public class TimeAttackActivity extends GameMode {
 		super.onCreate(savedInstanceState);
 
 		app = (SpeedTypeApplication) getApplication();
-		controller = new Controller();
+		//controller = new Controller();
 
 		setUpSwarm();
 
-		model = new TimeAttackModel(this,
+		/*model = new TimeAttackModel(this,
 				timeAttackLeaderboard, timeAttackAchievements);
 
 		controller.setModel(model);
@@ -49,17 +49,17 @@ public class TimeAttackActivity extends GameMode {
 		setContentView(R.layout.time_attack);
 		setUpViews();
 		setUpInput();
-		model.setViews(this);
+		model.setViews(this);*/
 	}
 
 	private void setUpViews() {
-		wordView = (TextView) findViewById(R.id.word);
+		/*ordView = (TextView) findViewById(R.id.word);
 		nextWordView = (TextView) findViewById(R.id.next_word);
 		timeView = (TextView) findViewById(R.id.time);
 		scoreView = (TextView) findViewById(R.id.score);
 		powerUpView = (TextView) findViewById(R.id.multiplier);
 		speedBonusView = (TextView) findViewById(R.id.speed_bonus);
-		speedBonusScoreView = (TextView) findViewById(R.id.speed_bonus_score);
+		speedBonusScoreView = (TextView) findViewById(R.id.speed_bonus_score);*/
 	}
 
 	protected void setUpInput() {
@@ -67,7 +67,7 @@ public class TimeAttackActivity extends GameMode {
 		input.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				controller.onTextChanged(s);
+				//controller.onTextChanged(s);
 			}
 
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -102,4 +102,4 @@ public class TimeAttackActivity extends GameMode {
 		};
 		SwarmAchievement.getAchievementsMap(achievementCB);
 	}
-}*/
+}

@@ -1,28 +1,72 @@
 package com.chalmers.speedtype.model;
 
 import java.beans.PropertyChangeListener;
+import com.chalmers.speedtype.util.Dictionary;
+import android.view.KeyEvent;
+import android.hardware.SensorEvent;
 
 public abstract class Model {
-	
+
 	protected PropertyChangeListener listener;
+
 	
-	private String word = "walla";
+	protected Word activeWord;
+	protected Word nextWord;
+	protected int currentCharPos;
 	
+	protected int score = 0;
+	
+	public Model(){
+		activeWord = Dictionary.getNextWord();
+		nextWord = Dictionary.getNextWord();
+	}
+
 	public void addChangeListener(PropertyChangeListener newListener) {
 		listener = newListener;
 	}
+
+	public Word getActiveWord() {
+		return activeWord;
+	}
 	
-	public void setWord(String string) {
-		word = string;
+	public Word getNextWord() {
+		return nextWord;
+	}
+	
+	public int getScore(){
+		return score;
+	}
+	
+	public int getCurrentCharPos(){
+		return currentCharPos;
+	}
+	
+	protected void incCurrentCharPos(){
+		currentCharPos++;
+	}
+	
+	protected void incScore(int i){
+		score+= i;
+	}
+	
+	protected boolean isWordComplete(){
+		return currentCharPos == activeWord.length() -1;
+	}
+	
+	protected void updateWord(){
+		activeWord = nextWord;
+		nextWord = Dictionary.getNextWord();
+		currentCharPos = 0;
 		listener.propertyChange(null);
-		System.out.println("word set");
 	}
 	
-	public String getWord() {
-		return word;
-	}
-	
+
+	public abstract void onInput(KeyEvent event);	
+
 	public abstract int getLayoutId();
+
 	public abstract int getViewId();
-	public abstract void gravity();
+
+	public void onSensorChanged(SensorEvent event) {
+	}
 }

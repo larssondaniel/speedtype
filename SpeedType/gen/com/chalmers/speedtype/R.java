@@ -22,47 +22,49 @@ public final class R {
     }
     public static final class drawable {
         public static final int background_transition=0x7f020000;
-        public static final int gradient_background_blue=0x7f020001;
-        public static final int gradient_background_red=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int score_circle_background=0x7f020004;
-        public static final int swarm_add_friend=0x7f020005;
-        public static final int swarm_background=0x7f020006;
-        public static final int swarm_bubble_arrow=0x7f020007;
-        public static final int swarm_bubble_arrow_left=0x7f020008;
-        public static final int swarm_checkmark=0x7f020009;
-        public static final int swarm_close=0x7f02000a;
-        public static final int swarm_coin=0x7f02000b;
-        public static final int swarm_coin_small=0x7f02000c;
-        public static final int swarm_facebook_icon=0x7f02000d;
-        public static final int swarm_friend=0x7f02000e;
-        public static final int swarm_friend_offline=0x7f02000f;
-        public static final int swarm_friend_online=0x7f020010;
-        public static final int swarm_friends=0x7f020011;
-        public static final int swarm_friends40=0x7f020012;
-        public static final int swarm_games=0x7f020013;
-        public static final int swarm_games40=0x7f020014;
-        public static final int swarm_head=0x7f020015;
-        public static final int swarm_home=0x7f020016;
-        public static final int swarm_icon=0x7f020017;
-        public static final int swarm_leaderboards=0x7f020018;
-        public static final int swarm_leaderboards40=0x7f020019;
-        public static final int swarm_logo=0x7f02001a;
-        public static final int swarm_mail=0x7f02001b;
-        public static final int swarm_mail_grey=0x7f02001c;
-        public static final int swarm_messages=0x7f02001d;
-        public static final int swarm_messages40=0x7f02001e;
-        public static final int swarm_quit=0x7f02001f;
-        public static final int swarm_reply=0x7f020020;
-        public static final int swarm_settings=0x7f020021;
-        public static final int swarm_settings40=0x7f020022;
-        public static final int swarm_store=0x7f020023;
-        public static final int swarm_store40=0x7f020024;
-        public static final int swarm_trophy=0x7f020025;
-        public static final int swarm_trophy40=0x7f020026;
-        public static final int swarm_trophy_gold=0x7f020027;
-        public static final int swarm_trophy_grey=0x7f020028;
-        public static final int swarm_x=0x7f020029;
+        public static final int ball=0x7f020001;
+        public static final int gradient_background_blue=0x7f020002;
+        public static final int gradient_background_red=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int score_circle_background=0x7f020005;
+        public static final int swarm_add_friend=0x7f020006;
+        public static final int swarm_background=0x7f020007;
+        public static final int swarm_bubble_arrow=0x7f020008;
+        public static final int swarm_bubble_arrow_left=0x7f020009;
+        public static final int swarm_checkmark=0x7f02000a;
+        public static final int swarm_close=0x7f02000b;
+        public static final int swarm_coin=0x7f02000c;
+        public static final int swarm_coin_small=0x7f02000d;
+        public static final int swarm_facebook_icon=0x7f02000e;
+        public static final int swarm_friend=0x7f02000f;
+        public static final int swarm_friend_offline=0x7f020010;
+        public static final int swarm_friend_online=0x7f020011;
+        public static final int swarm_friends=0x7f020012;
+        public static final int swarm_friends40=0x7f020013;
+        public static final int swarm_games=0x7f020014;
+        public static final int swarm_games40=0x7f020015;
+        public static final int swarm_head=0x7f020016;
+        public static final int swarm_home=0x7f020017;
+        public static final int swarm_icon=0x7f020018;
+        public static final int swarm_leaderboards=0x7f020019;
+        public static final int swarm_leaderboards40=0x7f02001a;
+        public static final int swarm_logo=0x7f02001b;
+        public static final int swarm_mail=0x7f02001c;
+        public static final int swarm_mail_grey=0x7f02001d;
+        public static final int swarm_messages=0x7f02001e;
+        public static final int swarm_messages40=0x7f02001f;
+        public static final int swarm_quit=0x7f020020;
+        public static final int swarm_reply=0x7f020021;
+        public static final int swarm_settings=0x7f020022;
+        public static final int swarm_settings40=0x7f020023;
+        public static final int swarm_store=0x7f020024;
+        public static final int swarm_store40=0x7f020025;
+        public static final int swarm_trophy=0x7f020026;
+        public static final int swarm_trophy40=0x7f020027;
+        public static final int swarm_trophy_gold=0x7f020028;
+        public static final int swarm_trophy_grey=0x7f020029;
+        public static final int swarm_x=0x7f02002a;
+        public static final int wood=0x7f02002b;
     }
     public static final class id {
         public static final int TextView01=0x7f070011;
@@ -72,7 +74,9 @@ public final class R {
         public static final int add=0x7f070031;
         public static final int add_friend_username=0x7f070030;
         public static final int background=0x7f07001f;
-        public static final int background_transition=0x7f07007d;
+        public static final int background_transition=0x7f070078;
+        public static final int balance_layout=0x7f070000;
+        public static final int balance_view=0x7f070001;
         public static final int benefits=0x7f07002b;
         public static final int button1=0x7f070017;
         public static final int cancel=0x7f070060;
@@ -93,8 +97,6 @@ public final class R {
         public static final int email=0x7f070025;
         public static final int email_error=0x7f070024;
         public static final int empty_list=0x7f07002d;
-        public static final int example_layout=0x7f070000;
-        public static final int example_view=0x7f070001;
         public static final int existing=0x7f070061;
         public static final int exit_button=0x7f07000f;
         public static final int external_provider=0x7f070056;
@@ -120,11 +122,9 @@ public final class R {
         public static final int message=0x7f07004b;
         public static final int messages=0x7f07003d;
         public static final int more=0x7f07004f;
-        public static final int multiplier=0x7f070078;
         public static final int name=0x7f07001d;
         public static final int new_game_button=0x7f07000b;
         public static final int new_password=0x7f070067;
-        public static final int next_word=0x7f07007b;
         public static final int notifications=0x7f07006c;
         public static final int num_items=0x7f070070;
         public static final int offline_error=0x7f070048;
@@ -145,7 +145,6 @@ public final class R {
         public static final int publisher=0x7f07001e;
         public static final int purchase=0x7f07005f;
         public static final int rank=0x7f07004e;
-        public static final int relativeLayout1=0x7f070076;
         public static final int reply=0x7f070071;
         public static final int row=0x7f070055;
         public static final int score=0x7f070003;
@@ -167,8 +166,6 @@ public final class R {
         public static final int sheader_icon=0x7f070040;
         public static final int sheader_title=0x7f070041;
         public static final int speech_bubble=0x7f070073;
-        public static final int speed_bonus=0x7f070079;
-        public static final int speed_bonus_score=0x7f07007a;
         public static final int submit=0x7f070057;
         public static final int success=0x7f070058;
         public static final int swarm_purchase_popup=0x7f070059;
@@ -176,7 +173,8 @@ public final class R {
         public static final int terms=0x7f07002c;
         public static final int textView1=0x7f070010;
         public static final int textView2=0x7f070014;
-        public static final int time=0x7f070077;
+        public static final int time_attack_layout=0x7f070076;
+        public static final int time_attack_view=0x7f070077;
         public static final int title=0x7f07001a;
         public static final int unfriended_section=0x7f070035;
         public static final int upgrade=0x7f070064;
@@ -184,7 +182,6 @@ public final class R {
         public static final int username=0x7f07002a;
         public static final int username_error=0x7f070029;
         public static final int webview=0x7f070075;
-        public static final int word=0x7f07007c;
         public static final int word1=0x7f070004;
         public static final int word2=0x7f070005;
         public static final int word3=0x7f070006;
@@ -193,7 +190,7 @@ public final class R {
         public static final int zong=0x7f070039;
     }
     public static final class layout {
-        public static final int example_layout=0x7f030000;
+        public static final int balance_layout=0x7f030000;
         public static final int falling_words=0x7f030001;
         public static final int menu=0x7f030002;
         public static final int settings=0x7f030003;
@@ -230,7 +227,7 @@ public final class R {
         public static final int swarm_thread_row_self=0x7f030022;
         public static final int swarm_upgrade_guest=0x7f030023;
         public static final int swarm_webview=0x7f030024;
-        public static final int time_attack=0x7f030025;
+        public static final int time_attack_layout=0x7f030025;
     }
     public static final class raw {
         public static final int menu_music=0x7f050000;
