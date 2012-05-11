@@ -77,6 +77,14 @@ public abstract class GameView extends View implements PropertyChangeListener {
 		this.model = model;
 		model.addChangeListener(this);
 	}
+	
+	protected int getDisplayWidthFromPercentage(int i) {
+		return displayWidth / 100 * i;
+	}
+
+	protected int getDisplayHeightFromPercentage(int i) {
+		return displayHeight / 100 * i;
+	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {

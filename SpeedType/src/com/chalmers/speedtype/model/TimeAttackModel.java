@@ -86,6 +86,11 @@ public class TimeAttackModel extends Model {
 			setCorrectInputReport(false);
 		}
 	}
+
+	@Override
+	public boolean isRealTime() {
+		return false;
+	}
 }
 
 //

@@ -160,4 +160,10 @@ public class BalanceModel extends Model {
 			setCorrectInputReport(false);
 		}
 	}
+
+	@Override
+	public boolean isRealTime() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

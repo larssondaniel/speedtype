@@ -155,5 +155,4 @@ public class TimeAttackView extends GameView {
 		super.onFinishInflate();
 		timeLeftPaint = whitePaint;
 	}
-
 }
