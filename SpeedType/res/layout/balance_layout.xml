@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/example_layout"
+    android:id="@+id/balance_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_background_blue" >
+    android:layout_height="match_parent">
 
-    <com.chalmers.speedtype.view.ExampleView
-        android:id="@+id/example_view"
+    <com.chalmers.speedtype.view.BalanceView
+        android:id="@+id/balance_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
