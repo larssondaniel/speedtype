@@ -11,6 +11,7 @@ public class TimeAttackModel extends Model {
 	private boolean correctInput;
 
 	public TimeAttackModel() {
+		super();
 		initTimer();
 		correctInput = false;
 	}
@@ -38,7 +39,6 @@ public class TimeAttackModel extends Model {
 		listener.propertyChange(null);
 	}
 	protected void incTimeLeft(int timeLeft) {
-		
 	}
 	
 	public int getTimeLeft(){

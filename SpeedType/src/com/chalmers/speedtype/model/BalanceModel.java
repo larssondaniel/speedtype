@@ -19,18 +19,51 @@ public class BalanceModel extends Model {
 	private static final float ballDiameter = 0.006f;
 	private static final float ballFriction = 0.1f;
 
-	private Bitmap ballImage;
-	private float xOrigin;
-	private float yOrigin;
 	private float sensorX;
 	private long sensorTimeStamp;
 	private long cpuTimeStamp;
 	private float horizontalBound;
 	private float verticalBound;
-	private final Particle particle = new Particle(ballFriction,
-			horizontalBound, verticalBound);
-
+	private int timeLeft = 10000;
+	private boolean correctInput;
+	Particle particle;
+	
+	
 	public BalanceModel() {
+		super();
+		initTimer();
+		particle = new Particle(ballFriction,
+				horizontalBound, verticalBound);
+		correctInput = false;
+	}
+
+
+	private void initTimer() {
+		Runnable runnable = new Runnable() {
+			public void run() {
+				while (true) {
+					try {
+						Thread.sleep(100);
+						setTimeLeft(timeLeft - 100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		new Thread(runnable).start();
+	}
+
+	protected void setTimeLeft(int timeLeft) {
+		this.timeLeft = timeLeft;
+		//listener.propertyChange(null);
+	}
+	protected void incTimeLeft(int timeLeft) {
+		
+	}
+	
+	public int getTimeLeft(){
+		return timeLeft;
 	}
 
 	@Override
@@ -67,8 +100,19 @@ public class BalanceModel extends Model {
 		cpuTimeStamp = System.nanoTime();
 	}
 
+	public long getSensorTimeStamp(){
+		return sensorTimeStamp;
+	}
+	public long getCpuTimeStamp(){
+		return cpuTimeStamp;
+	}
+	
 	public Particle getParticle() {
 		return particle;
+	}
+	
+	public float getSensorX(){
+		return sensorX;
 	}
 
 	public void updateParticle(float sx, long now) {
@@ -81,22 +125,39 @@ public class BalanceModel extends Model {
 
 	public void setVerticalBound(float verticalBound) {
 		this.verticalBound = verticalBound;
+		particle.setVerticalBound(verticalBound);
 	}
 
 	public void setHorizontalBound(float horizontalBound) {
 		this.horizontalBound = horizontalBound;
+		particle.setHorizontalBound(horizontalBound);
 	}
-
+	private void setCorrectInputReport(boolean b){
+		correctInput = b;
+	}
+	
+	public boolean correctInputReport(){
+		if(correctInput){
+			return true;
+		} else {
+			setCorrectInputReport(true);
+			return false;
+		}
+	}
 	@Override
 	public void onInput(KeyEvent event) {
-		char inputChar = (char) event.getUnicodeChar();
+		correctInput = true;
+		char inputChar = Character.toLowerCase((char) event.getUnicodeChar());
 		if (activeWord.charAt(currentCharPos) == inputChar) {
 			incScore(1);
 			if (isWordComplete()) {
+				setTimeLeft(timeLeft + 1000*activeWord.length());
 				updateWord();
 			} else {
 				incCurrentCharPos();
 			}
+		} else {
+			setCorrectInputReport(false);
 		}
 	}
 }
