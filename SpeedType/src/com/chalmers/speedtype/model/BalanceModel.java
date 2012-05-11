@@ -89,7 +89,14 @@ public class BalanceModel extends Model {
 
 	@Override
 	public void onInput(KeyEvent event) {
-		// TODO Auto-generated method stub
-
+		char inputChar = (char) event.getUnicodeChar();
+		if (activeWord.charAt(currentCharPos) == inputChar) {
+			incScore(1);
+			if (isWordComplete()) {
+				updateWord();
+			} else {
+				incCurrentCharPos();
+			}
+		}
 	}
 }

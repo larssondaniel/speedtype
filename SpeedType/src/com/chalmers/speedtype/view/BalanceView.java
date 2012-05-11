@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.model.BalanceModel;
 import com.chalmers.speedtype.model.Model;
+import com.chalmers.speedtype.model.Word;
 import com.chalmers.speedtype.util.Util;
 
 public class BalanceView extends GameView {
@@ -83,7 +84,74 @@ public class BalanceView extends GameView {
 		final float y = yc - model.getParticle().getPosY() * ys;
 		canvas.drawBitmap(bitmap, x, y, null);
 
+		Word activeWord = model.getActiveWord();
+		Word nextWord = model.getNextWord();
+		int CurrentCharPos = model.getCurrentCharPos();
+
+		drawScore(canvas);
+		drawNextWord(canvas, nextWord);
+		drawCompletedChars(canvas, activeWord, CurrentCharPos);
+		drawIncompletedChars(canvas, activeWord, CurrentCharPos);
+
 		invalidate();
+	}
+
+	private void drawNextWord(Canvas canvas, Word nextWord) {
+		grayPaint.setTextSize(60);
+		grayPaint.setTypeface(mensch);
+		float x = displayWidth / 2 - grayPaint.measureText(nextWord.toString())
+				/ 2;
+		float y = grayPaint.getTextSize() + getDisplayHeightFromPercentage(30);
+		canvas.drawText(nextWord + "", x, y, grayPaint);
+	}
+
+	private void drawScore(Canvas canvas) {
+		whitePaint.setTextSize(40);
+		whitePaint.setTypeface(mensch);
+		int score = model.getScore();
+		float x = (displayWidth - whitePaint.measureText(score + "") - getDisplayWidthFromPercentage(2));
+		float y = whitePaint.getTextSize() + getDisplayHeightFromPercentage(2);
+		canvas.drawText(model.getScore() + "", x, y, whitePaint);
+	}
+
+	private void drawCompletedChars(Canvas canvas, Word activeWord,
+			int currentCharPos) {
+
+		greenPaint.setTextSize(100);
+		greenPaint.setTypeface(mensch);
+		float x = displayWidth / 2
+				- greenPaint.measureText(activeWord.toString()) / 2;
+		float y = greenPaint.getTextSize() + getDisplayHeightFromPercentage(45);
+
+		canvas.drawText(activeWord.substring(0, currentCharPos), x, y,
+				greenPaint);
+	}
+
+	private void drawIncompletedChars(Canvas canvas, Word activeWord,
+			int currentCharPos) {
+
+		whitePaint.setTextSize(100);
+		whitePaint.setTypeface(mensch);
+
+		float x = displayWidth
+				/ 2
+				- whitePaint.measureText(activeWord.toString())
+				/ 2
+				+ whitePaint.measureText(activeWord
+						.substring(0, currentCharPos));
+		float y = greenPaint.getTextSize() + getDisplayHeightFromPercentage(45);
+
+		canvas.drawText(
+				activeWord.substring(currentCharPos, activeWord.length()), x,
+				y, whitePaint);
+	}
+
+	private int getDisplayWidthFromPercentage(int i) {
+		return displayWidth / 100 * i;
+	}
+
+	private int getDisplayHeightFromPercentage(int i) {
+		return displayHeight / 100 * i;
 	}
 
 	public void onAccuracyChanged(Sensor arg0, int arg1) {

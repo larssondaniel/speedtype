@@ -1,7 +1,6 @@
 //package com.chalmers.speedtype.model;
 //
 //import com.chalmers.speedtype.R;
-//
 //import android.app.Activity;
 //import android.view.animation.Animation;
 //import android.view.animation.AnimationUtils;
