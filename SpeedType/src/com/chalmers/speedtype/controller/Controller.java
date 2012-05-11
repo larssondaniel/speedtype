@@ -12,6 +12,21 @@ public class Controller extends Thread {
 	public Controller(Model model) {
 		this.model = model;
 	}
+	public void startGame(){
+		if(model.isRealTime())
+			start();
+	}
+
+	public void run() {
+		while(true){
+			try {
+				sleep(30);
+				model.update();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public boolean onKey(KeyEvent event) {
 		model.onInput(event);

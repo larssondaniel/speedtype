@@ -28,10 +28,17 @@ public class Particle {
 	public float getPosY() {
 		return yPos;
 	}
-
+	
 	public void update(float sx, long now) {
 		updatePositions(sx, now);
 		resolveCollisionWithBounds();
+	}
+	public void setVerticalBound(float verticalBound) {
+		this.verticalBound = verticalBound;
+	}
+
+	public void setHorizontalBound(float horizontalBound) {
+		this.horizontalBound = horizontalBound;
 	}
 
 	private void updatePositions(float sx, long timestamp) {
@@ -62,8 +69,10 @@ public class Particle {
 				+ yAcceleration * dTdT;
 		lastPosX = xPos;
 		lastPosY = yPos;
+		System.out.println(xPos + " " + yPos);
 		xPos = x;
 		yPos = y;
+		System.out.println("xPos= " + xPos + "   " + "yPos= " + yPos);
 		xAcceleration = ax;
 		yAcceleration = ay;
 	}

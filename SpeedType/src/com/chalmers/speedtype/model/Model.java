@@ -9,7 +9,6 @@ public abstract class Model {
 
 	protected PropertyChangeListener listener;
 
-	
 	protected Word activeWord;
 	protected Word nextWord;
 	protected int currentCharPos;
@@ -60,6 +59,12 @@ public abstract class Model {
 		listener.propertyChange(null);
 	}
 	
+	public void onSensorChanged(SensorEvent event) {
+		return;
+	}
+	public void update() {
+		return;
+	}
 
 	public abstract void onInput(KeyEvent event);	
 
@@ -67,6 +72,7 @@ public abstract class Model {
 
 	public abstract int getViewId();
 
-	public void onSensorChanged(SensorEvent event) {
-	}
+	public abstract boolean isRealTime();
+
+	
 }

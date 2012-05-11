@@ -2,9 +2,7 @@ package com.chalmers.speedtype.activity;
 
 import android.content.Context;
 
-import com.chalmers.speedtype.model.BalanceModel;
-import com.chalmers.speedtype.model.Model;
-import com.chalmers.speedtype.model.TimeAttackModel;
+import com.chalmers.speedtype.model.*;
 
 public class GameModeFactory {
 
@@ -16,7 +14,7 @@ public class GameModeFactory {
 		if (game.equals(TA)) {
 			return new TimeAttackModel();
 		} else if (game.equals(FW)) {
-			return null;
+			return new FallingWordsModel();
 		} else if (game.equals(BG)) {
 			return new BalanceModel();
 		} else {

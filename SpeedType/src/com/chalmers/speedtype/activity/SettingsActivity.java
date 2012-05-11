@@ -1,10 +1,9 @@
 package com.chalmers.speedtype.activity;
 
 import com.chalmers.speedtype.R;
-import com.chalmers.speedtype.util.Config;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,14 +21,18 @@ public class SettingsActivity extends Activity {
 	private CheckBox saveScores;
 	private Button backButton;
 
+	SharedPreferences preferences;
+	Editor prefsEditor;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		preferences = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
+		prefsEditor = preferences.edit();
 		setContentView(R.layout.settings);
 		setUpViews();
 		setUpListeners();
-		useConfig();
+		usePreferences();
 	}
 
 	private void setUpViews() {
@@ -42,13 +45,15 @@ public class SettingsActivity extends Activity {
 	private void setUpListeners() {
 		saveScores.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Config.setSaveScores(saveScores.isChecked());
+				prefsEditor.putBoolean(SAVE_SCORES, saveScores.isChecked());
+				prefsEditor.commit();
 			}
 		});
 		fxVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
-				Config.setFxVolume(progress);
+				prefsEditor.putInt(FX_VOLUME, fxVolume.getProgress());
+				prefsEditor.commit();
 			}
 
 			public void onStartTrackingTouch(SeekBar seekBar) {
@@ -61,7 +66,9 @@ public class SettingsActivity extends Activity {
 				.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 					public void onProgressChanged(SeekBar seekBar,
 							int progress, boolean fromUser) {
-						Config.setMusicVolume(progress);
+						prefsEditor.putInt(MUSIC_VOLUME,
+								musicVolume.getProgress());
+						prefsEditor.commit();
 					}
 
 					public void onStartTrackingTouch(SeekBar seekBar) {
@@ -77,32 +84,9 @@ public class SettingsActivity extends Activity {
 		});
 	}
 
-	public void useConfig() {
-
-		SharedPreferences myPrefs = this.getSharedPreferences("myPrefs",
-				MODE_WORLD_READABLE);
-		musicVolume.setProgress(myPrefs.getInt(MUSIC_VOLUME, 70));
-		fxVolume.setProgress(myPrefs.getInt(FX_VOLUME, 70));
-		saveScores.setChecked(myPrefs.getBoolean(SAVE_SCORES, true));
-
-		musicVolume.setProgress(Config.getMusicVolume());
-		fxVolume.setProgress(Config.getFxVolume());
-		saveScores.setChecked(Config.isSaveScores());
-	}
-
-	public void saveConfig() {
-		SharedPreferences myPrefs = this.getSharedPreferences("myPrefs",
-				MODE_WORLD_READABLE);
-		SharedPreferences.Editor prefsEditor = myPrefs.edit();
-		prefsEditor.putBoolean(SAVE_SCORES, saveScores.isChecked());
-		prefsEditor.putInt(MUSIC_VOLUME, musicVolume.getProgress());
-		prefsEditor.putInt(FX_VOLUME, fxVolume.getProgress());
-		prefsEditor.commit();
-	}
-
-	@Override
-	public void onBackPressed() {
-		saveConfig();
-		super.onBackPressed();
+	public void usePreferences() {
+		musicVolume.setProgress(preferences.getInt(MUSIC_VOLUME, 70));
+		fxVolume.setProgress(preferences.getInt(FX_VOLUME, 70));
+		saveScores.setChecked(preferences.getBoolean(SAVE_SCORES, true));
 	}
 }

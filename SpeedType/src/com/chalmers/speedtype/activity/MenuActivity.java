@@ -45,7 +45,7 @@ public class MenuActivity extends SwarmActivity {
 	private void setUpListeners() {
 		newGameButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				startGame("BalanceGame");
+				startGame("FallingWords");
 
 			}
 		});

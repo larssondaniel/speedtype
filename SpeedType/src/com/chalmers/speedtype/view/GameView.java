@@ -64,10 +64,26 @@ public abstract class GameView extends View implements PropertyChangeListener {
 		setFocusable(true);
 		requestFocus();
 	}
+	
+	protected int getDisplayWidthFromPercentage(double i) {
+		return (int) (displayWidth * (i / 100));
+	}
+
+	protected int getDisplayHeightFromPercentage(double i) {
+		return (int) (displayHeight * (i / 100));
+	}
 
 	public void setModel(Model model) {
 		this.model = model;
 		model.addChangeListener(this);
+	}
+	
+	protected int getDisplayWidthFromPercentage(int i) {
+		return displayWidth / 100 * i;
+	}
+
+	protected int getDisplayHeightFromPercentage(int i) {
+		return displayHeight / 100 * i;
 	}
 
 	@Override
