@@ -1,12 +1,14 @@
 package com.chalmers.speedtype.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.chalmers.speedtype.model.Word;
 
 public class Dictionary {
 	
@@ -14,19 +16,16 @@ private static Random random = new Random();
 	
 	private static ArrayList<String> dictionary;
 	private static SQLiteDatabase database;
+
+	private static InputStream input;
 	
-	public static void init(SQLiteDatabase database){
+	public static void init(SQLiteDatabase database, InputStream input){
 		if(Dictionary.database == null) {
 			Dictionary.database = database;
+			Dictionary.input = input;
 			dictionary = new ArrayList<String>();
-			
-			String[] words = {"banana","apple","onion","onion","orange","carrot"};
-			
-			for(String word: words){
-				addWord(word);
-			}
-			
-			loadWords();
+					
+			loadWordsToMemory();
 		}
 	}
 	
@@ -45,7 +44,7 @@ private static Random random = new Random();
 		}
 	}
 	
-	private static void loadWords() {
+	private static void loadWordsToMemory() {
 		Cursor cursor = database.query(
 				DictionarySQLiteOpenHelper.DICTIONARY_TABLE, 
 				new String[] {DictionarySQLiteOpenHelper.WORD}, 
@@ -60,5 +59,19 @@ private static Random random = new Random();
 			} while (cursor.moveToNext());
 		}
 		cursor.close();
+	}
+
+	public static void fill() {
+		BufferedReader in;
+		try {
+			in = new BufferedReader(new InputStreamReader(input));
+			System.out.println(in);
+			while (in.ready()) {
+			  addWord(in.readLine());
+			}
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

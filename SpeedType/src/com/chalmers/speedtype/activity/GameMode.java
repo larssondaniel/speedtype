@@ -39,16 +39,18 @@ public class GameMode extends SwarmActivity implements SensorEventListener {
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 		String gameMode = getIntent().getExtras().getString("gameMode");
-
+		
+		
 		setUpUtil();
 		initGameMode(gameMode);
 		setUpListeners();
 	}
-
+	
 	private void setUpUtil() {
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		Util.setConstants(metrics);
+		
 		Util.setResources(getResources());
 		WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 		Util.setDisplay(windowManager.getDefaultDisplay());

@@ -1,5 +1,8 @@
 package com.chalmers.speedtype.application;
 
+import java.io.InputStream;
+
+import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Dictionary;
 import com.chalmers.speedtype.util.DictionarySQLiteOpenHelper;
 
@@ -16,7 +19,9 @@ public class SpeedTypeApplication extends Application {
 		
 		DictionarySQLiteOpenHelper helper = new DictionarySQLiteOpenHelper(this);
         database = helper.getWritableDatabase();
-        Dictionary.init(database);
+        
+        InputStream input = getResources().openRawResource(R.raw.words);
+        Dictionary.init(database, input);
 	}
 	
 	@Override

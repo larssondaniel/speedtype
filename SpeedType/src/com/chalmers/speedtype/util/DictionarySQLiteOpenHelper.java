@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DictionarySQLiteOpenHelper extends SQLiteOpenHelper {
 	
-	public static final int VERSION = 2;
+	public static final int VERSION = 3;
 	public static final String DB_NAME  = "dictionary_db.sqlite";
 	public static final String DICTIONARY_TABLE = "dictionary";
 	public static final String ID = "id";
@@ -23,7 +23,7 @@ public class DictionarySQLiteOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("alter table " + DICTIONARY_TABLE + " add column " + WORD + " text");
+		Dictionary.fill();
 	}
 	
 	private void dropAndCreate(SQLiteDatabase db) {
