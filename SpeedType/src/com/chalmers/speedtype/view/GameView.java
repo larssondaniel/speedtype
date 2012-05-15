@@ -103,7 +103,6 @@ public abstract class GameView extends View implements PropertyChangeListener {
 		initView();
 	}
 	
-	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		postInvalidate();
 	}

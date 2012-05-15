@@ -33,6 +33,9 @@
             android:name=".activity.FallingWordsActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.ScrabbleActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
