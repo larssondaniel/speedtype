@@ -16,21 +16,4 @@ public class ScrabbleActivity extends GameMode {
 		
 		app = (SpeedTypeApplication) getApplication();
 	}
-	
-	protected void setUpInput() {
-		EditText input = (EditText) findViewById(R.id.input_edit_text);
-		input.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				//controller.onTextChanged(s);
-			}
-
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-			}
-
-			public void afterTextChanged(Editable s) {
-			}
-		});
-	}
 }

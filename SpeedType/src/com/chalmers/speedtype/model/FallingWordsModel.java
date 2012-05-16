@@ -1,6 +1,5 @@
 package com.chalmers.speedtype.model;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.chalmers.speedtype.R;
@@ -14,15 +13,15 @@ public class FallingWordsModel extends Model {
 	private static final int VIEW_ID = R.id.falling_words_view;
 	
 	private static final int WORD_FREQUENCY = 3000;
+	private static final int UPDATE_FREQUENCY = 30;
+	
+	private long lastWordTimeMillis;
+	private long lastUpdateMillis;
 	
 	private LinkedList<Word> visibleWords = new LinkedList<Word>();
-	private long lastWordTimeMillis;
 	
 	public FallingWordsModel(){
 		super();
-		visibleWords.addLast(Dictionary.getNextWord());
-		
-		lastWordTimeMillis = System.currentTimeMillis();
 	}
 	
 	@Override
@@ -49,7 +48,7 @@ public class FallingWordsModel extends Model {
 	}
 
 	@Override
-	public boolean isRealTime() {
+	public boolean isContinuous() {
 		return true;
 	}
 	
@@ -62,21 +61,27 @@ public class FallingWordsModel extends Model {
 	@Override
 	public void update(){
 		if(System.currentTimeMillis() - lastWordTimeMillis > WORD_FREQUENCY){
-			Word newWord = Dictionary.getNextWord();
-			newWord.setX((int)(Math.random()*400));
-			newWord.setY(0);
+			int wordSize = (int)(Math.random() * 50 + 20);
+			Word newWord = new Word(Dictionary.getNextWord(),wordSize, (int)(Math.random()*100), 0);
 			visibleWords.addLast(newWord);
 			
 			lastWordTimeMillis = System.currentTimeMillis();
+			listener.propertyChange(null);
 		}
 
-		updateWordPhysics();
-		listener.propertyChange(null);
+		if(System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY){
+			updateWordPhysics();
+			
+			lastUpdateMillis = System.currentTimeMillis();
+			listener.propertyChange(null);
+		}
 	}
 
 	@Override
 	public Word getActiveWord() {
-		return visibleWords.getFirst();
+		if(!visibleWords.isEmpty())
+			return visibleWords.getFirst();
+		return null;
 	}
 	
 	@Override
@@ -87,10 +92,15 @@ public class FallingWordsModel extends Model {
 
 	private void updateWordPhysics() {
 		for(Word w : visibleWords)
-			w.setY(w.getY()+1);
+			w.setY(w.getY() + 1);
 	}
 	
 	public LinkedList<Word> getVisibleWords(){
 		return visibleWords;
+	}
+
+	@Override
+	public boolean isSensorDependent() {
+		return false;
 	}
 }

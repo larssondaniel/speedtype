@@ -12,31 +12,31 @@ public class Dictionary {
 	
 private static Random random = new Random();
 	
-	private static ArrayList<Word> dictionary;
+	private static ArrayList<String> dictionary;
 	private static SQLiteDatabase database;
 	
 	public static void init(SQLiteDatabase database){
 		if(Dictionary.database == null) {
 			Dictionary.database = database;
-			dictionary = new ArrayList<Word>();
+			dictionary = new ArrayList<String>();
 			
 			String[] words = {"banana","apple","onion","onion","orange","carrot"};
 			
 			for(String word: words){
-				addWord(new Word(word));
+				addWord(word);
 			}
 			
 			loadWords();
 		}
 	}
 	
-	public static Word getNextWord(){
+	public static String getNextWord(){
 		int size = dictionary.size();
 		int item = random.nextInt(size);
 		return dictionary.get(item);
 	}
 	
-	public static void addWord(Word word) {
+	public static void addWord(String word) {
 		if(word != null) {
 			ContentValues values = new ContentValues();
 			values.put(DictionarySQLiteOpenHelper.WORD, word.toString());
@@ -52,10 +52,10 @@ private static Random random = new Random();
 				null, null, null, null, null);
 		
 		cursor.moveToFirst();
-		Word word;
+		String word;
 		if (!cursor.isAfterLast()) {
 			do {
-				word = new Word(cursor.getString(0));
+				word = cursor.getString(0);
 				dictionary.add(word);
 			} while (cursor.moveToNext());
 		}

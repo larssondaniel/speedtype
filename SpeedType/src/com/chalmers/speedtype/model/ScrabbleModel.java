@@ -119,7 +119,14 @@ public class ScrabbleModel extends Model {
 	}
 
 	@Override
-	public boolean isRealTime() {
+	public boolean isContinuous() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isSensorDependent() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }

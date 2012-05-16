@@ -26,7 +26,7 @@ public class GameModeFactory {
 	}
 
 	public static String[] getGamesModes() {
-		String[] GameModes = { TA, FW, SC };
+		String[] GameModes = { TA, FW, BG, SC };
 		return GameModes;
 	}
 }

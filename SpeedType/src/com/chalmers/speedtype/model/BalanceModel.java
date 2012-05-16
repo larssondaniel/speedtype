@@ -28,7 +28,6 @@ public class BalanceModel extends Model {
 	private boolean correctInput;
 	Particle particle;
 	
-	
 	public BalanceModel() {
 		super();
 		initTimer();
@@ -64,40 +63,6 @@ public class BalanceModel extends Model {
 	
 	public int getTimeLeft(){
 		return timeLeft;
-	}
-
-	@Override
-	public int getLayoutId() {
-		return LAYOUT_ID;
-	}
-
-	@Override
-	public int getViewId() {
-		return VIEW_ID;
-	}
-
-	@Override
-	public void onSensorChanged(SensorEvent event) {
-		if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
-			return;
-		switch (Util.getDisplay().getRotation()) {
-		case Surface.ROTATION_0:
-			sensorX = event.values[0];
-			break;
-		case Surface.ROTATION_90:
-			sensorX = -event.values[1];
-			break;
-		case Surface.ROTATION_180:
-			sensorX = -event.values[0];
-			break;
-		case Surface.ROTATION_270:
-			sensorX = event.values[1];
-
-			break;
-		}
-
-		sensorTimeStamp = event.timestamp;
-		cpuTimeStamp = System.nanoTime();
 	}
 
 	public long getSensorTimeStamp(){
@@ -144,6 +109,7 @@ public class BalanceModel extends Model {
 			return false;
 		}
 	}
+	
 	@Override
 	public void onInput(KeyEvent event) {
 		correctInput = true;
@@ -160,10 +126,48 @@ public class BalanceModel extends Model {
 			setCorrectInputReport(false);
 		}
 	}
+	
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
+			return;
+		switch (Util.getDisplay().getRotation()) {
+		case Surface.ROTATION_0:
+			sensorX = event.values[0];
+			break;
+		case Surface.ROTATION_90:
+			sensorX = -event.values[1];
+			break;
+		case Surface.ROTATION_180:
+			sensorX = -event.values[0];
+			break;
+		case Surface.ROTATION_270:
+			sensorX = event.values[1];
+
+			break;
+		}
+
+		sensorTimeStamp = event.timestamp;
+		cpuTimeStamp = System.nanoTime();
+	}
+	
+	@Override
+	public int getLayoutId() {
+		return LAYOUT_ID;
+	}
 
 	@Override
-	public boolean isRealTime() {
-		// TODO Auto-generated method stub
+	public int getViewId() {
+		return VIEW_ID;
+	}
+
+	@Override
+	public boolean isContinuous() {
 		return false;
+	}
+	
+	@Override
+	public boolean isSensorDependent() {
+		return true;	
 	}
 }

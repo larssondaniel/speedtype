@@ -15,37 +15,32 @@ public class Util {
 		metersToPixelsX = metrics.xdpi / 0.0254f;
 		metersToPixelsY = metrics.xdpi / 0.0254f;
 	}
-
-	public static void setDisplay(Display display) {
-		Util.display = display;
-	}
-
+	
 	public static Display getDisplay() {
 		return display;
+	}
+	public static void setDisplay(Display display) {
+		Util.display = display;
 	}
 
 	public static Resources getResources() {
 		return resources;
 	}
-
 	public static void setResources(Resources resources) {
 		Util.resources = resources;
-	}
-
-	public static void setMetersToPixelsX(float metersToPixelsX) {
-		Util.metersToPixelsX = metersToPixelsX;
 	}
 
 	public static float getMetersToPixelsX() {
 		return metersToPixelsX;
 	}
-
-	public static void setMetersToPixelsY(float metersToPixelsY) {
-		Util.metersToPixelsY = metersToPixelsY;
+	public static void setMetersToPixelsX(float metersToPixelsX) {
+		Util.metersToPixelsX = metersToPixelsX;
 	}
-
+	
 	public static float getMetersToPixelsY() {
 		return metersToPixelsY;
 	}
-
+	public static void setMetersToPixelsY(float metersToPixelsY) {
+		Util.metersToPixelsY = metersToPixelsY;
+	}
 }

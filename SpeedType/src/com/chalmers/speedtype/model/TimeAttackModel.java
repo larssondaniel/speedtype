@@ -5,8 +5,10 @@ import android.view.KeyEvent;
 import com.chalmers.speedtype.R;
 
 public class TimeAttackModel extends Model {
+	
 	private static final int LAYOUT_ID = R.layout.time_attack_layout;
 	private static final int VIEW_ID = R.id.time_attack_view;
+	
 	private int timeLeft = 10000;
 	private boolean correctInput;
 
@@ -15,7 +17,6 @@ public class TimeAttackModel extends Model {
 		initTimer();
 		correctInput = false;
 	}
-
 
 	private void initTimer() {
 		Runnable runnable = new Runnable() {
@@ -32,7 +33,6 @@ public class TimeAttackModel extends Model {
 		};
 		new Thread(runnable).start();
 	}
-
 
 	protected void setTimeLeft(int timeLeft) {
 		this.timeLeft = timeLeft;
@@ -88,7 +88,11 @@ public class TimeAttackModel extends Model {
 	}
 
 	@Override
-	public boolean isRealTime() {
+	public boolean isContinuous() {
+		return false;
+	}
+	@Override
+	public boolean isSensorDependent() {
 		return false;
 	}
 }

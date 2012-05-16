@@ -16,8 +16,8 @@ public abstract class Model {
 	protected int score = 0;
 	
 	public Model(){
-		activeWord = Dictionary.getNextWord();
-		nextWord = Dictionary.getNextWord();
+		activeWord = new Word(Dictionary.getNextWord());
+		nextWord = new Word(Dictionary.getNextWord());
 	}
 
 	public void addChangeListener(PropertyChangeListener newListener) {
@@ -54,7 +54,7 @@ public abstract class Model {
 	
 	protected void updateWord(){
 		activeWord = nextWord;
-		nextWord = Dictionary.getNextWord();
+		nextWord = new Word(Dictionary.getNextWord());
 		currentCharPos = 0;
 		listener.propertyChange(null);
 	}
@@ -67,12 +67,9 @@ public abstract class Model {
 	}
 
 	public abstract void onInput(KeyEvent event);	
-
 	public abstract int getLayoutId();
-
 	public abstract int getViewId();
-
-	public abstract boolean isRealTime();
-
+	public abstract boolean isContinuous();
+	public abstract boolean isSensorDependent();
 	
 }
