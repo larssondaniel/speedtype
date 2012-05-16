@@ -70,7 +70,11 @@ public class FallingWordsModel extends Model {
 		}
 
 		if(System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY){
-			updateWordPhysics();
+			for(Word w : visibleWords) {
+				w.setY(w.getY() + 1);
+				if(w.getY()>displayHeight/2)
+					isGameOver = true;
+			}
 			
 			lastUpdateMillis = System.currentTimeMillis();
 			listener.propertyChange(null);
@@ -87,12 +91,6 @@ public class FallingWordsModel extends Model {
 	@Override
 	protected boolean isWordComplete(){
 		return currentCharPos == visibleWords.getFirst().length() -1;
-	}
-	
-
-	private void updateWordPhysics() {
-		for(Word w : visibleWords)
-			w.setY(w.getY() + 1);
 	}
 	
 	public LinkedList<Word> getVisibleWords(){

@@ -95,6 +95,7 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		displayWidth = w;
 		displayHeight = h;
+		model.setDisplaySize(w,h);
 	}
 
 	@Override

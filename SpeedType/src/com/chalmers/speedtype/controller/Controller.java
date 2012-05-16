@@ -48,7 +48,7 @@ public class Controller extends Thread {
 		        case STATE_PAUSED:
 		        	text = "PAUSED"; break;
 		        case STATE_GAMEOVER:
-		        	text = "GAME OVER"; break;
+		        	text = "GAME OVER\n\nScore: " + model.getScore(); break;
 		        default: 
 		        	text = "WTF, SOMETHING IS WRONG"; break;
 	        }
@@ -73,8 +73,11 @@ public class Controller extends Thread {
 	@Override
 	public void run() {
 		while(isRunning) {
-			if(gameState == STATE_RUNNING)
+			if(gameState == STATE_RUNNING) {
 				model.update();
+				if(model.isGameOver())
+					setState(STATE_GAMEOVER);
+			}
 		}
 	}
 	
@@ -89,6 +92,9 @@ public class Controller extends Thread {
 			return true;
 		} else if(gameState == STATE_READY || gameState == STATE_PAUSED) {
 			setState(STATE_RUNNING);
+			return true;
+		} else if(gameState == STATE_GAMEOVER) {
+			// Handle game over
 			return true;
 		}
 		return false;

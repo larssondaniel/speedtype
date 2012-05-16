@@ -1,8 +1,5 @@
 package com.chalmers.speedtype.model;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.view.KeyEvent;

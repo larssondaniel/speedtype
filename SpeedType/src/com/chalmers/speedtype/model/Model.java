@@ -12,8 +12,12 @@ public abstract class Model {
 	protected Word activeWord;
 	protected Word nextWord;
 	protected int currentCharPos;
-	
 	protected int score = 0;
+	
+	protected int displayWidth;
+	protected int displayHeight;
+	
+	protected boolean isGameOver = false;
 	
 	public Model(){
 		activeWord = new Word(Dictionary.getNextWord());
@@ -71,5 +75,13 @@ public abstract class Model {
 	public abstract int getViewId();
 	public abstract boolean isContinuous();
 	public abstract boolean isSensorDependent();
+
+	public void setDisplaySize(int w, int h) {
+		displayWidth = w;
+		displayHeight = h;
+	}
 	
+	public boolean isGameOver() {
+		return isGameOver;
+	}
 }

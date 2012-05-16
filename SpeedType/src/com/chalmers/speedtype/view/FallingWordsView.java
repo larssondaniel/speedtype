@@ -4,8 +4,10 @@ import java.util.LinkedList;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 
 import com.chalmers.speedtype.model.FallingWordsModel;
@@ -15,10 +17,18 @@ import com.chalmers.speedtype.model.Word;
 public class FallingWordsView extends GameView {
 
 	private FallingWordsModel model;
+	
 	private LinkedList<Word> visibleWords;
 	private Word activeWord;
 	private int currentCharPos;
 	private int score;
+	
+	private Paint completedCharsPaint;
+	private Paint incompleteCharsPaint;
+	private Paint scorePaint;
+	private Paint linePaint;
+
+	private Paint inactiveWordsPaint;
 
 	public FallingWordsView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -49,6 +59,7 @@ public class FallingWordsView extends GameView {
 		}
 
 		drawScore(canvas);
+		canvas.drawLine(0, getDisplayHeightFromPercentage(50), displayWidth, getDisplayHeightFromPercentage(50), linePaint);
 	}
 
 	private void drawActiveWord(Canvas canvas, Word word,
@@ -60,56 +71,76 @@ public class FallingWordsView extends GameView {
 	private void drawCompletedChars(Canvas canvas, Word word,
 			int currentCharPos) {
 
-		greenPaint.setTextSize(activeWord.getSize());
-		greenPaint.setTypeface(mensch);
+		completedCharsPaint.setTextSize(activeWord.getSize());
 		
-		int x = calculateX(word, greenPaint);
+		int x = calculateX(word, completedCharsPaint);
 
 		canvas.drawText(word.substring(0, currentCharPos),
-				x, word.getY(), greenPaint);
+				x, word.getY(), completedCharsPaint);
 	}
 
 	private void drawIncompletedChars(Canvas canvas, Word word,
 			int currentCharPos) {
 
-		whitePaint.setTextSize(word.getSize());
-		whitePaint.setTypeface(mensch);
+		incompleteCharsPaint.setTextSize(word.getSize());
 
-		float x = calculateX(word, whitePaint) + whitePaint.measureText(word
+		float x = calculateX(word, incompleteCharsPaint) + incompleteCharsPaint.measureText(word
 				.substring(0, currentCharPos));
 
 		canvas.drawText(
 				word.substring(currentCharPos, word.length()), x,
-				word.getY(), whitePaint);
+				word.getY(), incompleteCharsPaint);
 	}
 
 	private void drawInactiveWords(Canvas canvas) {
-		grayPaint.setTypeface(mensch);
-
 		visibleWords = model.getVisibleWords();
 
 		int x;
 		for (int i = 1; i < visibleWords.size(); i++) {
-			grayPaint.setTextSize(visibleWords.get(i).getSize());
-			x = calculateX(visibleWords.get(i), grayPaint);
-			canvas.drawText(visibleWords.get(i).toString(), x, visibleWords
-					.get(i).getY(), grayPaint);
+			Word word = visibleWords.get(i);
+			inactiveWordsPaint.setTextSize(word.getSize());
+			x = calculateX(word, grayPaint);
+
+			canvas.drawText(word.toString(), x, word.getY(), inactiveWordsPaint);
 		}
 	}
 
 	private void drawScore(Canvas canvas) {
-		whitePaint.setTextSize(40);
-		whitePaint.setTypeface(Typeface.SANS_SERIF);
 		score = model.getScore();
 
 		float margin = getDisplayWidthFromPercentage(2);
-		float x = (displayWidth - whitePaint.measureText(score + "") - margin);
-		float y = whitePaint.getTextSize() + margin;
-		canvas.drawText(model.getScore() + "", x, y, whitePaint);
+		float x = (displayWidth - scorePaint.measureText(score + "") - margin);
+		float y = scorePaint.getTextSize() + margin;
+		canvas.drawText(model.getScore() + "", x, y, scorePaint);
 	}
 
 	private int calculateX(Word word, Paint paint) {
 		int span = (int) (displayWidth - paint.measureText(word.toString()));
 		return word.getX() * span / 100;
+	}
+	
+	@Override
+	protected void onFinishInflate() {
+		super.onFinishInflate();
+		
+		completedCharsPaint = new Paint();
+		completedCharsPaint.setColor(Color.rgb(207, 0, 52));
+		completedCharsPaint.setAntiAlias(true);
+		completedCharsPaint.setStyle(Style.STROKE);
+		completedCharsPaint.setFakeBoldText(true);
+		
+		incompleteCharsPaint = new Paint(whitePaint);
+		incompleteCharsPaint.setFakeBoldText(true);
+		
+		inactiveWordsPaint = new Paint(whitePaint);
+		inactiveWordsPaint.setColor(Color.argb(150, 0, 0, 0));
+		
+		scorePaint = new Paint(whitePaint);
+		scorePaint.setTextSize(40);
+		scorePaint.setTypeface(Typeface.SANS_SERIF);
+		
+		linePaint = new Paint(completedCharsPaint);
+		linePaint.setStyle(Style.FILL);
+		
 	}
 }
