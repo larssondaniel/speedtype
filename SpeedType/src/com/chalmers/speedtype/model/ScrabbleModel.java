@@ -1,13 +1,10 @@
 package com.chalmers.speedtype.model;
 
-import java.util.List;
-import java.util.Random;
-import java.util.ArrayList;
-
 import android.os.CountDownTimer;
 import android.view.KeyEvent;
 
 import com.chalmers.speedtype.R;
+import com.chalmers.speedtype.util.Dictionary;
 
 
 public class ScrabbleModel extends Model {
@@ -18,6 +15,8 @@ public class ScrabbleModel extends Model {
 	public int timeLeft = 10000;
 	
 	private boolean correctInput;
+	private boolean getNewWord = true;
+	private Word activeScrabbledWord;
 	
 	public ScrabbleModel(){
 		super();
@@ -27,11 +26,13 @@ public class ScrabbleModel extends Model {
 	
 
 	public Word getActiveScrabbledWord(){
-		return scrabble(activeWord);
-	}
-	
-	public Word getNextScrabbledWord(){
-		return scrabble(nextWord);
+		if(getNewWord == true){
+			activeScrabbledWord = Dictionary.scrabble(this.getActiveWord());
+			getNewWord = false;
+			return activeScrabbledWord;
+		} else {
+			return activeScrabbledWord;
+		}
 	}
 	
 	private void initTimer() {
@@ -58,25 +59,7 @@ public class ScrabbleModel extends Model {
 	public int getTimeLeft(){
 		return timeLeft;
 	}
-	
-    private Word scrabble(CharSequence input){
-    	String s = input.toString();
-        s = s.toLowerCase();
-        List<Character> string = new ArrayList<Character>();
-        Random random = new Random();
-        int randomNumber;
-        String scrabble = "";
-        while(s.length() > 0){
-        	string.add(s.charAt(s.length() - 1));
-        	s = s.substring(0, s.length() -1);
-        }
-        while(string.size() > 0){
-            randomNumber = random.nextInt(string.size());
-            scrabble = scrabble + (string.remove(randomNumber));
-        }
-        return (new Word(scrabble));
-    }
-    
+	    
 	private void setCorrectInputReport(boolean b){
 		correctInput = b;
 	}
@@ -98,6 +81,7 @@ public class ScrabbleModel extends Model {
 		if (activeWord.charAt(currentCharPos) == inputChar) {
 			incScore(1);
 			if (isWordComplete()) {
+				getNewWord = true;
 				setTimeLeft(timeLeft + 1000*activeWord.length());
 				updateWord();
 			} else {

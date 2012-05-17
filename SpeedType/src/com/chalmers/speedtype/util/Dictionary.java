@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import com.chalmers.speedtype.model.Word;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -74,4 +78,25 @@ private static Random random = new Random();
 			e.printStackTrace();
 		}
 	}
+	
+	/*
+	 * Returns a randomized Word from the input.
+	 */
+    public static Word scrabble(CharSequence input){
+    	String s = input.toString();
+        s = s.toLowerCase();
+        List<Character> string = new ArrayList<Character>();
+        Random random = new Random();
+        int randomNumber;
+        String scrabble = "";
+        while(s.length() > 0){
+        	string.add(s.charAt(s.length() - 1));
+        	s = s.substring(0, s.length() -1);
+        }
+        while(string.size() > 0){
+            randomNumber = random.nextInt(string.size());
+            scrabble = scrabble + (string.remove(randomNumber));
+        }
+        return (new Word(scrabble));
+    }
 }

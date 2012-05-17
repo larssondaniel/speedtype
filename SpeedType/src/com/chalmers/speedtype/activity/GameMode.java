@@ -59,7 +59,6 @@ public class GameMode extends SwarmActivity implements SensorEventListener {
 	private void initGameMode(String gameMode) {
 		model = GameModeFactory.createGameMode(this, gameMode);
 		setUpViews();
-
 		view.setModel(model);
 
 		controller = new Controller(model, new Handler() {
