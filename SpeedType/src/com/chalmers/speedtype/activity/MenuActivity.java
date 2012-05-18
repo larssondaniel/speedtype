@@ -47,7 +47,7 @@ public class MenuActivity extends SwarmActivity {
 			public void onClick(View v) {
 //				startGame("Scrabble");
 //				startGame("TimeAttack");
-				startGame("FallingWords");
+				startGame("TimeAttack");
 
 			}
 		});
