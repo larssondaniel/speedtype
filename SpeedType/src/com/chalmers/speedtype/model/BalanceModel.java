@@ -167,4 +167,9 @@ public class BalanceModel extends GameModel {
 	public boolean isSensorDependent() {
 		return true;	
 	}
+
+	@Override
+	public void update() {
+		// Update here
+	}
 }

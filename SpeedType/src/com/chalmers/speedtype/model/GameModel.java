@@ -16,7 +16,7 @@ public abstract class GameModel {
 	
 	protected int displayWidth;
 	protected int displayHeight;
-	
+
 	protected boolean isGameOver = false;
 	
 	public GameModel(){
@@ -66,10 +66,8 @@ public abstract class GameModel {
 	public void onSensorChanged(SensorEvent event) {
 		return;
 	}
-	public void update() {
-		return;
-	}
 
+	public abstract void update();
 	public abstract void onInput(KeyEvent event);	
 	public abstract int getLayoutId();
 	public abstract int getViewId();

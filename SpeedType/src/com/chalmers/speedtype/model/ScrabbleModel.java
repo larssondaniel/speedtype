@@ -113,4 +113,11 @@ public class ScrabbleModel extends GameModel {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

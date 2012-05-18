@@ -23,14 +23,19 @@ public class DictionarySQLiteOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Dictionary.fill();
 	}
 	
 	private void dropAndCreate(SQLiteDatabase db) {
 		db.execSQL("drop table if exists " + DICTIONARY_TABLE + ";");
 		createTables(db);
+		fillTable(db);
 	}
 	
+	private void fillTable(SQLiteDatabase db) {
+		
+		
+	}
+
 	private void createTables(SQLiteDatabase db) {
 		db.execSQL(
 				"create table " + DICTIONARY_TABLE + " (" + 

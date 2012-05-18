@@ -77,7 +77,7 @@ public class TimeAttackModel extends GameModel {
 		if (activeWord.charAt(currentCharPos) == inputChar) {
 			incScore(1);
 			if (isWordComplete()) {
-				setTimeLeft(timeLeft + 1000*activeWord.length());
+				setTimeLeft(timeLeft + 1000 * activeWord.length());
 				updateWord();
 			} else {
 				incCurrentCharPos();
@@ -94,5 +94,10 @@ public class TimeAttackModel extends GameModel {
 	@Override
 	public boolean isSensorDependent() {
 		return false;
+	}
+
+	@Override
+	public void update() {
+		// Update here
 	}
 }
