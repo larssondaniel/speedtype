@@ -10,7 +10,7 @@ import android.hardware.Sensor;
 import android.util.AttributeSet;
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.model.BalanceModel;
-import com.chalmers.speedtype.model.Model;
+import com.chalmers.speedtype.model.GameModel;
 import com.chalmers.speedtype.model.Word;
 import com.chalmers.speedtype.util.Util;
 
@@ -62,7 +62,7 @@ public class BalanceView extends GameView {
 		timeLeftPaint = whitePaint;
 	}
 
-	public void setModel(Model model) {
+	public void setModel(GameModel model) {
 		super.setModel(model);
 		this.model = (BalanceModel) model;
 	}

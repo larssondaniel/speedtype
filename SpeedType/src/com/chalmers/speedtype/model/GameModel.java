@@ -5,7 +5,7 @@ import com.chalmers.speedtype.util.Dictionary;
 import android.view.KeyEvent;
 import android.hardware.SensorEvent;
 
-public abstract class Model {
+public abstract class GameModel {
 
 	protected PropertyChangeListener listener;
 
@@ -19,7 +19,7 @@ public abstract class Model {
 	
 	protected boolean isGameOver = false;
 	
-	public Model(){
+	public GameModel(){
 		activeWord = new Word(Dictionary.getNextWord());
 		nextWord = new Word(Dictionary.getNextWord());
 	}

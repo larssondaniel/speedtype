@@ -8,7 +8,7 @@ import android.view.Surface;
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Util;
 
-public class BalanceModel extends Model {
+public class BalanceModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.balance_layout;
 	private static final int VIEW_ID = R.id.balance_view;
@@ -23,12 +23,12 @@ public class BalanceModel extends Model {
 	private float verticalBound;
 	private int timeLeft = 10000;
 	private boolean correctInput;
-	Particle particle;
+	Ball particle;
 	
 	public BalanceModel() {
 		super();
 		initTimer();
-		particle = new Particle(ballFriction,
+		particle = new Ball(ballFriction,
 				horizontalBound, verticalBound);
 		correctInput = false;
 	}
@@ -69,7 +69,7 @@ public class BalanceModel extends Model {
 		return cpuTimeStamp;
 	}
 	
-	public Particle getParticle() {
+	public Ball getParticle() {
 		return particle;
 	}
 	

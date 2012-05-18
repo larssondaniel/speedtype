@@ -1,17 +1,17 @@
-package com.chalmers.speedtype.activity;
+package com.chalmers.speedtype.util;
 
 import android.content.Context;
 
 import com.chalmers.speedtype.model.*;
 
-public class GameModeFactory {
+public class GameFactory {
 
 	private static final String TA = "TimeAttack";
 	private static final String FW = "FallingWords";
 	private static final String BG = "BalanceGame";
 	private static final String SC = "Scrabble";
 
-	public static Model createGameMode(Context activity, String game) {
+	public static GameModel createGameMode(Context activity, String game) {
 		if (game.equals(TA)) {
 			return new TimeAttackModel();
 		} else if (game.equals(FW)) {

@@ -3,7 +3,7 @@ package com.chalmers.speedtype.view;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import com.chalmers.speedtype.model.Model;
+import com.chalmers.speedtype.model.GameModel;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -18,7 +18,7 @@ public abstract class GameView extends View implements PropertyChangeListener {
 
 	protected Typeface mensch;
 
-	private Model model;
+	private GameModel model;
 
 	protected int displayWidth;
 	protected int displayHeight;
@@ -73,7 +73,7 @@ public abstract class GameView extends View implements PropertyChangeListener {
 		return (int) (displayHeight * (i / 100));
 	}
 
-	public void setModel(Model model) {
+	public void setModel(GameModel model) {
 		this.model = model;
 		model.addChangeListener(this);
 	}

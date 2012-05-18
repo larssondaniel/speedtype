@@ -76,7 +76,7 @@ public class MenuActivity extends SwarmActivity {
 	}
 
 	private void startGame(String gameMode) {
-		Intent intent = new Intent(this, GameMode.class);
+		Intent intent = new Intent(this, GameActivity.class);
 		
 		Bundle bundle = new Bundle();
 		bundle.putString("gameMode", gameMode);

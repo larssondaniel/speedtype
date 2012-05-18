@@ -2,7 +2,8 @@ package com.chalmers.speedtype.activity;
 
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.controller.Controller;
-import com.chalmers.speedtype.model.Model;
+import com.chalmers.speedtype.model.GameModel;
+import com.chalmers.speedtype.util.GameFactory;
 import com.chalmers.speedtype.util.Util;
 import com.chalmers.speedtype.view.GameView;
 import com.swarmconnect.SwarmActivity;
@@ -21,9 +22,9 @@ import android.view.View.OnKeyListener;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-public class GameMode extends SwarmActivity implements SensorEventListener {
+public class GameActivity extends SwarmActivity implements SensorEventListener {
 
-	private Model model;
+	private GameModel model;
 	private GameView view;
 	private Controller controller;
 
@@ -57,7 +58,7 @@ public class GameMode extends SwarmActivity implements SensorEventListener {
 	}
 
 	private void initGameMode(String gameMode) {
-		model = GameModeFactory.createGameMode(this, gameMode);
+		model = GameFactory.createGameMode(this, gameMode);
 		setUpViews();
 		view.setModel(model);
 

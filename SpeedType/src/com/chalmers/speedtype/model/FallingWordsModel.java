@@ -7,7 +7,7 @@ import com.chalmers.speedtype.util.Dictionary;
 
 import android.view.KeyEvent;
 
-public class FallingWordsModel extends Model {
+public class FallingWordsModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.falling_words_layout;
 	private static final int VIEW_ID = R.id.falling_words_view;

@@ -4,7 +4,7 @@ import android.view.KeyEvent;
 
 import com.chalmers.speedtype.R;
 
-public class TimeAttackModel extends Model {
+public class TimeAttackModel extends GameModel {
 	
 	private static final int LAYOUT_ID = R.layout.time_attack_layout;
 	private static final int VIEW_ID = R.id.time_attack_view;

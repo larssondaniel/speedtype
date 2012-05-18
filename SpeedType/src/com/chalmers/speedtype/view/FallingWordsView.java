@@ -11,7 +11,7 @@ import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 
 import com.chalmers.speedtype.model.FallingWordsModel;
-import com.chalmers.speedtype.model.Model;
+import com.chalmers.speedtype.model.GameModel;
 import com.chalmers.speedtype.model.Word;
 
 public class FallingWordsView extends GameView {
@@ -42,7 +42,7 @@ public class FallingWordsView extends GameView {
 		super(context);
 	}
 
-	public void setModel(Model model) {
+	public void setModel(GameModel model) {
 		super.setModel(model);
 		this.model = (FallingWordsModel) model;
 	}
@@ -99,7 +99,7 @@ public class FallingWordsView extends GameView {
 		for (int i = 1; i < visibleWords.size(); i++) {
 			Word word = visibleWords.get(i);
 			inactiveWordsPaint.setTextSize(word.getSize());
-			x = calculateX(word, grayPaint);
+			x = calculateX(word, inactiveWordsPaint);
 
 			canvas.drawText(word.toString(), x, word.getY(), inactiveWordsPaint);
 		}
@@ -126,14 +126,14 @@ public class FallingWordsView extends GameView {
 		completedCharsPaint = new Paint();
 		completedCharsPaint.setColor(Color.rgb(207, 0, 52));
 		completedCharsPaint.setAntiAlias(true);
-		completedCharsPaint.setStyle(Style.STROKE);
+		completedCharsPaint.setStyle(Style.FILL);
 		completedCharsPaint.setFakeBoldText(true);
 		
 		incompleteCharsPaint = new Paint(whitePaint);
 		incompleteCharsPaint.setFakeBoldText(true);
 		
 		inactiveWordsPaint = new Paint(whitePaint);
-		inactiveWordsPaint.setColor(Color.argb(150, 0, 0, 0));
+		inactiveWordsPaint.setColor(Color.argb(150, 255, 255, 255));
 		
 		scorePaint = new Paint(whitePaint);
 		scorePaint.setTextSize(40);

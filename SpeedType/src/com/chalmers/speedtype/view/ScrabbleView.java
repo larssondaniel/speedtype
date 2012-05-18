@@ -1,6 +1,6 @@
 package com.chalmers.speedtype.view;
 
-import com.chalmers.speedtype.model.Model;
+import com.chalmers.speedtype.model.GameModel;
 import com.chalmers.speedtype.model.ScrabbleModel;
 import com.chalmers.speedtype.model.Word;
 
@@ -32,7 +32,7 @@ public class ScrabbleView extends GameView {
 		super(context);
 	}
 	
-	public void setModel(Model model) {
+	public void setModel(GameModel model) {
 		super.setModel(model);
 		this.model = (ScrabbleModel) model;
 	}

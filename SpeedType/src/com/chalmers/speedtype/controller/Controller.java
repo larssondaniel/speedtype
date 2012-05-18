@@ -7,7 +7,7 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.chalmers.speedtype.model.Model;
+import com.chalmers.speedtype.model.GameModel;
 
 public class Controller extends Thread {
 
@@ -19,10 +19,10 @@ public class Controller extends Thread {
 	private int gameState;
 	private boolean isRunning = false;
 	
-	private Model model;
+	private GameModel model;
 	private Handler handler;
 
-	public Controller(Model model, Handler handler) {
+	public Controller(GameModel model, Handler handler) {
 		this.model = model;
 		this.handler = handler;
 		

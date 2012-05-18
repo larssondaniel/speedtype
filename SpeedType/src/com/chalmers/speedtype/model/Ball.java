@@ -1,6 +1,6 @@
 package com.chalmers.speedtype.model;
 
-public class Particle {
+public class Ball {
 
 	private float xPos;
 	private float yPos;
@@ -14,7 +14,7 @@ public class Particle {
 	private float horizontalBound;
 	private float verticalBound;
 
-	Particle(float ballFriction, float horizontalBound, float verticalBound) {
+	Ball(float ballFriction, float horizontalBound, float verticalBound) {
 		final float r = 0.1f;
 		oneMinusFriction = 0.5f - ballFriction + r;
 		this.horizontalBound = horizontalBound;
