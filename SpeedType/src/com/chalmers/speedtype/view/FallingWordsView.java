@@ -126,8 +126,7 @@ public class FallingWordsView extends GameView {
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		
-		completedCharsPaint = new Paint();
-		completedCharsPaint.setColor(Color.rgb(207, 0, 52));
+		completedCharsPaint = greenPaint;
 		completedCharsPaint.setAntiAlias(true);
 		completedCharsPaint.setStyle(Style.FILL);
 		completedCharsPaint.setFakeBoldText(true);
@@ -142,7 +141,7 @@ public class FallingWordsView extends GameView {
 		scorePaint.setTextSize(40);
 		scorePaint.setTypeface(Typeface.SANS_SERIF);
 		
-		linePaint = new Paint(completedCharsPaint);
+		linePaint = new Paint(redPaint);
 		linePaint.setStyle(Style.FILL);
 		
 	}
