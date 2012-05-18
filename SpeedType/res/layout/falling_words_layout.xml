@@ -3,7 +3,7 @@
     android:id="@+id/falling_words_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background_red">
+    android:background="@drawable/gradient_background_red" >
 
     <com.chalmers.speedtype.view.FallingWordsView
         android:id="@+id/falling_words_view"
@@ -13,15 +13,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-
-        <!-- Elements here will be drawn on top of the game view -->
-        <TextView
-        android:id="@+id/status_text"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="20sp"
-        android:gravity="center_horizontal"
-        android:text="@string/app_name"
-        android:textSize="40sp" />
+        
     </RelativeLayout>
 </FrameLayout>

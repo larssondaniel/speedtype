@@ -32,6 +32,7 @@ public class GameActivity extends SwarmActivity implements SensorEventListener {
 	private Sensor sensor;
 
 	private TextView statusText;
+	//private RelativeLayout overlayLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,6 @@ public class GameActivity extends SwarmActivity implements SensorEventListener {
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 		String gameMode = getIntent().getExtras().getString("gameMode");
-		
 		
 		setUpUtil();
 		initGameMode(gameMode);
@@ -65,8 +65,9 @@ public class GameActivity extends SwarmActivity implements SensorEventListener {
 		controller = new Controller(model, new Handler() {
 			@Override
 			public void handleMessage(Message m) {
-				statusText.setVisibility(m.getData().getInt("visibility"));
-				statusText.setText(m.getData().getString("text"));
+				//overlayLayout.setVisibility(m.getData().getInt("visibility"));
+				//statusText.setVisibility(m.getData().getInt("visibility"));
+				//statusText.setText(m.getData().getString("text"));
 			}
 		});
 		controller.startGame();
@@ -75,7 +76,8 @@ public class GameActivity extends SwarmActivity implements SensorEventListener {
 	private void setUpViews() {
 		setContentView(model.getLayoutId());
 		view = (GameView) findViewById(model.getViewId());
-		statusText = (TextView) findViewById(R.id.status_text);
+		//statusText = (TextView) findViewById(R.id.status_text);
+		//overlayLayout = (RelativeLayout) findViewById(R.id.overlay_layout);
 	}
 
 	private void setUpListeners() {

@@ -29,7 +29,7 @@ public class SettingsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		preferences = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 		prefsEditor = preferences.edit();
-		setContentView(R.layout.settings);
+		setContentView(R.layout.settings_layout);
 		setUpViews();
 		setUpListeners();
 		usePreferences();
