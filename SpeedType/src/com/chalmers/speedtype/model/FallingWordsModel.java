@@ -1,6 +1,5 @@
 package com.chalmers.speedtype.model;
 
-//TODO Fix bug typing to fast while no word is falling
 //TODO Resuming a paused game always results in a new word.
 
 import java.util.LinkedList;
