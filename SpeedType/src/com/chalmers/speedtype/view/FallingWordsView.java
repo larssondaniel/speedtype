@@ -1,5 +1,4 @@
 package com.chalmers.speedtype.view;
-//TODO Change to green text
 //TODO Line of death bug
 //TODO Two words can possibly land on top of each other after resume?
 
@@ -62,7 +61,7 @@ public class FallingWordsView extends GameView {
 		}
 
 		drawScore(canvas);
-		canvas.drawLine(0, getDisplayHeightFromPercentage(50), displayWidth, getDisplayHeightFromPercentage(50), linePaint);
+		canvas.drawLine(0, getDisplayHeightFromPercentage(50) + 3, displayWidth, getDisplayHeightFromPercentage(50), linePaint);
 	}
 
 	private void drawActiveWord(Canvas canvas, Word word,
@@ -79,7 +78,7 @@ public class FallingWordsView extends GameView {
 		int x = calculateX(word, completedCharsPaint);
 
 		canvas.drawText(word.substring(0, currentCharPos),
-				x, word.getY(), completedCharsPaint);
+				x, (int) word.getY(), completedCharsPaint);
 	}
 
 	private void drawIncompletedChars(Canvas canvas, Word word,
@@ -92,7 +91,7 @@ public class FallingWordsView extends GameView {
 
 		canvas.drawText(
 				word.substring(currentCharPos, word.length()), x,
-				word.getY(), incompleteCharsPaint);
+				(int) word.getY(), incompleteCharsPaint);
 	}
 
 	private void drawInactiveWords(Canvas canvas) {
@@ -104,7 +103,7 @@ public class FallingWordsView extends GameView {
 			inactiveWordsPaint.setTextSize(word.getSize());
 			x = calculateX(word, inactiveWordsPaint);
 
-			canvas.drawText(word.toString(), x, word.getY(), inactiveWordsPaint);
+			canvas.drawText(word.toString(), x, (int) word.getY(), inactiveWordsPaint);
 		}
 	}
 
@@ -119,7 +118,7 @@ public class FallingWordsView extends GameView {
 
 	private int calculateX(Word word, Paint paint) {
 		int span = (int) (displayWidth - paint.measureText(word.toString()));
-		return word.getX() * span / 100;
+		return (int)word.getX() * span / 100;
 	}
 	
 	@Override

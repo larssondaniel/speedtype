@@ -21,6 +21,7 @@ public class FallingWordsModel extends GameModel {
 	private long lastUpdateMillis;
 
 	private LinkedList<Word> visibleWords = new LinkedList<Word>();
+	private double speed = 1;
 
 	public FallingWordsModel() {
 		super();
@@ -58,8 +59,9 @@ public class FallingWordsModel extends GameModel {
 	}
 
 	protected void onCorrectWord() {
-		updateWord();
 		super.onCorrectWord();
+		updateWord();
+		incSpeed();
 	}
 
 	protected void onIncorrectChar() {
@@ -80,7 +82,7 @@ public class FallingWordsModel extends GameModel {
 	@Override
 	public void update() {
 		if (System.currentTimeMillis() - lastWordTimeMillis > WORD_FREQUENCY) {
-			int wordSize = (int) (Math.random() * 50 + 20);
+			int wordSize = (int) (Math.random() * 50 + 30);
 			Word newWord = new Word(Dictionary.getNextWord(), wordSize,
 					(int) (Math.random() * 100), 0);
 			visibleWords.addLast(newWord);
@@ -90,8 +92,9 @@ public class FallingWordsModel extends GameModel {
 		}
 
 		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
+			double speed = getSpeed();
 			for (Word w : visibleWords) {
-				w.setY(w.getY() + 1);
+				w.setY(w.getY() + speed);
 				if (w.getY() > displayHeight / 2)
 					isGameOver = true;
 			}
@@ -99,6 +102,14 @@ public class FallingWordsModel extends GameModel {
 			lastUpdateMillis = System.currentTimeMillis();
 			listener.propertyChange(null);
 		}
+	}
+
+	private double getSpeed() {
+		return speed ;
+	}
+	
+	private void incSpeed() {
+		speed += 0.01;
 	}
 
 	@Override
