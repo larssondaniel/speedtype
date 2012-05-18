@@ -1,4 +1,5 @@
 package com.chalmers.speedtype.model;
+//TODO Fix bug typing to fast while no word is falling
 
 import java.util.LinkedList;
 
@@ -28,7 +29,7 @@ public class FallingWordsModel extends GameModel {
 	public int getLayoutId() {
 		return LAYOUT_ID;
 	}
-
+	
 	@Override
 	public int getViewId() {
 		return VIEW_ID;
@@ -38,15 +39,31 @@ public class FallingWordsModel extends GameModel {
 	public void onInput(KeyEvent event) {
 		char inputChar = (char) event.getUnicodeChar();
 		if (visibleWords.getFirst().charAt(currentCharPos) == inputChar) {
-			incScore(1);
+			onCorrectChar();
 			if (isWordComplete()) {
-				updateWord();
+				onCorrectWord();
 			} else {
 				incCurrentCharPos();
 			}
 		}
+		onIncorrectChar();
 	}
 
+	
+	protected void onCorrectChar(){
+		super.onCorrectChar();
+		incScore(1);
+	}
+	
+	protected void onCorrectWord(){
+		updateWord();
+		super.onCorrectWord();
+	}
+	
+	protected void onIncorrectChar(){
+		super.onIncorrectChar();
+	}
+	
 	@Override
 	public boolean isContinuous() {
 		return true;

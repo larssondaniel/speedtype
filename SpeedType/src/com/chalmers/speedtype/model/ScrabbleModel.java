@@ -72,10 +72,23 @@ public class ScrabbleModel extends GameModel {
 			return false;
 		}
 	}
-
+	
+	protected void onCorrectChar(){
+		super.onCorrectChar();
+	}
+	
+	protected void onCorrectWord(){
+		super.onCorrectWord();
+	}
+	
+	protected void onIncorrectChar(){
+		super.onIncorrectChar();
+	}
+	
 	@Override
 	public void onInput(KeyEvent event) {
 		//TODO Copy paste so far, look it over and adjust.
+		//TODO Implement onCorrectWord(), onCorrectChar() and on IncorrectChar() in this method.
 		correctInput = true;
 		char inputChar = Character.toLowerCase((char) event.getUnicodeChar());
 		if (activeWord.charAt(currentCharPos) == inputChar) {

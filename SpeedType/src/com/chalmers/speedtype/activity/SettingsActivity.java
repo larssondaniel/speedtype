@@ -1,4 +1,5 @@
 package com.chalmers.speedtype.activity;
+//TODO Get settings to work with sound.
 
 import com.chalmers.speedtype.R;
 import android.app.Activity;

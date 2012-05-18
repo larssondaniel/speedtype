@@ -1,4 +1,5 @@
 package com.chalmers.speedtype.model;
+//TODO Remote init Timer
 
 import android.view.KeyEvent;
 
@@ -77,23 +78,38 @@ public class TimeAttackModel extends GameModel {
 		correctInput = true;
 		char inputChar = Character.toLowerCase((char) event.getUnicodeChar());
 		if (activeWord.charAt(currentCharPos) == inputChar) {
-			incScore(1);
+			onCorrectChar();
 			if (isWordComplete()) {
-				if (isFastEnough()) {
-					speedRewardPowerUp = new SpeedRewardPowerUp(this);
-					speedRewardPowerUp.usePowerUp();
-				}
-				speedRewardTimeStart = System.currentTimeMillis();
-				setTimeLeft(timeLeft + 1000 * activeWord.length());
-				updateWord();
+				onCorrectWord();
 			} else {
 				incCurrentCharPos();
 			}
 		} else {
-			setCorrectInputReport(false);
+			onIncorrectChar();
 		}
 	}
 
+	protected void onCorrectChar(){
+		super.onCorrectChar();
+		incScore(1);
+	}
+	
+	protected void onCorrectWord(){
+		super.onCorrectWord();
+		if (isFastEnough()) {
+			speedRewardPowerUp = new SpeedRewardPowerUp(this);
+			speedRewardPowerUp.usePowerUp();
+		}
+		speedRewardTimeStart = System.currentTimeMillis();
+		setTimeLeft(timeLeft + 1000 * activeWord.length());
+		updateWord();
+	}
+	
+	protected void onIncorrectChar(){
+		super.onIncorrectChar();
+		setCorrectInputReport(false);
+	}
+	
 	@Override
 	public boolean isContinuous() {
 		return false;

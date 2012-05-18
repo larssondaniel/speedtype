@@ -1,4 +1,5 @@
 package com.chalmers.speedtype.util;
+//TODO fix implementation of the soundservice.
 
 import com.chalmers.speedtype.R;
 

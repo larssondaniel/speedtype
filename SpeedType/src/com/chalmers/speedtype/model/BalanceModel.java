@@ -1,4 +1,5 @@
 package com.chalmers.speedtype.model;
+//TODO Complete the implementation of the game, posible to die while balancing etc.
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -112,16 +113,32 @@ public class BalanceModel extends GameModel {
 		correctInput = true;
 		char inputChar = Character.toLowerCase((char) event.getUnicodeChar());
 		if (activeWord.charAt(currentCharPos) == inputChar) {
-			incScore(1);
+			onCorrectChar();
 			if (isWordComplete()) {
-				setTimeLeft(timeLeft + 1000*activeWord.length());
-				updateWord();
+				onCorrectWord();
 			} else {
 				incCurrentCharPos();
 			}
 		} else {
-			setCorrectInputReport(false);
+			onIncorrectChar();
 		}
+		
+	}
+	
+	protected void onCorrectChar(){
+		super.onCorrectChar();
+		incScore(1);
+	}
+	
+	protected void onCorrectWord(){
+		super.onCorrectWord();
+		setTimeLeft(timeLeft + 1000*activeWord.length());
+		updateWord();
+	}
+	
+	protected void onIncorrectChar(){
+		super.onIncorrectChar();
+		setCorrectInputReport(false);
 	}
 	
 	@Override

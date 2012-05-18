@@ -1,4 +1,6 @@
 package com.chalmers.speedtype.activity;
+//TODO Improve the overall layout
+//TODO make it possible to choose all gamemodes.
 
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.BackgroundSoundService;
@@ -47,7 +49,8 @@ public class MenuActivity extends SwarmActivity {
 			public void onClick(View v) {
 //				startGame("Scrabble");
 //				startGame("TimeAttack");
-				startGame("TimeAttack");
+				startGame("FallingWords");
+
 
 			}
 		});

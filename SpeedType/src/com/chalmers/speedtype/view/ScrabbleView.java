@@ -1,4 +1,5 @@
 package com.chalmers.speedtype.view;
+//TODO NOT WORKING! SHOULD BE FIXED ASAP, NULLPOINTEREXCEPTION.
 
 import com.chalmers.speedtype.model.GameModel;
 import com.chalmers.speedtype.model.ScrabbleModel;
