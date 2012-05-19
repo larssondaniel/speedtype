@@ -109,10 +109,11 @@ public class TimeAttackModel extends GameModel {
 	@Override
 	public void update() {
 		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
-			setTimeLeft((int) (timeLeft - (System.currentTimeMillis() - lastUpdateMillis)));
-			lastUpdateMillis = System.currentTimeMillis();
-			
+			if (lastUpdateMillis != 0){
+			setTimeLeft((int) (timeLeft - (System.currentTimeMillis() - lastUpdateMillis)));	
 			listener.propertyChange(null);
+			}
+			lastUpdateMillis = System.currentTimeMillis();			
 		}
 	}
 }
