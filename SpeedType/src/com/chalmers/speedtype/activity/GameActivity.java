@@ -68,10 +68,8 @@ public class GameActivity extends SwarmActivity {
 		controller = new Controller(model, new Handler() {
 			@Override
 			public void handleMessage(Message m) {
-				//TODO statusText and overlayLayout returns as null from setUpViews(), thereby these methods give nullpointer. fix pliXxxX
-				//overlayLayout.setVisibility(m.getData().getInt("visibility"));
-				//statusText.setVisibility(m.getData().getInt("visibility"));
-				//statusText.setText(m.getData().getString("text"));
+				overlayLayout.setVisibility(m.getData().getInt("visibility"));
+				statusText.setText(m.getData().getString("text"));
 			}
 		});
 		controller.startGame();
@@ -81,7 +79,7 @@ public class GameActivity extends SwarmActivity {
 		setContentView(model.getLayoutId());
 		view = (GameView) findViewById(model.getViewId());
 		statusText = (TextView) findViewById(R.id.status_text);
-		overlayLayout = (RelativeLayout) findViewById(R.layout.overlay_layout);
+		overlayLayout = (RelativeLayout) findViewById(R.id.overlay_layout);
 	}
 
 	private void setUpListeners() {

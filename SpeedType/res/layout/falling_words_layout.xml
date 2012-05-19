@@ -3,16 +3,16 @@
     android:id="@+id/falling_words_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background_red">
+    android:background="@drawable/gradient_background_red" >
 
     <com.chalmers.speedtype.view.FallingWordsView
         android:id="@+id/falling_words_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <RelativeLayout
+    <include
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        layout="@layout/overlay_layout" />
+
 </FrameLayout>

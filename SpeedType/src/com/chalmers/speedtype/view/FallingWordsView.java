@@ -59,7 +59,7 @@ public class FallingWordsView extends GameView {
 		}
 
 		drawScore(canvas);
-		canvas.drawLine(0, getDisplayHeightFromPercentage(50) + 3, displayWidth, getDisplayHeightFromPercentage(50), linePaint);
+		canvas.drawLine(0, getDisplayHeightFromPercentage(50), displayWidth, getDisplayHeightFromPercentage(50), linePaint);
 	}
 
 	private void drawActiveWord(Canvas canvas, Word word,
@@ -123,13 +123,10 @@ public class FallingWordsView extends GameView {
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		
-		completedCharsPaint = greenPaint;
-		completedCharsPaint.setAntiAlias(true);
-		completedCharsPaint.setStyle(Style.FILL);
-		completedCharsPaint.setFakeBoldText(true);
+		completedCharsPaint = new Paint(whitePaint);
+		completedCharsPaint.setColor(Color.rgb(255, 0, 85));
 		
 		incompleteCharsPaint = new Paint(whitePaint);
-		incompleteCharsPaint.setFakeBoldText(true);
 		
 		inactiveWordsPaint = new Paint(whitePaint);
 		inactiveWordsPaint.setColor(Color.argb(150, 255, 255, 255));
@@ -138,7 +135,8 @@ public class FallingWordsView extends GameView {
 		scorePaint.setTextSize(40);
 		scorePaint.setTypeface(Typeface.SANS_SERIF);
 		
-		linePaint = new Paint(redPaint);
+		linePaint = new Paint(whitePaint);
+		linePaint.setColor(Color.rgb(255, 0, 85));
 		linePaint.setStyle(Style.FILL);
 		
 	}
