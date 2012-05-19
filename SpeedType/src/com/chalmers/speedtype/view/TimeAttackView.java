@@ -57,6 +57,7 @@ public class TimeAttackView extends GameView {
 		String timeLeftString;
 		
 		if (timeLeft < 10000) {
+			timeLeft = timeLeft/100 * 100;
 			double timeLeftLow = ((double) timeLeft) / 1000;
 			timeLeftString = timeLeftLow + "";
 			count++;

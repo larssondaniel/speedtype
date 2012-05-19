@@ -1,5 +1,5 @@
 package com.chalmers.speedtype.model;
-//TODO Complete the implementation of the game, posible to die while balancing etc.
+//TODO Complete the implementation of the game, possible to die while balancing etc.
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

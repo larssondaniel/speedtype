@@ -48,8 +48,8 @@ public class MenuActivity extends SwarmActivity {
 		newGameButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 //				startGame("Scrabble");
-//				startGame("TimeAttack");
-				startGame("FallingWords");
+				startGame("TimeAttack");
+//				startGame("FallingWords");
 			}
 		});
 		leaderboards.setOnClickListener(new View.OnClickListener() {

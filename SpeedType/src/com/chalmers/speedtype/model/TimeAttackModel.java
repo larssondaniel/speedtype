@@ -1,5 +1,4 @@
 package com.chalmers.speedtype.model;
-//TODO Remote init Timer
 
 import android.view.KeyEvent;
 
@@ -9,41 +8,23 @@ public class TimeAttackModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.time_attack_layout;
 	private static final int VIEW_ID = R.id.time_attack_view;
+	
+	private static final int UPDATE_FREQUENCY = 50;
 
 	private int timeLeft = 10000;
 	private boolean correctInput;
 	private long speedRewardTimeStart;
+	private long lastUpdateMillis;
 
 	private PowerUp speedRewardPowerUp;
 
 	public TimeAttackModel() {
 		super();
-		initTimer();
 		correctInput = false;
-	}
-
-	private void initTimer() {
-		Runnable runnable = new Runnable() {
-			public void run() {
-				while (true) {
-					try {
-						Thread.sleep(100);
-						setTimeLeft(timeLeft - 100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-		new Thread(runnable).start();
 	}
 
 	protected void setTimeLeft(int timeLeft) {
 		this.timeLeft = timeLeft;
-		listener.propertyChange(null);
-	}
-
-	protected void incTimeLeft(int timeLeft) {
 	}
 
 	public int getTimeLeft() {
@@ -89,12 +70,12 @@ public class TimeAttackModel extends GameModel {
 		}
 	}
 
-	protected void onCorrectChar(){
+	protected void onCorrectChar() {
 		super.onCorrectChar();
 		incScore(1);
 	}
-	
-	protected void onCorrectWord(){
+
+	protected void onCorrectWord() {
 		super.onCorrectWord();
 		if (isFastEnough()) {
 			speedRewardPowerUp = new SpeedRewardPowerUp(this);
@@ -104,15 +85,15 @@ public class TimeAttackModel extends GameModel {
 		setTimeLeft(timeLeft + 1000 * activeWord.length());
 		updateWord();
 	}
-	
-	protected void onIncorrectChar(){
+
+	protected void onIncorrectChar() {
 		super.onIncorrectChar();
 		setCorrectInputReport(false);
 	}
-	
+
 	@Override
 	public boolean isContinuous() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -127,5 +108,11 @@ public class TimeAttackModel extends GameModel {
 
 	@Override
 	public void update() {
+		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
+			setTimeLeft((int) (timeLeft - (System.currentTimeMillis() - lastUpdateMillis)));
+			lastUpdateMillis = System.currentTimeMillis();
+			
+			listener.propertyChange(null);
+		}
 	}
 }

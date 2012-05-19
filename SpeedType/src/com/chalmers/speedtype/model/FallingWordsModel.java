@@ -1,6 +1,6 @@
 package com.chalmers.speedtype.model;
 
-//TODO Resuming a paused game always results in a new word.
+//TODO Resuming a paused game always results in a new word, this may cause two words landing on top of each other.
 
 import java.util.LinkedList;
 

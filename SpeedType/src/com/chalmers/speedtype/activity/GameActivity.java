@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class GameActivity extends SwarmActivity implements SensorEventListener {
@@ -32,7 +33,7 @@ public class GameActivity extends SwarmActivity implements SensorEventListener {
 	private Sensor sensor;
 
 	private TextView statusText;
-	//private RelativeLayout overlayLayout;
+	private RelativeLayout overlayLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,10 +62,10 @@ public class GameActivity extends SwarmActivity implements SensorEventListener {
 		model = GameFactory.createGameMode(this, gameMode);
 		setUpViews();
 		view.setModel(model);
-
 		controller = new Controller(model, new Handler() {
 			@Override
 			public void handleMessage(Message m) {
+				//TODO statusText and overlayLayout returns as null from setUpViews(), thereby these methods give nullpointer. fix pliXxxX
 				//overlayLayout.setVisibility(m.getData().getInt("visibility"));
 				//statusText.setVisibility(m.getData().getInt("visibility"));
 				//statusText.setText(m.getData().getString("text"));
@@ -76,8 +77,8 @@ public class GameActivity extends SwarmActivity implements SensorEventListener {
 	private void setUpViews() {
 		setContentView(model.getLayoutId());
 		view = (GameView) findViewById(model.getViewId());
-		//statusText = (TextView) findViewById(R.id.status_text);
-		//overlayLayout = (RelativeLayout) findViewById(R.id.overlay_layout);
+		statusText = (TextView) findViewById(R.id.status_text);
+		overlayLayout = (RelativeLayout) findViewById(R.layout.overlay_layout);
 	}
 
 	private void setUpListeners() {

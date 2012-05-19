@@ -1,6 +1,4 @@
 package com.chalmers.speedtype.view;
-//TODO Line of death bug
-//TODO Two words can possibly land on top of each other after resume?
 
 import java.util.LinkedList;
 

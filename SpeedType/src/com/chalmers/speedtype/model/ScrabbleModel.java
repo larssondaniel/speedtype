@@ -73,38 +73,38 @@ public class ScrabbleModel extends GameModel {
 		}
 	}
 	
-	protected void onCorrectChar(){
-		super.onCorrectChar();
-	}
-	
-	protected void onCorrectWord(){
-		super.onCorrectWord();
-	}
-	
-	protected void onIncorrectChar(){
-		super.onIncorrectChar();
-	}
-	
 	@Override
 	public void onInput(KeyEvent event) {
 		//TODO Copy paste so far, look it over and adjust.
-		//TODO Implement onCorrectWord(), onCorrectChar() and on IncorrectChar() in this method.
 		correctInput = true;
 		char inputChar = Character.toLowerCase((char) event.getUnicodeChar());
 		if (activeWord.charAt(currentCharPos) == inputChar) {
-			incScore(1);
+			onCorrectChar();
 			if (isWordComplete()) {
-				getNewWord = true;
-				setTimeLeft(timeLeft + 1000*activeWord.length());
-				updateWord();
+				onCorrectWord();
 			} else {
 				incCurrentCharPos();
 			}
 		} else {
-			setCorrectInputReport(false);
+			onIncorrectChar();
 		}
 	}
-
+	protected void onCorrectChar(){
+		super.onCorrectChar();
+		incScore(1);
+	}
+	
+	protected void onCorrectWord(){
+		super.onCorrectWord();
+		getNewWord = true;
+		setTimeLeft(timeLeft + 1000*activeWord.length());
+		updateWord();
+	}
+	
+	protected void onIncorrectChar(){
+		super.onIncorrectChar();
+		setCorrectInputReport(false);
+	}
 	@Override
 	public int getLayoutId() {
 		return LAYOUT_ID;
@@ -117,20 +117,16 @@ public class ScrabbleModel extends GameModel {
 
 	@Override
 	public boolean isContinuous() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isSensorDependent() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 }
