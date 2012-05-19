@@ -11,8 +11,15 @@ public class ScrabbleModel extends GameModel {
 	private static final int VIEW_ID = R.id.scrabble_view;
 		
 	CountDownTimer timer;
-	public int timeLeft = 10000;
+	private int timeLeft = 15000;
+	private long speedRewardTimeStart;
+	private long lastUpdateMillis;
 	
+	private static final int UPDATE_FREQUENCY = 50;
+
+	
+	private PowerUp speedRewardPowerUp;
+
 	private boolean correctInput;
 	private boolean getNewWord = true;
 	private Word activeScrabbledWord;
@@ -24,7 +31,7 @@ public class ScrabbleModel extends GameModel {
 	 */
 	public ScrabbleModel(){
 		super();
-		initTimer();
+//		initTimer();
 		correctInput = false;
 	}
 	
@@ -45,22 +52,22 @@ public class ScrabbleModel extends GameModel {
 	}
 	
 
-	private void initTimer() {
-		Runnable runnable = new Runnable() {
-			public void run() {
-				while (true) {
-					try {
-						Thread.sleep(100);
-						setTimeLeft(timeLeft - 100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-		new Thread(runnable).start();
-	}
-	
+//	private void initTimer() {
+//		Runnable runnable = new Runnable() {
+//			public void run() {
+//				while (true) {
+//					try {
+//						Thread.sleep(100);
+//						setTimeLeft(timeLeft - 100);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			}
+//		};
+//		new Thread(runnable).start();
+//	}
+//	
 	protected void setTimeLeft(int timeLeft) {
 		this.timeLeft = timeLeft;
 		listener.propertyChange(null);
@@ -119,9 +126,19 @@ public class ScrabbleModel extends GameModel {
 	
 	protected void onCorrectWord(){
 		super.onCorrectWord();
+		if (isFastEnough()) {
+			speedRewardPowerUp = new SpeedRewardPowerUp(this);
+			speedRewardPowerUp.usePowerUp();
+		}
+		speedRewardTimeStart = System.currentTimeMillis();
 		getNewWord = true;
-		setTimeLeft(timeLeft + 1000*activeWord.length());
+		setTimeLeft(timeLeft + 1000 * activeWord.length());
 		updateWord();
+	}
+	
+	private boolean isFastEnough() {
+		return System.currentTimeMillis() - speedRewardTimeStart < activeWord
+				.length() * 1000 ? true : false;
 	}
 	
 	protected void onIncorrectChar(){
@@ -168,5 +185,12 @@ public class ScrabbleModel extends GameModel {
 	 */
 	@Override
 	public void update() {
+		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
+			if (lastUpdateMillis != 0){
+			setTimeLeft((int) (timeLeft - (System.currentTimeMillis() - lastUpdateMillis)));	
+			listener.propertyChange(null);
+			}
+			lastUpdateMillis = System.currentTimeMillis();			
+		}
 	}
 }
