@@ -1,11 +1,21 @@
 package com.chalmers.speedtype.activity;
+
 //TODO Get settings to work with sound.
 
 import com.chalmers.speedtype.R;
+import com.chalmers.speedtype.application.SpeedTypeApplication;
+import com.chalmers.speedtype.util.BackgroundSoundService;
+import com.chalmers.speedtype.util.BackgroundSoundService.BackgroundSoundBinder;
+
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,12 +35,21 @@ public class SettingsActivity extends Activity {
 	SharedPreferences preferences;
 	Editor prefsEditor;
 
+	private Intent backgroundSoundServiceIntent;
+	BackgroundSoundService backgroundMusicService;
+	private SpeedTypeApplication app;
+	boolean bound = false;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		preferences = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 		prefsEditor = preferences.edit();
 		setContentView(R.layout.settings_layout);
+		app = (SpeedTypeApplication) getApplication();
+		backgroundSoundServiceIntent = app.getbackgroundSoundServiceIntent();
+		bindService(backgroundSoundServiceIntent, backgroundSoundConnection,
+				Context.BIND_AUTO_CREATE);
 		setUpViews();
 		setUpListeners();
 		usePreferences();
@@ -70,6 +89,8 @@ public class SettingsActivity extends Activity {
 						prefsEditor.putInt(MUSIC_VOLUME,
 								musicVolume.getProgress());
 						prefsEditor.commit();
+						backgroundMusicService.setVolume(musicVolume
+								.getProgress());
 					}
 
 					public void onStartTrackingTouch(SeekBar seekBar) {
@@ -89,5 +110,37 @@ public class SettingsActivity extends Activity {
 		musicVolume.setProgress(preferences.getInt(MUSIC_VOLUME, 70));
 		fxVolume.setProgress(preferences.getInt(FX_VOLUME, 70));
 		saveScores.setChecked(preferences.getBoolean(SAVE_SCORES, true));
+	}
+
+	private ServiceConnection backgroundSoundConnection = new ServiceConnection() {
+
+		@Override
+		public void onServiceConnected(ComponentName className, IBinder service) {
+			BackgroundSoundBinder binder = (BackgroundSoundBinder) service;
+			backgroundMusicService = binder.getService();
+			bound = true;
+			System.out.println("SERVICE CONNECTED");
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName arg0) {
+			bound = false;
+		}
+	};
+
+	public void onPause() {
+		super.onPause();
+		stopService(new Intent(this, BackgroundSoundService.class));
+		if (bound) {
+			unbindService(backgroundSoundConnection);
+			bound = false;
+		}
+	}
+
+	public void onResume() {
+		super.onResume();
+		Intent intent = new Intent(this, BackgroundSoundService.class);
+		startService(intent);
+		bindService(intent, backgroundSoundConnection, Context.BIND_AUTO_CREATE);
 	}
 }

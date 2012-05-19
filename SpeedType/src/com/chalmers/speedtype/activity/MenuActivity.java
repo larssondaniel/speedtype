@@ -1,12 +1,11 @@
 package com.chalmers.speedtype.activity;
+
 //TODO Improve the overall layout
 //TODO make it possible to choose all gamemodes.
 
 import com.chalmers.speedtype.R;
-import com.chalmers.speedtype.util.BackgroundSoundService;
 import com.swarmconnect.Swarm;
 import com.swarmconnect.SwarmActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,8 +27,6 @@ public class MenuActivity extends SwarmActivity {
 		setUpViews();
 		setUpListeners();
 		setUpSwarm();
-
-		startService(new Intent(this, BackgroundSoundService.class));
 	}
 
 	private void setUpViews() {
@@ -47,9 +44,11 @@ public class MenuActivity extends SwarmActivity {
 	private void setUpListeners() {
 		newGameButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+
 //				startGame("Scrabble");
 				startGame("TimeAttack");
 //				startGame("FallingWords");
+
 			}
 		});
 		leaderboards.setOnClickListener(new View.OnClickListener() {
@@ -88,11 +87,11 @@ public class MenuActivity extends SwarmActivity {
 
 	public void onPause() {
 		super.onPause();
-		stopService(new Intent(this, BackgroundSoundService.class));
+		// stopService(backgroundSoundServiceIntent);
 	}
 
 	public void onResume() {
 		super.onResume();
-		startService(new Intent(this, BackgroundSoundService.class));
+		// startService(backgroundSoundServiceIntent);
 	}
 }
