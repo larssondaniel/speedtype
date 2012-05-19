@@ -24,16 +24,16 @@ public class MenuActivity extends SwarmActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu_layout);
-		
+
 		setUpViews();
 		setUpListeners();
 		setUpSwarm();
-		
+
 		startService(new Intent(this, BackgroundSoundService.class));
 	}
 
 	private void setUpViews() {
-		newGameButton = (Button) findViewById(R.id.new_game_button);
+		newGameButton = (Button) findViewById(R.id.playButtonSelector);
 		leaderboards = (Button) findViewById(R.id.leaderboards);
 		achievements = (Button) findViewById(R.id.achievements);
 		settingsButton = (Button) findViewById(R.id.settings_button);
@@ -50,8 +50,6 @@ public class MenuActivity extends SwarmActivity {
 //				startGame("Scrabble");
 //				startGame("TimeAttack");
 				startGame("FallingWords");
-
-
 			}
 		});
 		leaderboards.setOnClickListener(new View.OnClickListener() {
@@ -80,11 +78,11 @@ public class MenuActivity extends SwarmActivity {
 
 	private void startGame(String gameMode) {
 		Intent intent = new Intent(this, GameActivity.class);
-		
+
 		Bundle bundle = new Bundle();
 		bundle.putString("gameMode", gameMode);
 		intent.putExtras(bundle);
-		
+
 		startActivity(intent);
 	}
 
