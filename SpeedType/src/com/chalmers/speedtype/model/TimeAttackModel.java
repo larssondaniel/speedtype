@@ -115,5 +115,8 @@ public class TimeAttackModel extends GameModel {
 			}
 			lastUpdateMillis = System.currentTimeMillis();			
 		}
+		
+		if(timeLeft < 0)
+			isGameOver = true;
 	}
 }

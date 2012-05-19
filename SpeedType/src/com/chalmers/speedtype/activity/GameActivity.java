@@ -17,18 +17,21 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
+import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class GameActivity extends SwarmActivity implements SensorEventListener {
+public class GameActivity extends SwarmActivity {
 
 	private GameModel model;
 	private GameView view;
 	private Controller controller;
 
+	private SensorEventListener sensorEventListener;
 	private SensorManager sensorManager;
 	private Sensor sensor;
 
@@ -83,8 +86,7 @@ public class GameActivity extends SwarmActivity implements SensorEventListener {
 
 	private void setUpListeners() {
 		// Set keyListener
-		view.setOnKeyListener(new OnKeyListener() {
-			
+		view.setOnKeyListener(new OnKeyListener() {	
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (event.getAction() != KeyEvent.ACTION_UP)
 					return true;
@@ -92,12 +94,29 @@ public class GameActivity extends SwarmActivity implements SensorEventListener {
 			}
 		});
 		
+		// Set TouchListener
+		view.setOnTouchListener(new OnTouchListener(){
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				return controller.onTouch(event);
+			}			
+		});
+		
 		// Set sensor listener if needed
+		sensorEventListener = new SensorEventListener() {
+			public void onAccuracyChanged(Sensor sensor, int accuracy) {
+				// not used
+			}
+			public void onSensorChanged(SensorEvent event) {
+				controller.onSensorChanged(event);
+			}
+		};
+		
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
+		
 		if (model.isSensorDependent())
-			sensorManager.registerListener(this, sensor,
+			sensorManager.registerListener(sensorEventListener, sensor,
 					SensorManager.SENSOR_DELAY_FASTEST);
 	}
 
@@ -110,22 +129,14 @@ public class GameActivity extends SwarmActivity implements SensorEventListener {
 	protected void onResume() {
 		super.onResume();
 		if(model.isSensorDependent())
-			sensorManager.registerListener(this, sensor,
+			sensorManager.registerListener(sensorEventListener, sensor,
 					SensorManager.SENSOR_DELAY_FASTEST);
 	}
 
 	protected void onPause() {
 		super.onPause();
 		if(model.isSensorDependent())
-			sensorManager.unregisterListener(this);
+			sensorManager.unregisterListener(sensorEventListener);
 		controller.pause();
-	}
-
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-		// send to controller
-	}
-
-	public void onSensorChanged(SensorEvent event) {
-		controller.onSensorChanged(event);
 	}
 }

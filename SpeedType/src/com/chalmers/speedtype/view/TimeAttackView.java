@@ -165,5 +165,7 @@ public class TimeAttackView extends GameView {
 		
 		timeLeftCriticalPaint = new Paint(timeLeftPlainPaint);
 		timeLeftCriticalPaint.setColor(Color.RED);
+		
+		timeLeftPaint = timeLeftPlainPaint;
 	}
 }

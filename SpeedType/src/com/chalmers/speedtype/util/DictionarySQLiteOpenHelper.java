@@ -32,8 +32,7 @@ public class DictionarySQLiteOpenHelper extends SQLiteOpenHelper {
 	}
 	
 	private void fillTable(SQLiteDatabase db) {
-		
-		
+			
 	}
 
 	private void createTables(SQLiteDatabase db) {

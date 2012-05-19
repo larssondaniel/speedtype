@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.chalmers.speedtype.model.GameModel;
@@ -103,5 +104,13 @@ public class Controller extends Thread {
 	public void onSensorChanged(SensorEvent event) {
 		if(gameState == STATE_RUNNING)
 			model.onSensorChanged(event);
+	}
+
+	public boolean onTouch(MotionEvent event) {
+		if(gameState == STATE_READY || gameState == STATE_PAUSED) {
+			setState(STATE_RUNNING);
+			return true;
+		}
+		return false;
 	}
 }
