@@ -10,10 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <RelativeLayout
+     <include
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <!-- Elements here will be drawn on top of the game view -->
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        layout="@layout/overlay_layout" />
+     
 </FrameLayout>
