@@ -59,10 +59,6 @@ public class MenuActivity extends SwarmActivity {
 			public void onClick(View v) {
 				mainMenu.setVisibility(View.INVISIBLE);
 				gameModesMenu.setVisibility(View.VISIBLE);
-
-//				startGame("Scrabble");
-//				startGame("TimeAttack");
-				startGame("FallingWords");
 			}
 		});
 		leaderboards.setOnClickListener(new View.OnClickListener() {
