@@ -1,54 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/background"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
-    <Button
-        android:id="@+id/playButtonSelector"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="150dp"
-        android:background="@drawable/play_button_normal"
-        android:text="Play"
-        android:textSize="25sp" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/background"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/leaderboards"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/play_button_normal"
-        android:text="Highscore"
-        android:textSize="25sp" />
+        <Button
+            android:id="@+id/play_button"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/play_button_normal"
+            android:text="@string/new_game"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/achievements"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/play_button_normal"
-        android:text="Achievements"
-        android:textSize="25sp" />
+        <Button
+            android:id="@+id/leaderboard_button"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/play_button_normal"
+            android:text="@string/highscore"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/settings_button"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/play_button_normal"
-        android:text="Settings"
-        android:textSize="25sp" />
+        <Button
+            android:id="@+id/achievements_button"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/play_button_normal"
+            android:text="@string/achievements"
+            android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/exit_button"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/play_button_normal"
-        android:text="Exit"
-        android:textSize="25sp" />
+        <Button
+            android:id="@+id/settings_button"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/play_button_normal"
+            android:text="@string/settings"
+            android:textSize="25sp" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/exit_button"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/play_button_normal"
+            android:text="@string/exit"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/game_modes_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/background"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/time_attack_button"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/play_button_normal"
+            android:text="@string/time_attack"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/falling_words_button"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/play_button_normal"
+            android:text="@string/falling_words"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/balance_button"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/play_button_normal"
+            android:text="@string/balance"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/scrabble_button"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/play_button_normal"
+            android:text="@string/scrabble"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+</FrameLayout>

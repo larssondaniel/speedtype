@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class MenuActivity extends SwarmActivity {
 
@@ -18,6 +19,12 @@ public class MenuActivity extends SwarmActivity {
 	private Button leaderboards;
 	private Button achievements;
 	private Button settingsButton;
+	private LinearLayout mainMenu;
+	private LinearLayout gameModesMenu;
+	private Button timeAttackButton;
+	private Button fallingWordsButton;
+	private Button balanceButton;
+	private Button scrabbleButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,11 +37,17 @@ public class MenuActivity extends SwarmActivity {
 	}
 
 	private void setUpViews() {
-		newGameButton = (Button) findViewById(R.id.playButtonSelector);
-		leaderboards = (Button) findViewById(R.id.leaderboards);
-		achievements = (Button) findViewById(R.id.achievements);
+		newGameButton = (Button) findViewById(R.id.play_button);
+		leaderboards = (Button) findViewById(R.id.leaderboard_button);
+		achievements = (Button) findViewById(R.id.achievements_button);
 		settingsButton = (Button) findViewById(R.id.settings_button);
 		exitButton = (Button) findViewById(R.id.exit_button);
+		mainMenu = (LinearLayout) findViewById(R.id.main_menu);
+		gameModesMenu = (LinearLayout) findViewById(R.id.game_modes_menu);
+		timeAttackButton = (Button) findViewById(R.id.time_attack_button);
+		fallingWordsButton = (Button) findViewById(R.id.falling_words_button);
+		balanceButton = (Button) findViewById(R.id.balance_button);
+		scrabbleButton = (Button) findViewById(R.id.scrabble_button);
 	}
 
 	private void setUpSwarm() {
@@ -44,11 +57,8 @@ public class MenuActivity extends SwarmActivity {
 	private void setUpListeners() {
 		newGameButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-
-//				startGame("Scrabble");
-				startGame("TimeAttack");
-//				startGame("FallingWords");
-
+				mainMenu.setVisibility(View.INVISIBLE);
+				gameModesMenu.setVisibility(View.VISIBLE);
 			}
 		});
 		leaderboards.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +81,26 @@ public class MenuActivity extends SwarmActivity {
 		exitButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				System.exit(0);
+			}
+		});
+		timeAttackButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				startGame("TimeAttack");
+			}
+		});
+		fallingWordsButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				startGame("FallingWords");
+			}
+		});
+		balanceButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				startGame("Balance");
+			}
+		});
+		scrabbleButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				startGame("Scrabble");
 			}
 		});
 	}
