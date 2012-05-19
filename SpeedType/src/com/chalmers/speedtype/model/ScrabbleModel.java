@@ -17,13 +17,23 @@ public class ScrabbleModel extends GameModel {
 	private boolean getNewWord = true;
 	private Word activeScrabbledWord;
 	
+	
+	/**
+	 * Creates a new scrabbleModel. 
+	 * Also starts the timer associated with the Model.
+	 */
 	public ScrabbleModel(){
 		super();
 		initTimer();
 		correctInput = false;
 	}
 	
-
+	/**
+	 * Makes the current ActiveWord into a new scrabbled (aka randomized) word.
+	 * Saves the scrabbled Word into activeScrabbledWord, if called after the user
+	 * entered a correct word it fetches the next one. Otherwise it returns the saved value.
+	 * @return Word
+	 */
 	public Word getActiveScrabbledWord(){
 		if(getNewWord == true){
 			activeScrabbledWord = Dictionary.scrabble(this.getActiveWord());
@@ -34,6 +44,7 @@ public class ScrabbleModel extends GameModel {
 		}
 	}
 	
+
 	private void initTimer() {
 		Runnable runnable = new Runnable() {
 			public void run() {
@@ -55,6 +66,10 @@ public class ScrabbleModel extends GameModel {
 		listener.propertyChange(null);
 	}
 	
+	/**
+	 * Returns the current timeLeft. 
+	 * @return int
+	 */
 	public int getTimeLeft(){
 		return timeLeft;
 	}
@@ -63,6 +78,11 @@ public class ScrabbleModel extends GameModel {
 		correctInput = b;
 	}
 	
+	/**
+	 * If correctInput is true it also returns true. 
+	 * If false, the function sets the inputReport to true and returns false.
+	 * @return boolean
+	 */
 	public boolean correctInputReport(){
 		if(correctInput){
 			return true;
@@ -70,11 +90,15 @@ public class ScrabbleModel extends GameModel {
 			setCorrectInputReport(true);
 			return false;
 		}
-	}
-	
+	}	
+
+	/**
+	 * Handles input from the user. 
+	 * If correct character is written the score and timeLeft will increase,
+	 * as well as the currentCharPos.
+	 */
 	@Override
 	public void onInput(KeyEvent event) {
-		//TODO Copy paste so far, look it over and adjust.
 		correctInput = true;
 		char inputChar = Character.toLowerCase((char) event.getUnicodeChar());
 		if (activeWord.charAt(currentCharPos) == inputChar) {
@@ -104,27 +128,44 @@ public class ScrabbleModel extends GameModel {
 		super.onIncorrectChar();
 		setCorrectInputReport(false);
 	}
+	
+	/**
+	 * Returns the Layout_ID for this model.
+	 * @return int
+	 */
 	@Override
 	public int getLayoutId() {
 		return LAYOUT_ID;
 	}
-
+	
+	/**
+	 * Returns the View_ID for this model.
+	 * @return int
+	 */
 	@Override
 	public int getViewId() {
 		return VIEW_ID;
 	}
-
+	
+	/**
+	 * TODO Write javadoc.
+	 */
 	@Override
 	public boolean isContinuous() {
 		return false;
 	}
 
+	/**
+	 * TODO Write javadoc.
+	 */
 	@Override
 	public boolean isSensorDependent() {
 		return false;
 	}
 
-
+	/**
+	 * TODO Write javadoc.
+	 */
 	@Override
 	public void update() {
 	}
