@@ -6,7 +6,6 @@ import android.view.KeyEvent;
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Dictionary;
 
-
 public class ScrabbleModel extends GameModel {
 	private static final int LAYOUT_ID = R.layout.scrabble_layout; 
 	private static final int VIEW_ID = R.id.scrabble_view;
