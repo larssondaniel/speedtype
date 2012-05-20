@@ -12,12 +12,11 @@ import android.os.Binder;
 import android.os.IBinder;
 
 public class BackgroundSoundService extends Service {
-	
+
 	private final String MUSIC_VOLUME = "musicVolume";
 	private final String FX_VOLUME = "fxVolume";
 
 	SharedPreferences preferences;
-	private static final String BackgroundSoundService = null;
 	MediaPlayer player;
 	private final IBinder binder = new BackgroundSoundBinder();
 
@@ -37,7 +36,8 @@ public class BackgroundSoundService extends Service {
 		preferences = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 		player = MediaPlayer.create(this, R.raw.menu_music);
 		player.setLooping(true); // Set looping
-		player.setVolume(preferences.getInt(MUSIC_VOLUME, 70), preferences.getInt(MUSIC_VOLUME, 70));
+		player.setVolume(preferences.getInt(MUSIC_VOLUME, 70),
+				preferences.getInt(MUSIC_VOLUME, 70));
 
 	}
 

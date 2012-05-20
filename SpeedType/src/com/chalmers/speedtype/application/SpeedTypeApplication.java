@@ -1,8 +1,5 @@
 package com.chalmers.speedtype.application;
 
-import java.io.InputStream;
-
-import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.BackgroundSoundService;
 import com.chalmers.speedtype.util.Dictionary;
 import com.chalmers.speedtype.util.DictionarySQLiteOpenHelper;
@@ -21,16 +18,19 @@ public class SpeedTypeApplication extends Application {
 		super.onCreate();
 
 		DictionarySQLiteOpenHelper helper = new DictionarySQLiteOpenHelper(this);
-        database = helper.getWritableDatabase();
-        Dictionary.init(database);
+		database = helper.getWritableDatabase();
+		Dictionary.init(database);
 
-		backgroundSoundServiceIntent = new Intent(this, BackgroundSoundService.class);
-		startService(backgroundSoundServiceIntent);
+		backgroundSoundServiceIntent = new Intent(this,
+				BackgroundSoundService.class);
+		//startService(backgroundSoundServiceIntent);
 	}
 
 	@Override
 	public void onTerminate() {
 		database.close();
+		// stopService(new Intent(this, BackgroundSoundService.class));
+		// stopService(backgroundSoundServiceIntent);
 		super.onTerminate();
 	}
 

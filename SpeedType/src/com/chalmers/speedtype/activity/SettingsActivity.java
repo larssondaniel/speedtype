@@ -89,8 +89,11 @@ public class SettingsActivity extends Activity {
 						prefsEditor.putInt(MUSIC_VOLUME,
 								musicVolume.getProgress());
 						prefsEditor.commit();
-						backgroundMusicService.setVolume(musicVolume
-								.getProgress());
+						System.out.println("SeekbarChanged");
+						if (backgroundMusicService != null) {
+							backgroundMusicService.setVolume(musicVolume
+									.getProgress());
+						}
 					}
 
 					public void onStartTrackingTouch(SeekBar seekBar) {
@@ -123,14 +126,14 @@ public class SettingsActivity extends Activity {
 		}
 
 		@Override
-		public void onServiceDisconnected(ComponentName arg0) {
+		public void onServiceDisconnected(ComponentName name) {
 			bound = false;
 		}
 	};
 
 	public void onPause() {
 		super.onPause();
-		stopService(new Intent(this, BackgroundSoundService.class));
+		// stopService(new Intent(this, BackgroundSoundService.class));
 		if (bound) {
 			unbindService(backgroundSoundConnection);
 			bound = false;
@@ -139,8 +142,7 @@ public class SettingsActivity extends Activity {
 
 	public void onResume() {
 		super.onResume();
-		Intent intent = new Intent(this, BackgroundSoundService.class);
-		startService(intent);
-		bindService(intent, backgroundSoundConnection, Context.BIND_AUTO_CREATE);
+		// bindService(intent, backgroundSoundConnection,
+		// Context.BIND_AUTO_CREATE);
 	}
 }

@@ -1,6 +1,7 @@
 package com.chalmers.speedtype.activity;
 
 import com.chalmers.speedtype.R;
+import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.controller.Controller;
 import com.chalmers.speedtype.model.GameModel;
 import com.chalmers.speedtype.util.GameFactory;
@@ -37,6 +38,8 @@ public class GameActivity extends SwarmActivity {
 
 	private TextView statusText;
 	private RelativeLayout overlayLayout;
+	
+	private SpeedTypeApplication app;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,8 @@ public class GameActivity extends SwarmActivity {
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 		String gameMode = getIntent().getExtras().getString("gameMode");
-		
+		app = (SpeedTypeApplication) getApplication();
+		startService(app.getbackgroundSoundServiceIntent());
 		setUpUtil();
 		initGameMode(gameMode);
 		setUpListeners();
@@ -129,6 +133,7 @@ public class GameActivity extends SwarmActivity {
 		if(model.isSensorDependent())
 			sensorManager.registerListener(sensorEventListener, sensor,
 					SensorManager.SENSOR_DELAY_FASTEST);
+		
 	}
 
 	protected void onPause() {
@@ -136,5 +141,6 @@ public class GameActivity extends SwarmActivity {
 		if(model.isSensorDependent())
 			sensorManager.unregisterListener(sensorEventListener);
 		controller.pause();
+		stopService(app.getbackgroundSoundServiceIntent());
 	}
 }
