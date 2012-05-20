@@ -32,7 +32,6 @@ public class ScrabbleModel extends GameModel {
 	 */
 	public ScrabbleModel(){
 		super();
-		initTimer();
 		correctInput = false;
 	}
 	
@@ -51,27 +50,9 @@ public class ScrabbleModel extends GameModel {
 			return activeScrabbledWord;
 		}
 	}
-	
-
-	private void initTimer() {
-		Runnable runnable = new Runnable() {
-			public void run() {
-				while (true) {
-					try {
-						Thread.sleep(100);
-						setTimeLeft(timeLeft - 100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-		new Thread(runnable).start();
-	}
-	
+		
 	protected void setTimeLeft(int timeLeft) {
 		this.timeLeft = timeLeft;
-		listener.propertyChange(null);
 	}
 	
 	/**
@@ -170,7 +151,7 @@ public class ScrabbleModel extends GameModel {
 	 */
 	@Override
 	public boolean isContinuous() {
-		return false;
+		return true;
 	}
 
 	/**
@@ -192,6 +173,9 @@ public class ScrabbleModel extends GameModel {
 			listener.propertyChange(null);
 			}
 			lastUpdateMillis = System.currentTimeMillis();			
+		}
+		if( timeLeft < 0){
+			isGameOver = true;
 		}
 	}
 

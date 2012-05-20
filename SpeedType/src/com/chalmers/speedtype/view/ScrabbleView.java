@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 
@@ -16,6 +17,9 @@ public class ScrabbleView extends GameView {
 	private ScrabbleModel model;
 	private int count;
 	private Paint timeLeftPaint;
+	private Paint timeLeftPlainPaint;
+	private Paint timeLeftCriticalPaint;
+
 	private Paint blackPaint;
 	private Word activeScrabbledWord;
 	private Word activeWord;
@@ -62,34 +66,30 @@ public class ScrabbleView extends GameView {
 		drawActiveChar(canvas, activeWord, currentCharPos);
 	}
 	
-	private void drawTimeLeft(Canvas canvas){
-		whitePaint.setTextSize(100);
-		whitePaint.setTypeface(mensch);
-		redPaint.setTextSize(100);
-		redPaint.setTypeface(mensch);
-		
+	private void drawTimeLeft(Canvas canvas){		
 		int timeLeft = model.getTimeLeft();
 		String timeLeftString;
 		
 		if (timeLeft < 10000){
+			timeLeft = timeLeft / 100 * 100;
 			double timeLeftLow = ((double) timeLeft)/1000;
 			timeLeftString = timeLeftLow + "";
 			count++;
 			if (count == 3){
 				count = 0;
-				if (timeLeftPaint == whitePaint){
-					timeLeftPaint = redPaint;
+				if (timeLeftPaint == timeLeftPlainPaint){
+					timeLeftPaint = timeLeftCriticalPaint;
 				} else {
-					timeLeftPaint = whitePaint;
+					timeLeftPaint = timeLeftPlainPaint;
 				}
 			}
 		} else {
-			timeLeftPaint = whitePaint;
+			timeLeftPaint = timeLeftPlainPaint;
 			timeLeft = timeLeft / 1000;
 			timeLeftString = timeLeft + "";
 		}
-		float x = displayWidth / 2 - whitePaint.measureText(timeLeftString) / 2;
-		float y = whitePaint.getTextSize() + getDisplayHeightFromPercentage(5);
+		float x = displayWidth / 2 - timeLeftPaint.measureText(timeLeftString) / 2;
+		float y = timeLeftPaint.getTextSize() + getDisplayHeightFromPercentage(5);
 
 		canvas.drawText(timeLeftString, x, y, timeLeftPaint);
 	}
@@ -157,5 +157,14 @@ public class ScrabbleView extends GameView {
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		timeLeftPaint = whitePaint;
+		
+		timeLeftPlainPaint = new Paint(whitePaint);
+		timeLeftPlainPaint.setTextSize(70);
+		timeLeftPlainPaint.setTypeface(Typeface.MONOSPACE);
+		
+		timeLeftCriticalPaint = new Paint(timeLeftPlainPaint);
+		timeLeftCriticalPaint.setColor(Color.RED);
+		
+		timeLeftPaint = timeLeftPlainPaint;
 	}
 }
