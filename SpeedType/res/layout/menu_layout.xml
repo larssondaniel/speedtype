@@ -17,7 +17,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="150dp"
-            android:background="@drawable/play_button_normal"
+            android:background="@drawable/menu_button"
             android:text="@string/new_game"
             android:textSize="25sp" />
 
@@ -26,7 +26,7 @@
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/play_button_normal"
+            android:background="@drawable/menu_button"
             android:text="@string/highscore"
             android:textSize="25sp" />
 
@@ -35,7 +35,7 @@
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/play_button_normal"
+            android:background="@drawable/menu_button"
             android:text="@string/achievements"
             android:textSize="25sp" />
 
@@ -44,7 +44,7 @@
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/play_button_normal"
+            android:background="@drawable/menu_button"
             android:text="@string/settings"
             android:textSize="25sp" />
 
@@ -53,7 +53,7 @@
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/play_button_normal"
+            android:background="@drawable/menu_button"
             android:text="@string/exit"
             android:textSize="25sp" />
     </LinearLayout>
@@ -73,7 +73,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="150dp"
-            android:background="@drawable/play_button_normal"
+            android:background="@drawable/menu_button"
             android:text="@string/time_attack"
             android:textSize="25sp" />
 
@@ -82,7 +82,7 @@
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/play_button_normal"
+            android:background="@drawable/menu_button"
             android:text="@string/falling_words"
             android:textSize="25sp" />
 
@@ -91,7 +91,7 @@
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/play_button_normal"
+            android:background="@drawable/menu_button"
             android:text="@string/balance"
             android:textSize="25sp" />
 
@@ -100,7 +100,7 @@
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/play_button_normal"
+            android:background="@drawable/menu_button"
             android:text="@string/scrabble"
             android:textSize="25sp" />
     </LinearLayout>

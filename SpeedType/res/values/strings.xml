@@ -3,7 +3,6 @@
 
     <string name="app_name">SpeedType</string>
     <string name="new_game">New Game</string>
-    <string name="back">Back</string>
     <string name="word">Sample word</string>
     <string name="exit">Exit</string>
     <string name="desc_x2">Shows when times 2 multiplier is active</string>
@@ -14,5 +13,9 @@
     <string name="falling_words">Falling words</string>
     <string name="balance">Balance</string>
     <string name="scrabble">Scrabble</string>
+    <string name="music_volume">Music volume</string>
+    <string name="fx_volume">FX volume</string>
+    <string name="register_scores">Always register scores</string>
+    <string name="back">Back</string>
 
 </resources>

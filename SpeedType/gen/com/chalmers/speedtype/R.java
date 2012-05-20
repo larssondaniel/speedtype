@@ -26,9 +26,9 @@ public final class R {
         public static final int gradient_background_blue=0x7f020002;
         public static final int gradient_background_red=0x7f020003;
         public static final int ic_launcher=0x7f020004;
-        public static final int menu_button_pressed=0x7f020005;
-        public static final int play_button=0x7f020006;
-        public static final int play_button_normal=0x7f020007;
+        public static final int menu_button=0x7f020005;
+        public static final int menu_button_normal=0x7f020006;
+        public static final int menu_button_pressed=0x7f020007;
         public static final int swarm_add_friend=0x7f020008;
         public static final int swarm_background=0x7f020009;
         public static final int swarm_bubble_arrow=0x7f02000a;
@@ -242,18 +242,21 @@ public final class R {
         public static final int words=0x7f050001;
     }
     public static final class string {
-        public static final int achievements=0x7f060007;
+        public static final int achievements=0x7f060006;
         public static final int app_name=0x7f060000;
-        public static final int back=0x7f060002;
-        public static final int balance=0x7f06000b;
-        public static final int desc_x2=0x7f060005;
-        public static final int exit=0x7f060004;
-        public static final int falling_words=0x7f06000a;
-        public static final int highscore=0x7f060006;
+        public static final int back=0x7f06000f;
+        public static final int balance=0x7f06000a;
+        public static final int desc_x2=0x7f060004;
+        public static final int exit=0x7f060003;
+        public static final int falling_words=0x7f060009;
+        public static final int fx_volume=0x7f06000d;
+        public static final int highscore=0x7f060005;
+        public static final int music_volume=0x7f06000c;
         public static final int new_game=0x7f060001;
-        public static final int scrabble=0x7f06000c;
-        public static final int settings=0x7f060008;
-        public static final int time_attack=0x7f060009;
-        public static final int word=0x7f060003;
+        public static final int register_scores=0x7f06000e;
+        public static final int scrabble=0x7f06000b;
+        public static final int settings=0x7f060007;
+        public static final int time_attack=0x7f060008;
+        public static final int word=0x7f060002;
     }
 }
