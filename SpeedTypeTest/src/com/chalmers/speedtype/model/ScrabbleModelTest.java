@@ -12,7 +12,6 @@ public class ScrabbleModelTest extends AndroidTestCase {
 	
 	private ScrabbleModel model;
 	private Context context;
-	private Context appContext;
 	private DictionarySQLiteOpenHelper dictionary;
 	private SQLiteDatabase database;
 	
@@ -20,11 +19,8 @@ public class ScrabbleModelTest extends AndroidTestCase {
 		super.setUp();
 		model = new ScrabbleModel();
 		context = this.getContext(); 
-		while (appContext == null){ 
-			appContext = context.getApplicationContext();
-		}
-		System.out.println(appContext);
-		dictionary = new DictionarySQLiteOpenHelper(appContext);
+		
+		dictionary = new DictionarySQLiteOpenHelper(context);
 		database = dictionary.getReadableDatabase();
 		
 		Dictionary.init(database);
