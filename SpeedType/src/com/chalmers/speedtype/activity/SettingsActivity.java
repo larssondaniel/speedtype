@@ -24,11 +24,9 @@ import android.widget.SeekBar;
 public class SettingsActivity extends Activity {
 
 	private final String MUSIC_VOLUME = "musicVolume";
-	private final String FX_VOLUME = "fxVolume";
 	private final String SAVE_SCORES = "saveScores";
 
 	private SeekBar musicVolume;
-	private SeekBar fxVolume;
 	private CheckBox saveScores;
 	private Button backButton;
 
@@ -57,9 +55,8 @@ public class SettingsActivity extends Activity {
 
 	private void setUpViews() {
 		musicVolume = (SeekBar) findViewById(R.id.seekBar1);
-		fxVolume = (SeekBar) findViewById(R.id.seekBar2);
 		saveScores = (CheckBox) findViewById(R.id.checkBox1);
-		backButton = (Button) findViewById(R.id.button1);
+		backButton = (Button) findViewById(R.id.done_button);
 	}
 
 	private void setUpListeners() {
@@ -67,19 +64,6 @@ public class SettingsActivity extends Activity {
 			public void onClick(View v) {
 				prefsEditor.putBoolean(SAVE_SCORES, saveScores.isChecked());
 				prefsEditor.commit();
-			}
-		});
-		fxVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-			public void onProgressChanged(SeekBar seekBar, int progress,
-					boolean fromUser) {
-				prefsEditor.putInt(FX_VOLUME, fxVolume.getProgress());
-				prefsEditor.commit();
-			}
-
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-
-			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
 		});
 		musicVolume
@@ -111,7 +95,6 @@ public class SettingsActivity extends Activity {
 
 	public void usePreferences() {
 		musicVolume.setProgress(preferences.getInt(MUSIC_VOLUME, 70));
-		fxVolume.setProgress(preferences.getInt(FX_VOLUME, 70));
 		saveScores.setChecked(preferences.getBoolean(SAVE_SCORES, true));
 	}
 

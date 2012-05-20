@@ -28,11 +28,12 @@ public class Ball {
 	public float getPosY() {
 		return yPos;
 	}
-	
+
 	public void update(float sx, long now) {
 		updatePositions(sx, now);
 		resolveCollisionWithBounds();
 	}
+
 	public void setVerticalBound(float verticalBound) {
 		this.verticalBound = verticalBound;
 	}

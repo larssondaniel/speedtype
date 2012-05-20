@@ -25,6 +25,7 @@ public class MenuActivity extends SwarmActivity {
 	private Button fallingWordsButton;
 	private Button balanceButton;
 	private Button scrabbleButton;
+	private Button backButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class MenuActivity extends SwarmActivity {
 		fallingWordsButton = (Button) findViewById(R.id.falling_words_button);
 		balanceButton = (Button) findViewById(R.id.balance_button);
 		scrabbleButton = (Button) findViewById(R.id.scrabble_button);
+		backButton = (Button) findViewById(R.id.back_button);
 	}
 
 	private void setUpSwarm() {
@@ -101,6 +103,12 @@ public class MenuActivity extends SwarmActivity {
 		scrabbleButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				startGame("Scrabble");
+			}
+		});
+		backButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				mainMenu.setVisibility(View.VISIBLE);
+				gameModesMenu.setVisibility(View.INVISIBLE);
 			}
 		});
 	}

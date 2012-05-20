@@ -79,7 +79,7 @@ public class BalanceView extends GameView {
 		System.out.println(sx + " " + now);
 
 		model.updateParticle(sx, now);
-
+		
 		final float xc = xOrigin;
 		final float yc = yOrigin;
 		final float xs = Util.getMetersToPixelsX();

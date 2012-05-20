@@ -5,9 +5,11 @@ package com.chalmers.speedtype.util;
 import com.chalmers.speedtype.R;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Binder;
 import android.os.IBinder;
 
@@ -38,7 +40,6 @@ public class BackgroundSoundService extends Service {
 		player.setLooping(true); // Set looping
 		player.setVolume(preferences.getInt(MUSIC_VOLUME, 70),
 				preferences.getInt(MUSIC_VOLUME, 70));
-
 	}
 
 	public int onStartCommand(Intent intent, int flags, int startId) {

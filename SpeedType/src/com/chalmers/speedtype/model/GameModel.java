@@ -1,14 +1,18 @@
 package com.chalmers.speedtype.model;
 
 import java.beans.PropertyChangeListener;
+import java.util.HashMap;
 import java.util.Map;
 
+import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Dictionary;
 import com.swarmconnect.SwarmAchievement;
 import com.swarmconnect.SwarmAchievement.GotAchievementsMapCB;
 
 import android.view.KeyEvent;
 import android.hardware.SensorEvent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 
 public abstract class GameModel {
 
@@ -20,10 +24,10 @@ public abstract class GameModel {
 	protected int score = 0;
 	protected int multiplier = 1;
 
-protected int correctCharsInRow;
-protected int correctWordsInRow;
+	protected int correctCharsInRow;
+	protected int correctWordsInRow;
 
-protected Map<Integer, SwarmAchievement> achievements;
+	protected Map<Integer, SwarmAchievement> achievements;
 
 	protected int displayWidth;
 	protected int displayHeight;
@@ -46,6 +50,7 @@ protected Map<Integer, SwarmAchievement> achievements;
 
 	public void addChangeListener(PropertyChangeListener newListener) {
 		listener = newListener;
+		System.out.println(listener);
 	}
 
 	public Word getActiveWord() {
@@ -64,30 +69,31 @@ protected Map<Integer, SwarmAchievement> achievements;
 		return currentCharPos;
 	}
 
-	protected void incCorrectCharsInRow(){
+	protected void incCorrectCharsInRow() {
 		correctCharsInRow++;
 	}
-	protected void resetCorrectCharsInRow(){
+
+	protected void resetCorrectCharsInRow() {
 		correctCharsInRow = 0;
 	}
-	
-	protected void incCorrectWordsInRow(){
+
+	protected void incCorrectWordsInRow() {
 		correctWordsInRow++;
 	}
-	
-	protected void resetCorrectWordsInRow(){
+
+	protected void resetCorrectWordsInRow() {
 		correctWordsInRow = 0;
 	}
-	
-	protected void onCorrectChar(){
+
+	protected void onCorrectChar() {
 		incCorrectCharsInRow();
 	}
-	
-	protected void onCorrectWord(){
+
+	protected void onCorrectWord() {
 		incCorrectWordsInRow();
 	}
-	
-	protected void onIncorrectChar(){
+
+	protected void onIncorrectChar() {
 		resetCorrectCharsInRow();
 		resetCorrectWordsInRow();
 	}
@@ -110,7 +116,7 @@ protected Map<Integer, SwarmAchievement> achievements;
 		checkAchievementsPrerequisites();
 	}
 
-	protected void checkAchievementsPrerequisites(){
+	protected void checkAchievementsPrerequisites() {
 		if (score > 1000) {
 			giveAchievement(1340);
 			if (score > 5000) {
@@ -121,7 +127,7 @@ protected Map<Integer, SwarmAchievement> achievements;
 			}
 		}
 	}
-	
+
 	protected boolean isWordComplete() {
 		return currentCharPos == activeWord.length() - 1;
 	}
@@ -138,7 +144,6 @@ protected Map<Integer, SwarmAchievement> achievements;
 	}
 
 	public abstract void update();
-
 
 	public abstract void onInput(KeyEvent event);
 
@@ -162,7 +167,6 @@ protected Map<Integer, SwarmAchievement> achievements;
 	public void activatePowerUp(PowerUp powerUp) {
 		powerUp.usePowerUp();
 	}
-	
-	public abstract String getManual();
 
+	public abstract String getManual();
 }

@@ -30,9 +30,11 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	public GameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
+
 	public GameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
+
 	public GameView(Context context) {
 		super(context);
 	}
@@ -40,31 +42,31 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	private void initView() {
 		mensch = Typeface.createFromAsset(getResources().getAssets(),
 				"fonts/mensch.ttf");
-		
+
 		whitePaint = new Paint();
 		whitePaint.setColor(Color.WHITE);
 		whitePaint.setAntiAlias(true);
 		whitePaint.setStyle(Style.FILL);
-		
+
 		grayPaint = new Paint();
 		grayPaint.setColor(Color.GRAY);
 		grayPaint.setAntiAlias(true);
 		grayPaint.setStyle(Style.FILL);
-		
+
 		greenPaint = new Paint();
 		greenPaint.setColor(Color.GREEN);
 		greenPaint.setAntiAlias(true);
 		greenPaint.setStyle(Style.FILL);
-		
+
 		redPaint = new Paint();
 		redPaint.setColor(Color.RED);
 		redPaint.setAntiAlias(true);
 		redPaint.setStyle(Style.FILL);
-		
+
 		setFocusable(true);
 		requestFocus();
 	}
-	
+
 	protected int getDisplayWidthFromPercentage(double i) {
 		return (int) (displayWidth * (i / 100));
 	}
@@ -77,7 +79,7 @@ public abstract class GameView extends View implements PropertyChangeListener {
 		this.model = model;
 		model.addChangeListener(this);
 	}
-	
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
@@ -87,7 +89,7 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		displayWidth = w;
 		displayHeight = h;
-		model.setDisplaySize(w,h);
+		model.setDisplaySize(w, h);
 	}
 
 	@Override
@@ -95,7 +97,7 @@ public abstract class GameView extends View implements PropertyChangeListener {
 		super.onFinishInflate();
 		initView();
 	}
-	
+
 	public void propertyChange(PropertyChangeEvent event) {
 		postInvalidate();
 	}

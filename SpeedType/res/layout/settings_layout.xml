@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_alignParentBottom="true"
     android:layout_alignParentRight="true"
-    android:background="@drawable/background"
+    android:background="@drawable/gradient_background_blue"
     android:orientation="vertical" >
 
     <TextView
@@ -71,13 +71,13 @@
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/button1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/back" />
+                android:id="@+id/done_button"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/menu_button"
+                android:text="@string/done"
+                android:textSize="25sp" />
         </LinearLayout>
     </ScrollView>
 

@@ -197,5 +197,5 @@ public class BalanceModel extends GameModel {
 	public String getManual() {
 		return manual;
 	}
-	
+
 }

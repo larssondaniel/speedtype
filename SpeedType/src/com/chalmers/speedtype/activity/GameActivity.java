@@ -74,6 +74,7 @@ public class GameActivity extends SwarmActivity {
 		controller = new Controller(model, new Handler() {
 			@Override
 			public void handleMessage(Message m) {
+
 				overlayLayout.setVisibility(m.getData().getInt("visibility"));
 				statusText.setText(m.getData().getString("text"));
 				manualText.setText(m.getData().getString("manualText"));

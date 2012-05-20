@@ -74,8 +74,10 @@ public class TimeAttackView extends GameView {
 			timeLeftString = timeLeft + "";
 		}
 
-		float x = displayWidth / 2 - timeLeftPaint.measureText(timeLeftString) / 2;
-		float y = timeLeftPaint.getTextSize() + getDisplayHeightFromPercentage(5);
+		float x = displayWidth / 2 - timeLeftPaint.measureText(timeLeftString)
+				/ 2;
+		float y = timeLeftPaint.getTextSize()
+				+ getDisplayHeightFromPercentage(5);
 
 		canvas.drawText(timeLeftString, x, y, timeLeftPaint);
 
@@ -158,14 +160,14 @@ public class TimeAttackView extends GameView {
 	@Override
 	protected void onFinishInflate() {
 		super.onFinishInflate();
-		
+
 		timeLeftPlainPaint = new Paint(whitePaint);
 		timeLeftPlainPaint.setTextSize(70);
 		timeLeftPlainPaint.setTypeface(Typeface.MONOSPACE);
-		
+
 		timeLeftCriticalPaint = new Paint(timeLeftPlainPaint);
 		timeLeftCriticalPaint.setColor(Color.RED);
-		
+
 		timeLeftPaint = timeLeftPlainPaint;
 	}
 }
