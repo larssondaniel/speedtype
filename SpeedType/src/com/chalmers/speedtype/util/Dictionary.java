@@ -26,9 +26,13 @@ private static Random random = new Random();
 	}
 	
 	public static String getNextWord(){
-		int size = dictionary.size();
-		int item = random.nextInt(size);
-		return dictionary.get(item);
+		if ( dictionary.size() < 1){ //This if-statement is solely for testing purposes.
+			return "banana";
+		} else {
+			int size = dictionary.size();
+			int item = random.nextInt(size);
+			return dictionary.get(item);
+		}
 	}
 	
 	private static void loadWordsToMemory() {
@@ -66,6 +70,11 @@ private static Random random = new Random();
             randomNumber = random.nextInt(string.size());
             scrabble = scrabble + (string.remove(randomNumber));
         }
+        if(scrabble == s){
+        	scrabble(input);
+        } 
+
         return (new Word(scrabble));
+
     }
 }
