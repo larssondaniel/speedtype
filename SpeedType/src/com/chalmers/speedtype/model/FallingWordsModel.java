@@ -16,6 +16,7 @@ public class FallingWordsModel extends GameModel {
 
 	private static final int WORD_FREQUENCY = 3000;
 	private static final int UPDATE_FREQUENCY = 30;
+	private static final String manual = "Type the words before they dissappear!";
 
 	private long lastWordTimeMillis;
 	private long lastUpdateMillis;
@@ -97,6 +98,7 @@ public class FallingWordsModel extends GameModel {
 				w.setY(w.getY() + speed);
 				if (w.getY() > displayHeight / 2)
 					isGameOver = true;
+
 			}
 
 			lastUpdateMillis = System.currentTimeMillis();
@@ -105,9 +107,9 @@ public class FallingWordsModel extends GameModel {
 	}
 
 	private double getSpeed() {
-		return speed ;
+		return speed;
 	}
-	
+
 	private void incSpeed() {
 		speed += 0.01;
 	}
@@ -131,5 +133,10 @@ public class FallingWordsModel extends GameModel {
 	@Override
 	public boolean isSensorDependent() {
 		return false;
+	}
+
+	@Override
+	public String getManual() {
+		return manual;
 	}
 }

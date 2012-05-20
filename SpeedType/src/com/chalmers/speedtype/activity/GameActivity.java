@@ -37,8 +37,10 @@ public class GameActivity extends SwarmActivity {
 	private Sensor sensor;
 
 	private TextView statusText;
+	private TextView manualText;
+	private TextView startText;
 	private RelativeLayout overlayLayout;
-	
+
 	private SpeedTypeApplication app;
 
 	@Override
@@ -54,12 +56,12 @@ public class GameActivity extends SwarmActivity {
 		initGameMode(gameMode);
 		setUpListeners();
 	}
-	
+
 	private void setUpUtil() {
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		Util.setConstants(metrics);
-		
+
 		Util.setResources(getResources());
 		WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 		Util.setDisplay(windowManager.getDefaultDisplay());
@@ -74,6 +76,8 @@ public class GameActivity extends SwarmActivity {
 			public void handleMessage(Message m) {
 				overlayLayout.setVisibility(m.getData().getInt("visibility"));
 				statusText.setText(m.getData().getString("text"));
+				manualText.setText(m.getData().getString("manualText"));
+				startText.setText(m.getData().getString("startText"));
 			}
 		});
 		controller.startGame();
@@ -84,39 +88,42 @@ public class GameActivity extends SwarmActivity {
 		view = (GameView) findViewById(model.getViewId());
 		statusText = (TextView) findViewById(R.id.status_text);
 		overlayLayout = (RelativeLayout) findViewById(R.id.overlay_layout);
+		manualText = (TextView) findViewById(R.id.manual_text);
+		startText = (TextView) findViewById(R.id.start_text);
 	}
 
 	private void setUpListeners() {
 		// Set keyListener
-		view.setOnKeyListener(new OnKeyListener() {	
+		view.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (event.getAction() != KeyEvent.ACTION_UP)
 					return true;
 				return controller.onKey(event);
 			}
 		});
-		
+
 		// Set TouchListener
-		view.setOnTouchListener(new OnTouchListener(){
+		view.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				return controller.onTouch(event);
-			}			
+			}
 		});
-		
+
 		// Set sensor listener if needed
 		sensorEventListener = new SensorEventListener() {
 			public void onAccuracyChanged(Sensor sensor, int accuracy) {
 				// not used
 			}
+
 			public void onSensorChanged(SensorEvent event) {
 				controller.onSensorChanged(event);
 			}
 		};
-		
+
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		
+
 		if (model.isSensorDependent())
 			sensorManager.registerListener(sensorEventListener, sensor,
 					SensorManager.SENSOR_DELAY_FASTEST);
@@ -130,15 +137,15 @@ public class GameActivity extends SwarmActivity {
 
 	protected void onResume() {
 		super.onResume();
-		if(model.isSensorDependent())
+		if (model.isSensorDependent())
 			sensorManager.registerListener(sensorEventListener, sensor,
 					SensorManager.SENSOR_DELAY_FASTEST);
-		
+
 	}
 
 	protected void onPause() {
 		super.onPause();
-		if(model.isSensorDependent())
+		if (model.isSensorDependent())
 			sensorManager.unregisterListener(sensorEventListener);
 		controller.pause();
 		stopService(app.getbackgroundSoundServiceIntent());

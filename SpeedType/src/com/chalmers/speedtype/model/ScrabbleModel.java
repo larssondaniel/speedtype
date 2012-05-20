@@ -9,6 +9,7 @@ import com.chalmers.speedtype.util.Dictionary;
 public class ScrabbleModel extends GameModel {
 	private static final int LAYOUT_ID = R.layout.scrabble_layout; 
 	private static final int VIEW_ID = R.id.scrabble_view;
+	private static final String manual = "Figure out the hidden word as fast as possible!";
 		
 	CountDownTimer timer;
 	private int timeLeft = 15000;
@@ -192,5 +193,10 @@ public class ScrabbleModel extends GameModel {
 			}
 			lastUpdateMillis = System.currentTimeMillis();			
 		}
+	}
+
+	@Override
+	public String getManual() {
+		return manual;
 	}
 }

@@ -8,7 +8,8 @@ public class TimeAttackModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.time_attack_layout;
 	private static final int VIEW_ID = R.id.time_attack_view;
-	
+	private static final String manual = "This is simple, just type the words as fast as possible!";
+
 	private static final int UPDATE_FREQUENCY = 50;
 
 	private int timeLeft = 10000;
@@ -109,14 +110,19 @@ public class TimeAttackModel extends GameModel {
 	@Override
 	public void update() {
 		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
-			if (lastUpdateMillis != 0){
-			setTimeLeft((int) (timeLeft - (System.currentTimeMillis() - lastUpdateMillis)));	
-			listener.propertyChange(null);
+			if (lastUpdateMillis != 0) {
+				setTimeLeft((int) (timeLeft - (System.currentTimeMillis() - lastUpdateMillis)));
+				listener.propertyChange(null);
 			}
-			lastUpdateMillis = System.currentTimeMillis();			
+			lastUpdateMillis = System.currentTimeMillis();
 		}
-		
-		if(timeLeft < 0)
+
+		if (timeLeft < 0)
 			isGameOver = true;
+	}
+
+	@Override
+	public String getManual() {
+		return manual;
 	}
 }

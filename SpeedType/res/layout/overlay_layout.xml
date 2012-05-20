@@ -7,11 +7,31 @@
     <TextView
         android:id="@+id/status_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:gravity="center_horizontal"
-        android:textSize="40sp"
         android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/manual_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    
+        <TextView
+        android:id="@+id/start_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="280dp"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

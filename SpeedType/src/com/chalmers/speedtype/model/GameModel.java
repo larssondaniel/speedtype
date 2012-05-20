@@ -162,4 +162,7 @@ protected Map<Integer, SwarmAchievement> achievements;
 	public void activatePowerUp(PowerUp powerUp) {
 		powerUp.usePowerUp();
 	}
+	
+	public abstract String getManual();
+
 }

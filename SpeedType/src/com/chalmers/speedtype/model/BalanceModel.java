@@ -1,4 +1,5 @@
 package com.chalmers.speedtype.model;
+
 //TODO Complete the implementation of the game, possible to die while balancing etc.
 
 import android.hardware.Sensor;
@@ -16,6 +17,7 @@ public class BalanceModel extends GameModel {
 
 	private static final float ballDiameter = 0.006f;
 	private static final float ballFriction = 0.1f;
+	private static final String manual = "Do not let the ball hit the edges of the phone!";
 
 	private float sensorX;
 	private long sensorTimeStamp;
@@ -25,15 +27,13 @@ public class BalanceModel extends GameModel {
 	private int timeLeft = 10000;
 	private boolean correctInput;
 	Ball particle;
-	
+
 	public BalanceModel() {
 		super();
 		initTimer();
-		particle = new Ball(ballFriction,
-				horizontalBound, verticalBound);
+		particle = new Ball(ballFriction, horizontalBound, verticalBound);
 		correctInput = false;
 	}
-
 
 	private void initTimer() {
 		Runnable runnable = new Runnable() {
@@ -53,28 +53,30 @@ public class BalanceModel extends GameModel {
 
 	protected void setTimeLeft(int timeLeft) {
 		this.timeLeft = timeLeft;
-		//listener.propertyChange(null);
+		// listener.propertyChange(null);
 	}
+
 	protected void incTimeLeft(int timeLeft) {
-		
+
 	}
-	
-	public int getTimeLeft(){
+
+	public int getTimeLeft() {
 		return timeLeft;
 	}
 
-	public long getSensorTimeStamp(){
+	public long getSensorTimeStamp() {
 		return sensorTimeStamp;
 	}
-	public long getCpuTimeStamp(){
+
+	public long getCpuTimeStamp() {
 		return cpuTimeStamp;
 	}
-	
+
 	public Ball getParticle() {
 		return particle;
 	}
-	
-	public float getSensorX(){
+
+	public float getSensorX() {
 		return sensorX;
 	}
 
@@ -95,19 +97,20 @@ public class BalanceModel extends GameModel {
 		this.horizontalBound = horizontalBound;
 		particle.setHorizontalBound(horizontalBound);
 	}
-	private void setCorrectInputReport(boolean b){
+
+	private void setCorrectInputReport(boolean b) {
 		correctInput = b;
 	}
-	
-	public boolean correctInputReport(){
-		if(correctInput){
+
+	public boolean correctInputReport() {
+		if (correctInput) {
 			return true;
 		} else {
 			setCorrectInputReport(true);
 			return false;
 		}
 	}
-	
+
 	@Override
 	public void onInput(KeyEvent event) {
 		correctInput = true;
@@ -122,25 +125,25 @@ public class BalanceModel extends GameModel {
 		} else {
 			onIncorrectChar();
 		}
-		
+
 	}
-	
-	protected void onCorrectChar(){
+
+	protected void onCorrectChar() {
 		super.onCorrectChar();
 		incScore(1);
 	}
-	
-	protected void onCorrectWord(){
+
+	protected void onCorrectWord() {
 		super.onCorrectWord();
-		setTimeLeft(timeLeft + 1000*activeWord.length());
+		setTimeLeft(timeLeft + 1000 * activeWord.length());
 		updateWord();
 	}
-	
-	protected void onIncorrectChar(){
+
+	protected void onIncorrectChar() {
 		super.onIncorrectChar();
 		setCorrectInputReport(false);
 	}
-	
+
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
@@ -164,7 +167,7 @@ public class BalanceModel extends GameModel {
 		sensorTimeStamp = event.timestamp;
 		cpuTimeStamp = System.nanoTime();
 	}
-	
+
 	@Override
 	public int getLayoutId() {
 		return LAYOUT_ID;
@@ -179,14 +182,20 @@ public class BalanceModel extends GameModel {
 	public boolean isContinuous() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isSensorDependent() {
-		return true;	
+		return true;
 	}
 
 	@Override
 	public void update() {
 		// Update here
 	}
+
+	@Override
+	public String getManual() {
+		return manual;
+	}
+	
 }
