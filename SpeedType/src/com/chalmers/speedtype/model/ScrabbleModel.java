@@ -31,7 +31,7 @@ public class ScrabbleModel extends GameModel {
 	 */
 	public ScrabbleModel(){
 		super();
-//		initTimer();
+		initTimer();
 		correctInput = false;
 	}
 	
@@ -52,22 +52,22 @@ public class ScrabbleModel extends GameModel {
 	}
 	
 
-//	private void initTimer() {
-//		Runnable runnable = new Runnable() {
-//			public void run() {
-//				while (true) {
-//					try {
-//						Thread.sleep(100);
-//						setTimeLeft(timeLeft - 100);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//			}
-//		};
-//		new Thread(runnable).start();
-//	}
-//	
+	private void initTimer() {
+		Runnable runnable = new Runnable() {
+			public void run() {
+				while (true) {
+					try {
+						Thread.sleep(100);
+						setTimeLeft(timeLeft - 100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		new Thread(runnable).start();
+	}
+	
 	protected void setTimeLeft(int timeLeft) {
 		this.timeLeft = timeLeft;
 		listener.propertyChange(null);
@@ -132,7 +132,7 @@ public class ScrabbleModel extends GameModel {
 		}
 		speedRewardTimeStart = System.currentTimeMillis();
 		getNewWord = true;
-		setTimeLeft(timeLeft + 1000 * activeWord.length());
+		setTimeLeft(timeLeft + 1500 * activeWord.length());
 		updateWord();
 	}
 	
