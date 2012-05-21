@@ -54,11 +54,11 @@ public class TimeAttackModel extends GameModel {
 	protected void onCorrectChar() {
 		super.onCorrectChar();
 		incScore(1);
-		if (correctCharsInRow <= 20) {
+		if (correctCharsInRow >= 20) {
 			giveAchievement(1348);
-			if (correctCharsInRow <= 80) {
+			if (correctCharsInRow >= 80) {
 				giveAchievement(1356);
-				if (correctCharsInRow <= 500) {
+				if (correctCharsInRow >= 500) {
 					giveAchievement(1354);
 				}
 			}
