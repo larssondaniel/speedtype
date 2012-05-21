@@ -5,7 +5,6 @@ import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.controller.Controller;
 import com.chalmers.speedtype.model.GameModel;
 import com.chalmers.speedtype.util.GameFactory;
-import com.chalmers.speedtype.util.Util;
 import com.chalmers.speedtype.view.GameView;
 import com.swarmconnect.SwarmActivity;
 
@@ -17,7 +16,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -52,26 +50,12 @@ public class GameActivity extends SwarmActivity {
 		app = (SpeedTypeApplication) getApplication();
 
 		startService(app.getbackgroundSoundServiceIntent());
-		setUpUtil();
 		initGameMode(gameMode);
 		setUpListeners();
 	}
 
-	private void setUpUtil() {
-//		DisplayMetrics metrics = new DisplayMetrics();
-//		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-//		System.out.println(metrics);
-//		Util.setConstants(metrics);
-//
-//		Util.setResources(getResources());
-//		WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-//		Util.setDisplay(windowManager.getDefaultDisplay());
-	}
-
 	private void initGameMode(String gameMode) {
 		model = GameFactory.createGameMode(this, gameMode);
-		System.out.println("Gamemode = " + gameMode);
-		System.out.println("Model = " + model);
 
 		setUpViews();
 		view.setModel(model);
@@ -99,7 +83,6 @@ public class GameActivity extends SwarmActivity {
 	}
 
 	private void setUpListeners() {
-		// Set keyListener
 		view.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (event.getAction() != KeyEvent.ACTION_UP)
@@ -108,7 +91,6 @@ public class GameActivity extends SwarmActivity {
 			}
 		});
 
-		// Set TouchListener
 		view.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -121,15 +103,14 @@ public class GameActivity extends SwarmActivity {
 			}
 		});
 
-		// Set sensor listener if needed
 		sensorEventListener = new SensorEventListener() {
 			public void onAccuracyChanged(Sensor sensor, int accuracy) {
-				// not used
 			}
 
 			public void onSensorChanged(SensorEvent event) {
-				WindowManager wm = (WindowManager)getSystemService(WINDOW_SERVICE);
-				controller.onSensorChanged(event, wm.getDefaultDisplay().getRotation());
+				WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+				controller.onSensorChanged(event, wm.getDefaultDisplay()
+						.getRotation());
 			}
 		};
 

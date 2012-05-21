@@ -9,10 +9,10 @@ public class TimeAttackModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.time_attack_layout;
 	private static final int VIEW_ID = R.id.time_attack_view;
-	
+
 	private static final int LEADERBOARD_ID = 826;
 
-	private static final String manual = "This is simple, just type the words as fast as possible!";
+	private static final String manual = "Type the words as fast as possible!";
 
 	private static final int UPDATE_FREQUENCY = 50;
 
@@ -22,7 +22,6 @@ public class TimeAttackModel extends GameModel {
 	private int gameSpeed = 600;
 
 	private long lastUpdateMillis;
-
 
 	public TimeAttackModel() {
 		super();
@@ -69,10 +68,11 @@ public class TimeAttackModel extends GameModel {
 		updateWord();
 	}
 
-	private int getGameSpeed(){
-		gameSpeed-=2;
+	private int getGameSpeed() {
+		gameSpeed -= 2;
 		return gameSpeed;
 	}
+
 	protected void onIncorrectChar() {
 		super.onIncorrectChar();
 		setCorrectInputReport(false);
@@ -83,7 +83,7 @@ public class TimeAttackModel extends GameModel {
 		return System.currentTimeMillis() - speedRewardTimeStart < activeWord
 				.length() * 1000 ? true : false;
 	}
-	
+
 	@Override
 	public void onInput(KeyEvent event) {
 		correctInput = true;
@@ -123,16 +123,17 @@ public class TimeAttackModel extends GameModel {
 	public int getSwarmLeaderBoardID() {
 		return LEADERBOARD_ID;
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// No need to do anything here
 	}
+
 	@Override
 	protected void onResume() {
-		lastUpdateMillis = System.currentTimeMillis();	
+		lastUpdateMillis = System.currentTimeMillis();
 	}
-	
+
 	@Override
 	public int getLayoutId() {
 		return LAYOUT_ID;
@@ -142,18 +143,18 @@ public class TimeAttackModel extends GameModel {
 	public int getViewId() {
 		return VIEW_ID;
 	}
-	
+
 	@Override
 	public boolean isContinuous() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isSensorDependent() {
 		return false;
 	}
+
 	@Override
 	public void onSensorChanged(SensorEvent event, int displayRotation) {
-		// Do nothing
 	}
 }

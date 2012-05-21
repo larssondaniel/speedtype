@@ -45,44 +45,45 @@ public class Controller extends Thread {
 
 		setState(STATE_READY);
 	}
-	
+
 	public synchronized void setState(int mode) {
-        gameState = mode;
-        
-        Message message = handler.obtainMessage();
+		gameState = mode;
+
+		Message message = handler.obtainMessage();
 		Bundle bundle = new Bundle();
 		String text = "";
 		String manualText = "";
 		String startText = "";
-        
-        if(gameState == STATE_RUNNING) {
-        	bundle.putString("text", text);
+
+		if (gameState == STATE_RUNNING) {
+			bundle.putString("text", text);
 			bundle.putInt("visibility", View.INVISIBLE);
 			bundle.putString("manualText", manualText);
 			bundle.putString("startText", startText);
 			message.setData(bundle);
 			handler.sendMessage(message);
-            model.setGameState(model.STATE_RUNNING);
-        } else {	
-	        switch (gameState) {
-		        case STATE_READY:
-		        	text = "READY";
-		        	startText = "Tap the screen to start";
-		        	break;
-		        case STATE_PAUSED:
-		        	text = "PAUSED";
-		        	startText = "Tap the screen to continue";
-		        	break;
-		        case STATE_GAMEOVER:
-		        	text = "GAME OVER\n\nScore: " + model.getScore();
-		        	registerHighscore();
-		        	endGame();
-		        	break;
-		        default: 
-		        	text = "WTF, SOMETHING IS WRONG"; break;
-	        }
-	        
-	        bundle.putString("text", text);
+			model.setGameState(model.STATE_RUNNING);
+		} else {
+			switch (gameState) {
+			case STATE_READY:
+				text = "READY";
+				startText = "Tap the screen to start";
+				break;
+			case STATE_PAUSED:
+				text = "PAUSED";
+				startText = "Tap the screen to continue";
+				break;
+			case STATE_GAMEOVER:
+				text = "GAME OVER\n\nScore: " + model.getScore();
+				registerHighscore();
+				endGame();
+				break;
+			default:
+				text = "SOMETHING IS WRONG";
+				break;
+			}
+
+			bundle.putString("text", text);
 			bundle.putString("manualText", manualText);
 			bundle.putInt("visibility", View.VISIBLE);
 			bundle.putString("startText", startText);
@@ -90,14 +91,13 @@ public class Controller extends Thread {
 			bundle.putInt("startTextVisibility", View.VISIBLE);
 			message.setData(bundle);
 			handler.sendMessage(message);
-        }
-    }
-	
-private void registerHighscore() {
-	if (leaderboard != null) {
-		leaderboard.submitScore(model.getScore());
-		System.out.println("SADA");
+		}
 	}
+
+	private void registerHighscore() {
+		if (leaderboard != null) {
+			leaderboard.submitScore(model.getScore());
+		}
 	}
 
 	public void startGame() {
@@ -114,21 +114,19 @@ private void registerHighscore() {
 	@Override
 	public void run() {
 		synchronized (model) {
-		while (isRunning) {
-			if (gameState == STATE_RUNNING) {
-				model.update();
-				
-				if (model.isGameOver()) {
-					setState(STATE_GAMEOVER);
-				} else if (model.getGameState() == model.STATE_PAUSED) {
-					System.out.println("pause");
-					pause();
+			while (isRunning) {
+				if (gameState == STATE_RUNNING) {
+					model.update();
+					if (model.isGameOver()) {
+						setState(STATE_GAMEOVER);
+					} else if (model.getGameState() == model.STATE_PAUSED) {
+						pause();
+					}
 				}
-			} 
-		}
+			}
 		}
 	}
-	
+
 	public int getGameState() {
 		return gameState;
 	}
@@ -139,7 +137,7 @@ private void registerHighscore() {
 	}
 
 	public boolean onKey(KeyEvent event) {
-		if(gameState == STATE_RUNNING) {
+		if (gameState == STATE_RUNNING) {
 			model.onInput(event);
 			return true;
 		}
@@ -147,7 +145,7 @@ private void registerHighscore() {
 	}
 
 	public void onSensorChanged(SensorEvent event, int displayRotation) {
-		if(gameState == STATE_RUNNING && model.isSensorDependent())
+		if (gameState == STATE_RUNNING && model.isSensorDependent())
 			model.onSensorChanged(event, displayRotation);
 	}
 

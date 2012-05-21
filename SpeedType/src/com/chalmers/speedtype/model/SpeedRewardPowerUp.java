@@ -2,13 +2,6 @@ package com.chalmers.speedtype.model;
 
 public class SpeedRewardPowerUp extends PowerUp {
 
-	/*
-	 * If the current word was typed in less than, the length of word divided by
-	 * 5, seconds, a bonus will be added to the score. For example: If the word
-	 * has 5 letters, the player will only get the bonus if it is typed within 1
-	 * second. The actual divider will be decided later on.
-	 */
-
 	private static final long POWERUP_DELAY_MILLIS = 4000;
 	private long startMillis;
 

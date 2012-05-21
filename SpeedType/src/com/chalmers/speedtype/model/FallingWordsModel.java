@@ -1,7 +1,5 @@
 package com.chalmers.speedtype.model;
 
-//TODO Resuming a paused game always results in a new word, this may cause two words landing on top of each other.
-
 import java.util.LinkedList;
 
 import com.chalmers.speedtype.R;
@@ -14,7 +12,7 @@ public class FallingWordsModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.falling_words_layout;
 	private static final int VIEW_ID = R.id.falling_words_view;
-	
+
 	private static final int LEADERBOARD_ID = 830;
 
 	private static final int WORD_FREQUENCY = 3000;
@@ -142,7 +140,7 @@ public class FallingWordsModel extends GameModel {
 	public boolean isSensorDependent() {
 		return false;
 	}
-	
+
 	@Override
 	public int getSwarmLeaderBoardID() {
 		return LEADERBOARD_ID;
@@ -152,15 +150,13 @@ public class FallingWordsModel extends GameModel {
 	public String getManual() {
 		return manual;
 	}
-	
+
 	@Override
 	public void onSensorChanged(SensorEvent event, int displayRotation) {
-		// Do nothing
 	}
 
 	@Override
 	protected void onPause() {
-		// No need to do anything here
 	}
 
 	@Override

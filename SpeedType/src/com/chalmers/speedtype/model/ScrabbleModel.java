@@ -145,9 +145,6 @@ public class ScrabbleModel extends GameModel {
 		return VIEW_ID;
 	}
 
-	/**
-	 * TODO Write javadoc.
-	 */
 	@Override
 	public boolean isContinuous() {
 		return true;

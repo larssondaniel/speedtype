@@ -1,20 +1,16 @@
 package com.chalmers.speedtype.model;
 
-//TODO Complete the implementation of the game, possible to die while balancing etc.
-
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.view.KeyEvent;
 import android.view.Surface;
-
 import com.chalmers.speedtype.R;
-import com.chalmers.speedtype.util.Util;
 
 public class BalanceModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.balance_layout;
 	private static final int VIEW_ID = R.id.balance_view;
-	
+
 	private static final int LEADERBOARD_ID = 897;
 
 	private static final float ballFriction = 0.1f;
@@ -165,12 +161,13 @@ public class BalanceModel extends GameModel {
 				isGameOver = true;
 			}
 			lastUpdateMillis = System.currentTimeMillis();
-			
+
 			float sensorX = getSensorX();
-			long now = getSensorTimeStamp() + (System.nanoTime() - getCpuTimeStamp());
-			
+			long now = getSensorTimeStamp()
+					+ (System.nanoTime() - getCpuTimeStamp());
+
 			ball.update(sensorX, now);
-			
+
 			listener.propertyChange(null);
 		}
 	}
@@ -183,13 +180,12 @@ public class BalanceModel extends GameModel {
 	public String getManual() {
 		return manual;
 	}
-	
+
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
 	}
+
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 	}
 }

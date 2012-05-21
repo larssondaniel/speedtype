@@ -1,7 +1,5 @@
 package com.chalmers.speedtype.activity;
 
-//TODO Get settings to work with sound.
-
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.util.BackgroundSoundService;
@@ -73,7 +71,6 @@ public class SettingsActivity extends Activity {
 						prefsEditor.putInt(MUSIC_VOLUME,
 								musicVolume.getProgress());
 						prefsEditor.commit();
-						System.out.println("SeekbarChanged");
 						if (backgroundMusicService != null) {
 							backgroundMusicService.setVolume(musicVolume
 									.getProgress());
@@ -105,7 +102,6 @@ public class SettingsActivity extends Activity {
 			BackgroundSoundBinder binder = (BackgroundSoundBinder) service;
 			backgroundMusicService = binder.getService();
 			bound = true;
-			System.out.println("SERVICE CONNECTED");
 		}
 
 		@Override
@@ -116,7 +112,6 @@ public class SettingsActivity extends Activity {
 
 	public void onPause() {
 		super.onPause();
-		// stopService(new Intent(this, BackgroundSoundService.class));
 		if (bound) {
 			unbindService(backgroundSoundConnection);
 			bound = false;
@@ -125,7 +120,5 @@ public class SettingsActivity extends Activity {
 
 	public void onResume() {
 		super.onResume();
-		// bindService(intent, backgroundSoundConnection,
-		// Context.BIND_AUTO_CREATE);
 	}
 }
