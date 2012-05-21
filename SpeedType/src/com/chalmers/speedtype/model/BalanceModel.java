@@ -10,19 +10,13 @@ public class BalanceModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.balance_layout;
 	private static final int VIEW_ID = R.id.balance_view;
-
 	private static final int LEADERBOARD_ID = 897;
-
-	private static final float ballFriction = 0.1f;
-	private static final String manual = "Do not let the ball hit the edges of the phone!";
-
 	private static final long UPDATE_FREQUENCY = 50;
+	private static final String manual = "Do not let the ball hit the edges of the phone!";
 
 	private float sensorX;
 	private long sensorTimeStamp;
 	private long cpuTimeStamp;
-	private float horizontalBound;
-	private float verticalBound;
 	private boolean correctInput;
 	private Ball ball;
 
@@ -30,38 +24,12 @@ public class BalanceModel extends GameModel {
 
 	public BalanceModel() {
 		super();
-		ball = new Ball(ballFriction, horizontalBound, verticalBound);
+		ball = new Ball();
 		correctInput = false;
-	}
-
-	public long getSensorTimeStamp() {
-		return sensorTimeStamp;
-	}
-
-	public long getCpuTimeStamp() {
-		return cpuTimeStamp;
 	}
 
 	public Ball getBall() {
 		return ball;
-	}
-
-	public float getSensorX() {
-		return sensorX;
-	}
-
-	public float getVerticalBound() {
-		return verticalBound;
-	}
-
-	public void setVerticalBound(float verticalBound) {
-		this.verticalBound = verticalBound;
-		ball.setVerticalBound(verticalBound);
-	}
-
-	public void setHorizontalBound(float horizontalBound) {
-		this.horizontalBound = horizontalBound;
-		ball.setHorizontalBound(horizontalBound);
 	}
 
 	private void setCorrectInputReport(boolean b) {
@@ -74,6 +42,23 @@ public class BalanceModel extends GameModel {
 		} else {
 			setCorrectInputReport(true);
 			return false;
+		}
+	}
+
+	@Override
+	public void update() {
+		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
+			long now = sensorTimeStamp + (System.nanoTime() - cpuTimeStamp);
+			ball.updatePositions(sensorX, now);
+			ball.resolveCollisionWithBounds();
+
+			if (ball.getPosX() <= -ball.horizontalBound
+					|| ball.getPosX() >= ball.horizontalBound)
+				isGameOver = true;
+
+			lastUpdateMillis = System.currentTimeMillis();
+
+			listener.propertyChange(null);
 		}
 	}
 
@@ -94,19 +79,32 @@ public class BalanceModel extends GameModel {
 
 	}
 
+	@Override
 	protected void onCorrectChar() {
 		super.onCorrectChar();
 		incScore(1);
 	}
 
+	@Override
 	protected void onCorrectWord() {
 		super.onCorrectWord();
 		updateWord();
 	}
 
+	@Override
 	protected void onIncorrectChar() {
 		super.onIncorrectChar();
 		setCorrectInputReport(false);
+	}
+
+	@Override
+	public boolean isContinuous() {
+		return true;
+	}
+
+	@Override
+	public boolean isSensorDependent() {
+		return true;
 	}
 
 	@Override
@@ -134,45 +132,6 @@ public class BalanceModel extends GameModel {
 	}
 
 	@Override
-	public int getLayoutId() {
-		return LAYOUT_ID;
-	}
-
-	@Override
-	public int getViewId() {
-		return VIEW_ID;
-	}
-
-	@Override
-	public boolean isContinuous() {
-		return true;
-	}
-
-	@Override
-	public boolean isSensorDependent() {
-		return true;
-	}
-
-	@Override
-	public void update() {
-		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
-			if (ball.getPosX() <= -horizontalBound
-					|| ball.getPosX() >= horizontalBound) {
-				isGameOver = true;
-			}
-			lastUpdateMillis = System.currentTimeMillis();
-
-			float sensorX = getSensorX();
-			long now = getSensorTimeStamp()
-					+ (System.nanoTime() - getCpuTimeStamp());
-
-			ball.update(sensorX, now);
-
-			listener.propertyChange(null);
-		}
-	}
-
-	@Override
 	public int getSwarmLeaderBoardID() {
 		return LEADERBOARD_ID;
 	}
@@ -181,11 +140,22 @@ public class BalanceModel extends GameModel {
 		return manual;
 	}
 
+	public int getLayoutId() {
+		return LAYOUT_ID;
+	}
+
+	@Override
+	public int getViewId() {
+		return VIEW_ID;
+	}
+	
 	@Override
 	protected void onPause() {
+		// Not used
 	}
 
 	@Override
 	protected void onResume() {
+		// Not used
 	}
 }

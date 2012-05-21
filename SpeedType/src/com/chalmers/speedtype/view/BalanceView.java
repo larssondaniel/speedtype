@@ -21,8 +21,8 @@ public class BalanceView extends GameView {
 	private static final float ballDiameter = 0.006f;
 
 	private Bitmap ballImage; 
-	private float xOrigin;
-	private float yOrigin;
+	private float ballOriginX;
+	private float ballOriginY;
 	
 	private float metersToPixels;
 	
@@ -80,10 +80,10 @@ public class BalanceView extends GameView {
 		drawIncompletedChars(canvas, activeWord, CurrentCharPos);
 		drawActiveChar(canvas, activeWord, CurrentCharPos);
 	}
-
+	
 	private void drawBall(Canvas canvas) {
-		final float x = xOrigin + model.getBall().getPosX() * metersToPixels;;
-		final float y = yOrigin - model.getBall().getPosY() * metersToPixels;;
+		float x = ballOriginX + model.getBall().getPosX() * metersToPixels;;
+		float y = ballOriginY - model.getBall().getPosY() * metersToPixels;;
 		canvas.drawBitmap(ballImage, x, y, null);
 	}
 
@@ -161,11 +161,9 @@ public class BalanceView extends GameView {
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		// Calculate the middle of the screen
 		super.onSizeChanged(w, h, oldw, oldh);
-		xOrigin = (w - ballImage.getWidth()) * 0.5f;
-		yOrigin = (h - ballImage.getHeight()) * 0.5f;
-		model.setHorizontalBound(((w / metersToPixels - ballDiameter) * 0.5f));
-		model.setVerticalBound(((h / metersToPixels - ballDiameter) * 0.5f));
+		ballOriginX = (w - ballImage.getWidth()) * 0.5f;
+		ballOriginY = (h - ballImage.getHeight()) * 0.5f;
+		model.getBall().setBounds((w / metersToPixels - ballDiameter) * 0.5f, (h / metersToPixels - ballDiameter) * 0.5f);
 	}
 }
