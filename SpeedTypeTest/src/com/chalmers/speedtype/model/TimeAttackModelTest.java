@@ -70,19 +70,29 @@ public class TimeAttackModelTest extends AndroidTestCase{
 	public void testOnCorrectWord(){
 		KeyEvent key;
 		int timeLeftBefore = model.getTimeLeft();
+		int count = 0;
+		int after = 0;
+		int length = model.activeWord.length();
 		while(!model.isWordComplete()){ //Finds the correct letters until the word is completed.
 			for (int i = 1; i < 255; i++){
 				key = new KeyEvent(0, i);
 				try {
+					count++;
 					model.onInput(key);
 				} catch (NullPointerException e){
-					System.out.println("NU BLIR DET FEL");
 					e.getStackTrace();
 				}
 			}
+			System.out.println("iswordcomplete: " + model.isWordComplete());
 		}
+		System.out.println(count + "word.length " + length);
 		int timeLeftAfter = model.getTimeLeft();
-		System.out.println("Before: " + timeLeftBefore + " after: "+ timeLeftAfter);
+		try{
+			model.onCorrectWord();
+		} catch (NullPointerException e){
+			e.printStackTrace();
+		}
+		System.out.println("before: " + timeLeftBefore + " after: " + timeLeftAfter + " efter fast inne: " + after);
 		assertTrue(timeLeftBefore != timeLeftAfter);
 	}
 		

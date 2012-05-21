@@ -71,8 +71,9 @@ public class BalanceGameTest extends AndroidTestCase {
 	 */
 	public void testOnCorrectWord(){
 		KeyEvent key;
-		Word tempNextWord = model.getNextWord();
-		while(!model.isWordComplete()){ //Finds the correct letters until the word is completed.
+		System.out.println("activeWord: " + model.activeWord + " nextWord: " + model.nextWord);
+		Word tempNextWord = model.nextWord;
+		while(model.isWordComplete() == false){ //Finds the correct letters until the word is completed.
 			for (int i = 1; i < 255; i++){
 				key = new KeyEvent(0, i);
 				try {
@@ -82,8 +83,8 @@ public class BalanceGameTest extends AndroidTestCase {
 				}
 			}
 		}
-		System.out.println("active: " + model.getActiveWord().toString() + " next: " + tempNextWord);
-		assertTrue(model.getActiveWord() == tempNextWord);
+		System.out.println("activeWord: " + model.activeWord + " nextWord: " + model.nextWord);
+		assertTrue(model.activeWord.toString() == tempNextWord.toString());
 	}
 		
 	/**

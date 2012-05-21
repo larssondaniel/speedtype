@@ -59,7 +59,11 @@ public class ScrabbleModelTest extends AndroidTestCase {
 		int charPosBefore = model.getCurrentCharPos();
 		for (int i = 1; i < 255; i++){ //Finds the correct letter. 
 			key = new KeyEvent(0, i);
-			model.onInput(key);
+			try{
+				model.onInput(key);
+			} catch (NullPointerException e){
+				e.printStackTrace();
+			}
 		}
 		int charPosAfter = model.getCurrentCharPos();
 		int scoreAfter = model.getScore();
