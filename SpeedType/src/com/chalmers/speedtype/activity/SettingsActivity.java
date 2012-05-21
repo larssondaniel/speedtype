@@ -39,7 +39,7 @@ public class SettingsActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		preferences = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
+		preferences = getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 		prefsEditor = preferences.edit();
 		setContentView(R.layout.settings_layout);
 		app = (SpeedTypeApplication) getApplication();

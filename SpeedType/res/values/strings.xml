@@ -17,7 +17,7 @@
     <string name="fx_volume">FX volume</string>
     <string name="register_scores">Always register scores</string>
     <string name="back">Back</string>
-     <string name="done">Done</string>
-    
+    <string name="done">Done</string>
+    <string name="logo">Logo</string>
 
 </resources>

@@ -59,7 +59,7 @@ public class GameActivity extends SwarmActivity {
 
 		setUpViews();
 		view.setModel(model);
-		controller = new Controller(model, new Handler() {
+		controller = new Controller(model, this, new Handler() {
 			@Override
 			public void handleMessage(Message m) {
 

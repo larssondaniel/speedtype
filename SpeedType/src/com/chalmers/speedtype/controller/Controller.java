@@ -1,5 +1,6 @@
 package com.chalmers.speedtype.controller;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
@@ -20,16 +21,22 @@ public class Controller extends Thread {
 	public static final int STATE_PAUSED = 3;
 	public static final int STATE_GAMEOVER = 4;
 
+	private final String SAVE_SCORES = "saveScores";
+
 	private int gameState;
 	private boolean isRunning = false;
 
 	private SwarmLeaderboard leaderboard;
 
+	SharedPreferences preferences;
+
 	private GameModel model;
 	private Handler handler;
+	private Context context;
 
-	public Controller(GameModel model, Handler handler) {
+	public Controller(GameModel model, Context context, Handler handler) {
 		this.model = model;
+		this.context = context;
 		this.handler = handler;
 
 		setUpSwarmLeaderboard();
@@ -80,7 +87,11 @@ public class Controller extends Thread {
 				break;
 			case STATE_GAMEOVER:
 				text = "GAME OVER\n\nScore: " + model.getScore();
-				registerHighscore();
+				preferences = context.getSharedPreferences("myPrefs",
+						Context.MODE_WORLD_READABLE);
+				if (preferences.getBoolean(SAVE_SCORES, true)) {
+					registerHighscore();
+				}
 				endGame();
 				break;
 			default:
