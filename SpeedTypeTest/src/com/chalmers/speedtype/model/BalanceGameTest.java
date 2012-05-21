@@ -74,6 +74,7 @@ public class BalanceGameTest extends AndroidTestCase {
 		System.out.println("activeWord: " + model.activeWord + " nextWord: " + model.nextWord);
 		Word tempNextWord = model.nextWord;
 		while(model.isWordComplete() == false){ //Finds the correct letters until the word is completed.
+			System.out.println("number of rotations)");
 			for (int i = 1; i < 255; i++){
 				key = new KeyEvent(0, i);
 				try {
