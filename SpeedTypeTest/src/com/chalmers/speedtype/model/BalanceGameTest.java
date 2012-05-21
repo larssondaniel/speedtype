@@ -41,7 +41,6 @@ public class BalanceGameTest extends AndroidTestCase {
 		assertTrue(model.nextWord.length() > 0);
 		assertFalse(model.isGameOver);
 		assertTrue(model.score == 0);
-		assertEquals(model.getTimeLeft(), 10000);
 	}
 
 	/**
@@ -72,7 +71,7 @@ public class BalanceGameTest extends AndroidTestCase {
 	 */
 	public void testOnCorrectWord(){
 		KeyEvent key;
-		int timeLeftBefore = model.getTimeLeft();
+		Word tempNextWord = model.getNextWord();
 		while(!model.isWordComplete()){ //Finds the correct letters until the word is completed.
 			for (int i = 1; i < 255; i++){
 				key = new KeyEvent(0, i);
@@ -83,8 +82,8 @@ public class BalanceGameTest extends AndroidTestCase {
 				}
 			}
 		}
-		int timeLeftAfter = model.getTimeLeft();
-		assertTrue(timeLeftBefore != timeLeftAfter);
+		System.out.println("active: " + model.getActiveWord().toString() + " next: " + tempNextWord);
+		assertTrue(model.getActiveWord() == tempNextWord);
 	}
 		
 	/**
