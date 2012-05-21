@@ -11,7 +11,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 
 public class ScrabbleView extends GameView {
@@ -21,8 +20,7 @@ public class ScrabbleView extends GameView {
 	private Paint timeLeftPlainPaint;
 	private Paint timeLeftCriticalPaint;
 
-	private Paint blackPaint;
-	private Word activeScrabbledWord;
+	private String activeScrabbledWord;
 	private Word activeWord;
 
 	public ScrabbleView(Context context, AttributeSet attrs, int defStyle) {
@@ -42,17 +40,8 @@ public class ScrabbleView extends GameView {
 		this.model = (ScrabbleModel) model;
 	}
 
-	private void initBlackPaint() {
-		blackPaint = new Paint();
-		blackPaint.setColor(Color.BLACK);
-		blackPaint.setAntiAlias(true);
-		blackPaint.setStyle(Style.FILL);
-	}
-
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-
-		initBlackPaint();
 
 		activeWord = model.getActiveWord();
 		activeScrabbledWord = model.getActiveScrabbledWord();
@@ -60,9 +49,8 @@ public class ScrabbleView extends GameView {
 
 		drawScore(canvas);
 		drawTimeLeft(canvas);
-		drawNextWord(canvas, activeScrabbledWord);
+		drawScrabbledWord(canvas, activeScrabbledWord);
 		drawCompletedChars(canvas, activeWord, currentCharPos);
-		drawActiveChar(canvas, activeWord, currentCharPos);
 	}
 
 	private void drawTimeLeft(Canvas canvas) {
@@ -95,13 +83,13 @@ public class ScrabbleView extends GameView {
 		canvas.drawText(timeLeftString, x, y, timeLeftPaint);
 	}
 
-	private void drawNextWord(Canvas canvas, Word nextWord) {
+	private void drawScrabbledWord(Canvas canvas, String word) {
 		whitePaint.setTextSize(80);
 		whitePaint.setTypeface(mensch);
 		float x = getDisplayWidthFromPercentage(50)
-				- whitePaint.measureText(nextWord.toString()) / 2;
+				- whitePaint.measureText(word.toString()) / 2;
 		float y = whitePaint.getTextSize() + getDisplayHeightFromPercentage(20);
-		canvas.drawText(nextWord.toString(), x, y, whitePaint);
+		canvas.drawText(word.toString(), x, y, whitePaint);
 	}
 
 	private void drawScore(Canvas canvas) {
@@ -125,23 +113,6 @@ public class ScrabbleView extends GameView {
 				+ getDisplayHeightFromPercentage(35);
 		canvas.drawText(activeWord.substring(0, currentCharPos), x, y,
 				yellowPaint);
-	}
-
-	private void drawActiveChar(Canvas canvas, Word activeWord,
-			int currentCharPos) {
-		blackPaint.setTextSize(100);
-		blackPaint.setTypeface(mensch);
-
-		float x = getDisplayWidthFromPercentage(50)
-				- blackPaint.measureText(activeWord.toString())
-				/ 2
-				+ blackPaint.measureText(activeWord
-						.substring(0, currentCharPos));
-		float y = blackPaint.getTextSize() + getDisplayHeightFromPercentage(35);
-
-		canvas.drawText(
-				activeWord.substring(currentCharPos, (currentCharPos + 1)), x,
-				y, blackPaint);
 	}
 
 	@Override

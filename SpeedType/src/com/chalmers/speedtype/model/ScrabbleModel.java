@@ -20,9 +20,8 @@ public class ScrabbleModel extends GameModel {
 
 	private static final int UPDATE_FREQUENCY = 50;
 
-	private boolean correctInput;
 	private boolean getNewWord = true;
-	private Word activeScrabbledWord;
+	private String activeScrabbledWord;
 
 	/**
 	 * Creates a new scrabbleModel. Also starts the timer associated with the
@@ -30,7 +29,6 @@ public class ScrabbleModel extends GameModel {
 	 */
 	public ScrabbleModel() {
 		super();
-		correctInput = false;
 		speedRewardPowerUp = new SpeedRewardPowerUp(this);
 	}
 
@@ -42,9 +40,9 @@ public class ScrabbleModel extends GameModel {
 	 * 
 	 * @return Word
 	 */
-	public Word getActiveScrabbledWord() {
+	public String getActiveScrabbledWord() {
 		if (getNewWord == true) {
-			activeScrabbledWord = new Word(Dictionary.scrabble(getActiveWord()));
+			activeScrabbledWord = Dictionary.scrabble(getActiveWord());
 			getNewWord = false;
 			return activeScrabbledWord;
 		} else {
@@ -65,32 +63,12 @@ public class ScrabbleModel extends GameModel {
 		return timeLeft;
 	}
 
-	private void setCorrectInputReport(boolean b) {
-		correctInput = b;
-	}
-
-	/**
-	 * If correctInput is true it also returns true. If false, the function sets
-	 * the inputReport to true and returns false.
-	 * 
-	 * @return boolean
-	 */
-	public boolean correctInputReport() {
-		if (correctInput) {
-			return true;
-		} else {
-			setCorrectInputReport(true);
-			return false;
-		}
-	}
-
 	/**
 	 * Handles input from the user. If correct character is written the score
 	 * and timeLeft will increase, as well as the currentCharPos.
 	 */
 	@Override
 	public void onInput(KeyEvent event) {
-		correctInput = true;
 		char inputChar = Character.toLowerCase((char) event.getUnicodeChar());
 		if (activeWord.charAt(currentCharPos) == inputChar) {
 			onCorrectChar();
@@ -125,7 +103,6 @@ public class ScrabbleModel extends GameModel {
 	@Override
 	protected void onIncorrectChar() {
 		super.onIncorrectChar();
-		setCorrectInputReport(false);
 	}
 
 
