@@ -44,7 +44,7 @@ public class ScrabbleModel extends GameModel {
 	 */
 	public Word getActiveScrabbledWord() {
 		if (getNewWord == true) {
-			activeScrabbledWord = Dictionary.scrabble(this.getActiveWord());
+			activeScrabbledWord = new Word(Dictionary.scrabble(getActiveWord()));
 			getNewWord = false;
 			return activeScrabbledWord;
 		} else {
@@ -104,11 +104,13 @@ public class ScrabbleModel extends GameModel {
 		}
 	}
 
+	@Override
 	protected void onCorrectChar() {
 		super.onCorrectChar();
 		incScore(1);
 	}
 
+	@Override
 	protected void onCorrectWord() {
 		super.onCorrectWord();
 		if (isFastEnough()) {
@@ -120,11 +122,18 @@ public class ScrabbleModel extends GameModel {
 		updateWord();
 	}
 
+	@Override
 	protected void onIncorrectChar() {
 		super.onIncorrectChar();
 		setCorrectInputReport(false);
 	}
 
+
+	public boolean getNewWord() {
+		return getNewWord;
+	}
+
+	
 	/**
 	 * Returns the Layout_ID for this model.
 	 * 
@@ -191,11 +200,6 @@ public class ScrabbleModel extends GameModel {
 	public void onSensorChanged(SensorEvent event, int displayRotation) {
 		// Do nothing
 	}
-
-	public boolean getNewWord() {
-		return getNewWord;
-	}
-
 	@Override
 	public boolean isFastEnough() {
 		return System.currentTimeMillis() - speedRewardTimeStart < activeWord
