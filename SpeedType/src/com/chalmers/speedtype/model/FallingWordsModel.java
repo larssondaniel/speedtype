@@ -13,6 +13,8 @@ public class FallingWordsModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.falling_words_layout;
 	private static final int VIEW_ID = R.id.falling_words_view;
+	
+	private static final int LEADERBOARD_ID = 830;
 
 	private static final int WORD_FREQUENCY = 3000;
 	private static final int UPDATE_FREQUENCY = 30;
@@ -137,7 +139,7 @@ public class FallingWordsModel extends GameModel {
 
 	@Override
 	public int getSwarmLeaderBoardID() {
-		return 830;
+		return LEADERBOARD_ID;
 	}
 
 	public String getManual() {

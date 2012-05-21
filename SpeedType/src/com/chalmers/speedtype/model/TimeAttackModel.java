@@ -8,6 +8,8 @@ public class TimeAttackModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.time_attack_layout;
 	private static final int VIEW_ID = R.id.time_attack_view;
+	
+	private static final int LEADERBOARD_ID = 826;
 
 	private static final String manual = "This is simple, just type the words as fast as possible!";
 
@@ -133,7 +135,7 @@ public class TimeAttackModel extends GameModel {
 
 	@Override
 	public int getSwarmLeaderBoardID() {
-		return 826;
+		return LEADERBOARD_ID;
 
 	}
 }

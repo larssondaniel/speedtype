@@ -14,6 +14,8 @@ public class BalanceModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.balance_layout;
 	private static final int VIEW_ID = R.id.balance_view;
+	
+	private static final int LEADERBOARD_ID = 897;
 
 	private static final float ballFriction = 0.1f;
 	private static final String manual = "Do not let the ball hit the edges of the phone!";
@@ -173,7 +175,7 @@ public class BalanceModel extends GameModel {
 
 	@Override
 	public int getSwarmLeaderBoardID() {
-		return 897;
+		return LEADERBOARD_ID;
 	}
 
 	public String getManual() {

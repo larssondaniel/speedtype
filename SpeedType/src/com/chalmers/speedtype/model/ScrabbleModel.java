@@ -9,6 +9,9 @@ import com.chalmers.speedtype.util.Dictionary;
 public class ScrabbleModel extends GameModel {
 	private static final int LAYOUT_ID = R.layout.scrabble_layout; 
 	private static final int VIEW_ID = R.id.scrabble_view;
+	
+	private static final int LEADERBOARD_ID = 899;
+	
 	private static final String manual = "Figure out the hidden word as fast as possible!";
 		
 	CountDownTimer timer;
@@ -187,6 +190,6 @@ public class ScrabbleModel extends GameModel {
 
 	@Override
 	public int getSwarmLeaderBoardID() {
-		return 899;
+		return LEADERBOARD_ID;
 	}
 }
