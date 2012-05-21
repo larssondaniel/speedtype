@@ -97,14 +97,12 @@ public class SettingsActivity extends Activity {
 
 	private ServiceConnection backgroundSoundConnection = new ServiceConnection() {
 
-		@Override
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			BackgroundSoundBinder binder = (BackgroundSoundBinder) service;
 			backgroundMusicService = binder.getService();
 			bound = true;
 		}
 
-		@Override
 		public void onServiceDisconnected(ComponentName name) {
 			bound = false;
 		}
