@@ -44,14 +44,14 @@ public abstract class GameModel {
 		activeWord = new Word(Dictionary.getNextWord());
 		nextWord = new Word(Dictionary.getNextWord());
 		gameState = STATE_RUNNING;
-		
+
 		GotAchievementsMapCB callback = new GotAchievementsMapCB() {
 			public void gotMap(Map<Integer, SwarmAchievement> achievements1) {
 				// Store the map of achievements to be used later.
 				achievements = achievements1;
 			}
 		};
-		
+
 		SwarmAchievement.getAchievementsMap(callback);
 	}
 
@@ -61,9 +61,17 @@ public abstract class GameModel {
 	}
 
 	public abstract int getSwarmLeaderBoardID();
-	
+
 	public Word getActiveWord() {
 		return activeWord;
+	}
+
+	public PowerUp getSpeedRewardPowerUp() {
+		return speedRewardPowerUp;
+	}
+
+	public PowerUp multiplierPowerUp() {
+		return multiplierPowerUp;
 	}
 
 	public Word getNextWord() {
@@ -100,7 +108,6 @@ public abstract class GameModel {
 
 	protected void onCorrectWord() {
 		incCorrectWordsInRow();
-		speedRewardTimeStart = System.currentTimeMillis();
 	}
 
 	protected void onIncorrectChar() {
@@ -116,7 +123,7 @@ public abstract class GameModel {
 		score += i;
 		checkAchievementsPrerequisites();
 	}
-	
+
 	protected boolean isWordComplete() {
 		return currentCharPos == activeWord.length() - 1;
 	}
@@ -125,9 +132,10 @@ public abstract class GameModel {
 		activeWord = nextWord;
 		nextWord = new Word(Dictionary.getNextWord());
 		currentCharPos = 0;
+		speedRewardTimeStart = System.currentTimeMillis();
 		listener.propertyChange(null);
 	}
-	
+
 	protected void giveAchievement(int id) {
 		if (achievements != null) {
 			SwarmAchievement achievement = achievements.get(id);
@@ -157,7 +165,7 @@ public abstract class GameModel {
 
 	// if this returns true, update() will be called continuously
 	public abstract boolean isContinuous();
-	
+
 	public abstract void update();
 
 	protected abstract void onPause();
@@ -208,7 +216,9 @@ public abstract class GameModel {
 	}
 
 	public boolean isFastEnough() {
+		System.out.println(System.currentTimeMillis() + " - "
+				+ speedRewardTimeStart);
 		return System.currentTimeMillis() - speedRewardTimeStart < activeWord
-				.length() * 1000 ? true : false;
+				.length() * 370 ? true : false;
 	}
 }

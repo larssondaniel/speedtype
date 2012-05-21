@@ -55,7 +55,8 @@ public class DictionarySQLiteOpenHelper extends SQLiteOpenHelper {
 			while ((line = bufferedReader.readLine()) != null) {
 				addWord(db, line);
 			}
-		} catch (IOException e) {}
+		} catch (IOException e) {
+		}
 	}
 
 	private void createTables(SQLiteDatabase db) {

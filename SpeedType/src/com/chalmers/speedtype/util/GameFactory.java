@@ -5,7 +5,6 @@ import android.content.Context;
 import com.chalmers.speedtype.model.*;
 
 public class GameFactory {
-	
 
 	private static final String TA = "TimeAttack";
 	private static final String FW = "FallingWords";
@@ -19,7 +18,7 @@ public class GameFactory {
 			return new FallingWordsModel();
 		} else if (game.equals(BG)) {
 			return new BalanceModel();
-		} else if (game.equals(SC)){
+		} else if (game.equals(SC)) {
 			return new ScrabbleModel();
 		} else {
 			return null;

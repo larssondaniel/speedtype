@@ -1,5 +1,6 @@
 package com.chalmers.speedtype.controller;
 
+import android.content.SharedPreferences;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +32,12 @@ public class Controller extends Thread {
 		this.model = model;
 		this.handler = handler;
 
+		setUpSwarmLeaderboard();
+
+		setState(STATE_READY);
+	}
+
+	private void setUpSwarmLeaderboard() {
 		GotLeaderboardCB callback = new GotLeaderboardCB() {
 			public void gotLeaderboard(SwarmLeaderboard leaderboard1) {
 
@@ -42,8 +49,6 @@ public class Controller extends Thread {
 		};
 		SwarmLeaderboard.getLeaderboardById(model.getSwarmLeaderBoardID(),
 				callback);
-
-		setState(STATE_READY);
 	}
 
 	public synchronized void setState(int mode) {

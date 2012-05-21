@@ -54,26 +54,26 @@ public class Dictionary {
 	/*
 	 * Returns a randomized Word from the input.
 	 */
-	public static String scrabble(CharSequence input){
-    	String s = input.toString();
-        s = s.toLowerCase();
-        List<Character> string = new ArrayList<Character>();
-        Random random = new Random();
-        int randomNumber;
-        String scrabble = "";
-        
-        while(s.length() > 0){
-        	string.add(s.charAt(s.length() - 1));
-        	s = s.substring(0, s.length() -1);
-        }
-        while(string.size() > 0){
-            randomNumber = random.nextInt(string.size());
-            scrabble = scrabble + (string.remove(randomNumber));
-        }
-        
-        if(scrabble.equals(s))
-        	scrabble(input);
+	public static String scrabble(CharSequence input) {
+		String s = input.toString();
+		s = s.toLowerCase();
+		List<Character> string = new ArrayList<Character>();
+		Random random = new Random();
+		int randomNumber;
+		String scrabble = "";
 
-        return scrabble;
-    }
+		while (s.length() > 0) {
+			string.add(s.charAt(s.length() - 1));
+			s = s.substring(0, s.length() - 1);
+		}
+		while (string.size() > 0) {
+			randomNumber = random.nextInt(string.size());
+			scrabble = scrabble + (string.remove(randomNumber));
+		}
+
+		if (scrabble.equals(s))
+			scrabble(input);
+
+		return scrabble;
+	}
 }

@@ -19,7 +19,7 @@ public class TimeAttackModel extends GameModel {
 	private int timeLeft = 10000;
 	private boolean correctInput;
 
-	private int gameSpeed = 600;
+	private int gameSpeed = 400;
 
 	private long lastUpdateMillis;
 
@@ -65,10 +65,8 @@ public class TimeAttackModel extends GameModel {
 		if (correctWordsInRow % 2 == 0) {
 			multiplierPowerUp.usePowerUp();
 		}
-		System.out.println("time before: " + this.getTimeLeft());
 		speedRewardTimeStart = System.currentTimeMillis();
-		setTimeLeft(timeLeft +  1 + getGameSpeed() * activeWord.length());
-		System.out.println("time after: " + this.getTimeLeft());
+		setTimeLeft(timeLeft + 1 + getGameSpeed() * activeWord.length());
 		updateWord();
 	}
 
@@ -85,7 +83,7 @@ public class TimeAttackModel extends GameModel {
 
 	public boolean isFastEnough() {
 		return System.currentTimeMillis() - speedRewardTimeStart < activeWord
-				.length() * 1000 ? true : false;
+				.length() * 360 ? true : false;
 	}
 
 	@Override
@@ -95,7 +93,6 @@ public class TimeAttackModel extends GameModel {
 		if (activeWord.charAt(currentCharPos) == inputChar) {
 			onCorrectChar();
 			if (isWordComplete()) {
-				System.out.println("NU ÄR JAG HÄR");
 				onCorrectWord();
 			} else {
 				incCurrentCharPos();

@@ -20,12 +20,12 @@ public class BalanceView extends GameView {
 	private BalanceModel model;
 	private static final float ballDiameter = 0.006f;
 
-	private Bitmap ballImage; 
+	private Bitmap ballImage;
 	private float ballOriginX;
 	private float ballOriginY;
-	
+
 	private float metersToPixels;
-	
+
 	public BalanceView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
@@ -45,13 +45,13 @@ public class BalanceView extends GameView {
 		// Scaling of the ball
 		Bitmap ball = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ball);
-		
+
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		metersToPixels = metrics.xdpi / 0.0254f;
-				
+
 		int dstWidth = (int) (ballDiameter * metersToPixels);
 		int dstHeight = (int) (ballDiameter * metersToPixels);
-		
+
 		ballImage = Bitmap.createScaledBitmap(ball, dstWidth, dstHeight, true);
 
 		Options opts = new Options();
@@ -67,31 +67,34 @@ public class BalanceView extends GameView {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		drawBall(canvas);
-		
+
 		Word activeWord = model.getActiveWord();
 		Word nextWord = model.getNextWord();
 		int CurrentCharPos = model.getCurrentCharPos();
-		
-		canvas.drawLine(0, getDisplayHeightFromPercentage(18), displayWidth, getDisplayHeightFromPercentage(18), bluePaint);
-		
+
+		canvas.drawLine(0, getDisplayHeightFromPercentage(18), displayWidth,
+				getDisplayHeightFromPercentage(18), bluePaint);
+
 		drawScore(canvas);
 		drawNextWord(canvas, nextWord);
 		drawCompletedChars(canvas, activeWord, CurrentCharPos);
 		drawIncompletedChars(canvas, activeWord, CurrentCharPos);
 		drawActiveChar(canvas, activeWord, CurrentCharPos);
 	}
-	
+
 	private void drawBall(Canvas canvas) {
-		float x = ballOriginX + model.getBall().getPosX() * metersToPixels;;
-		float y = ballOriginY - model.getBall().getPosY() * metersToPixels;;
+		float x = ballOriginX + model.getBall().getPosX() * metersToPixels;
+		;
+		float y = ballOriginY - model.getBall().getPosY() * metersToPixels;
+		;
 		canvas.drawBitmap(ballImage, x, y, null);
 	}
 
 	private void drawNextWord(Canvas canvas, Word nextWord) {
 		grayPaint.setTextSize(60);
 		grayPaint.setTypeface(mensch);
-		float x = getDisplayWidthFromPercentage(50) - grayPaint.measureText(nextWord.toString())
-				/ 2;
+		float x = getDisplayWidthFromPercentage(50)
+				- grayPaint.measureText(nextWord.toString()) / 2;
 		float y = grayPaint.getTextSize() + getDisplayHeightFromPercentage(20);
 		canvas.drawText(nextWord + "", x, y, grayPaint);
 	}
@@ -118,26 +121,31 @@ public class BalanceView extends GameView {
 		canvas.drawText(activeWord.substring(0, currentCharPos), x, y,
 				bluePaint);
 	}
-	
-	private void drawActiveChar(Canvas canvas, Word activeWord, int currentCharPos){
+
+	private void drawActiveChar(Canvas canvas, Word activeWord,
+			int currentCharPos) {
 		whitePaint.setTextSize(100);
 		whitePaint.setTypeface(mensch);
 		redPaint.setTextSize(100);
 		redPaint.setTypeface(mensch);
 		Paint activePaint = whitePaint;
-		
-		float x = getDisplayWidthFromPercentage(50) - whitePaint.measureText(activeWord.toString()) / 2 + whitePaint.measureText(activeWord.substring(0, currentCharPos));
+
+		float x = getDisplayWidthFromPercentage(50)
+				- whitePaint.measureText(activeWord.toString())
+				/ 2
+				+ whitePaint.measureText(activeWord
+						.substring(0, currentCharPos));
 		float y = bluePaint.getTextSize() + getDisplayHeightFromPercentage(35);
-		
-		if(model.correctInputReport() != true){
+
+		if (model.correctInputReport() != true) {
 			activePaint = redPaint;
 		}
-		
+
 		canvas.drawText(
 				activeWord.substring(currentCharPos, (currentCharPos + 1)), x,
 				y, activePaint);
 	}
-	
+
 	private void drawIncompletedChars(Canvas canvas, Word activeWord,
 			int currentCharPos) {
 
@@ -147,13 +155,13 @@ public class BalanceView extends GameView {
 		float x = getDisplayWidthFromPercentage(50)
 				- whitePaint.measureText(activeWord.toString())
 				/ 2
-				+ whitePaint.measureText(activeWord
-						.substring(0, currentCharPos + 1));
+				+ whitePaint.measureText(activeWord.substring(0,
+						currentCharPos + 1));
 		float y = bluePaint.getTextSize() + getDisplayHeightFromPercentage(35);
 
 		canvas.drawText(
-				activeWord.substring(currentCharPos + 1, activeWord.length()), x,
-				y, whitePaint);
+				activeWord.substring(currentCharPos + 1, activeWord.length()),
+				x, y, whitePaint);
 	}
 
 	public void onAccuracyChanged(Sensor arg0, int arg1) {
@@ -164,6 +172,7 @@ public class BalanceView extends GameView {
 		super.onSizeChanged(w, h, oldw, oldh);
 		ballOriginX = (w - ballImage.getWidth()) * 0.5f;
 		ballOriginY = (h - ballImage.getHeight()) * 0.5f;
-		model.getBall().setBounds((w / metersToPixels - ballDiameter) * 0.5f, (h / metersToPixels - ballDiameter) * 0.5f);
+		model.getBall().setBounds((w / metersToPixels - ballDiameter) * 0.5f,
+				(h / metersToPixels - ballDiameter) * 0.5f);
 	}
 }

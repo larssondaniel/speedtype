@@ -6,17 +6,17 @@ public class Ball {
 	private static final float INVERTED_GRAVITY = 1.0f / GRAVITY;
 	private static final float BALL_FRICTION = 0.1f;
 	private static final float ONE_MINUS_FRICTION = 0.6f - BALL_FRICTION;
-	
+
 	private float xPos;
 	private float yPos;
 	private float xAcceleration;
 	private float yAcceleration;
 	private float lastPosX;
 	private float lastPosY;
-	
+
 	private long lastTime;
 	private float lastDeltaTime;
-	
+
 	protected float horizontalBound;
 	protected float verticalBound;
 
@@ -33,12 +33,12 @@ public class Ball {
 	protected void computePhysics(float sensorX, float dT, float dTC) {
 		lastPosX = xPos;
 		lastPosY = yPos;
-		
+
 		xPos = xPos + ONE_MINUS_FRICTION * dTC * (xPos - lastPosX)
 				+ xAcceleration * dT * dT;
 		yPos = yPos + ONE_MINUS_FRICTION * dTC * (yPos - lastPosY)
 				+ yAcceleration * dT * dT;
-		
+
 		xAcceleration = -sensorX * GRAVITY * INVERTED_GRAVITY;
 		yAcceleration = -2f * GRAVITY * INVERTED_GRAVITY;
 	}
@@ -56,7 +56,7 @@ public class Ball {
 			yPos = boardLevel;
 		}
 	}
-	
+
 	public float getPosX() {
 		return xPos;
 	}

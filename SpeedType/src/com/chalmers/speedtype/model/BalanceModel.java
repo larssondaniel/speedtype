@@ -148,7 +148,7 @@ public class BalanceModel extends GameModel {
 	public int getViewId() {
 		return VIEW_ID;
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// Not used

@@ -105,12 +105,10 @@ public class ScrabbleModel extends GameModel {
 		super.onIncorrectChar();
 	}
 
-
 	public boolean getNewWord() {
 		return getNewWord;
 	}
 
-	
 	/**
 	 * Returns the Layout_ID for this model.
 	 * 
@@ -177,6 +175,7 @@ public class ScrabbleModel extends GameModel {
 	public void onSensorChanged(SensorEvent event, int displayRotation) {
 		// Do nothing
 	}
+
 	@Override
 	public boolean isFastEnough() {
 		return System.currentTimeMillis() - speedRewardTimeStart < activeWord

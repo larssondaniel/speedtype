@@ -137,6 +137,8 @@ public abstract class GameView extends View implements PropertyChangeListener {
 
 	public void drawMultiplierPowerUp(Canvas canvas) {
 		greenPaint.setTextSize(30);
+		greenPaint.setTypeface(Typeface.MONOSPACE);
+
 		int multiplier = model.getMultiplier();
 		float x = (getDisplayWidthFromPercentage(100) - greenPaint
 				.measureText("x" + multiplier + "!"));
@@ -145,10 +147,14 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	}
 
 	public void drawSpeedReward(Canvas canvas) {
-		greenPaint.setTextSize(20);
+
+		greenPaint.setTextSize(30);
+		greenPaint.setTypeface(Typeface.MONOSPACE);
+		String text = "+" + model.getSpeedRewardPowerUp().toString()
+				+ " for speed!";
 		float x = (getDisplayWidthFromPercentage(50) - greenPaint
-				.measureText("+10 for speed!") / 2);
+				.measureText(text) / 2);
 		float y = greenPaint.getTextSize() + getDisplayHeightFromPercentage(2);
-		canvas.drawText("+10 for speed!", x, y, greenPaint);
+		canvas.drawText(text, x, y, greenPaint);
 	}
 }
