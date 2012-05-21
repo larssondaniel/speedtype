@@ -26,7 +26,7 @@ private static Random random = new Random();
 	}
 	
 	public static String getNextWord(){
-		if ( dictionary.size() < 1){ //This if-statement is solely for testing purposes.
+		if (dictionary == null || dictionary.size() < 1 ){ //This if-statement is solely for testing purposes.
 			return "banana";
 		} else {
 			int size = dictionary.size();
