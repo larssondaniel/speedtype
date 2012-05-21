@@ -8,9 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 import android.view.KeyEvent;
 
-public class TimeAttackModelTest extends AndroidTestCase{
-	
-	private TimeAttackModel model;
+public class BalanceGameTest extends AndroidTestCase {
+	private BalanceModel model;
 	private Context context;
 	private DictionarySQLiteOpenHelper dictionary;
 	private SQLiteDatabase database;
@@ -22,7 +21,7 @@ public class TimeAttackModelTest extends AndroidTestCase{
 	protected void setUp() throws Exception{
 		super.setUp();
 		
-		model = new TimeAttackModel();
+		model = new BalanceModel();
 		context = this.getContext();
 		dictionary = new DictionarySQLiteOpenHelper(context);
 		database = dictionary.getReadableDatabase();
@@ -55,7 +54,11 @@ public class TimeAttackModelTest extends AndroidTestCase{
 		int charPosBefore = model.getCurrentCharPos();
 		for (int i = 1; i < 255; i++){
 			key = new KeyEvent(0, i);
-			model.onInput(key);
+			try{
+				model.onInput(key);
+			} catch (NullPointerException e){
+				e.printStackTrace();
+			}
 		}
 		int charPosAfter = model.getCurrentCharPos();
 		int scoreAfter = model.getScore();
@@ -76,13 +79,11 @@ public class TimeAttackModelTest extends AndroidTestCase{
 				try {
 					model.onInput(key);
 				} catch (NullPointerException e){
-					System.out.println("NU BLIR DET FEL");
 					e.getStackTrace();
 				}
 			}
 		}
 		int timeLeftAfter = model.getTimeLeft();
-		System.out.println("Before: " + timeLeftBefore + " after: "+ timeLeftAfter);
 		assertTrue(timeLeftBefore != timeLeftAfter);
 	}
 		
