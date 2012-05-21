@@ -1,4 +1,4 @@
-package com.chalmers.speedtype.util;
+package com.chalmers.speedtype.factory;
 
 import android.content.Context;
 

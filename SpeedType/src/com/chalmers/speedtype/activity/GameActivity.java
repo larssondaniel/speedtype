@@ -3,8 +3,8 @@ package com.chalmers.speedtype.activity;
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.controller.Controller;
+import com.chalmers.speedtype.factory.GameFactory;
 import com.chalmers.speedtype.model.GameModel;
-import com.chalmers.speedtype.util.GameFactory;
 import com.chalmers.speedtype.view.GameView;
 import com.swarmconnect.SwarmActivity;
 
