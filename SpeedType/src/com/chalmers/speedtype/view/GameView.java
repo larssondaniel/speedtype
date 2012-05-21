@@ -25,6 +25,7 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	protected int displayHeight;
 	protected Paint whitePaint;
 	protected Paint grayPaint;
+	protected Paint yellowPaint;
 	protected Paint greenPaint;
 	protected Paint redPaint;
 	protected Paint bluePaint;
@@ -56,10 +57,15 @@ public abstract class GameView extends View implements PropertyChangeListener {
 		grayPaint.setStyle(Style.FILL);
 
 		greenPaint = new Paint();
-		greenPaint.setColor(Color.GREEN);
+		greenPaint.setColor(Color.YELLOW);
 		greenPaint.setAntiAlias(true);
 		greenPaint.setStyle(Style.FILL);
-
+	
+		yellowPaint = new Paint();
+		yellowPaint.setColor(Color.YELLOW);
+		yellowPaint.setAntiAlias(true);
+		yellowPaint.setStyle(Style.FILL);
+		
 		redPaint = new Paint();
 		redPaint.setColor(Color.RED);
 		redPaint.setAntiAlias(true);

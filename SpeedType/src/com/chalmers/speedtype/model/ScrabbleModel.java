@@ -14,7 +14,7 @@ public class ScrabbleModel extends GameModel {
 	private static final int LEADERBOARD_ID = 899;
 	
 	private static final String manual = "Figure out the hidden word as fast as possible!";
-		
+	private static final int SWARMLEADERBOARD_ID = 899;
 	CountDownTimer timer;
 	private int timeLeft = 15000;
 	private long speedRewardTimeStart;
@@ -203,5 +203,9 @@ public class ScrabbleModel extends GameModel {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		// Do nothing
+	}
+	
+	public boolean getNewWord(){
+		return getNewWord;
 	}
 }
