@@ -19,6 +19,7 @@ public class TimeAttackModel extends GameModel {
 	private long lastUpdateMillis;
 
 	private PowerUp speedRewardPowerUp;
+	private int gameSpeed = 600;
 
 	public TimeAttackModel() {
 		super();
@@ -84,10 +85,14 @@ public class TimeAttackModel extends GameModel {
 			speedRewardPowerUp.usePowerUp();
 		}
 		speedRewardTimeStart = System.currentTimeMillis();
-		setTimeLeft(timeLeft + 1000 * activeWord.length());
+		setTimeLeft(timeLeft + getGameSpeed() * activeWord.length());
 		updateWord();
 	}
-	
+
+	private int getGameSpeed(){
+		gameSpeed-=2;
+		return gameSpeed;
+	}
 	protected void onIncorrectChar() {
 		super.onIncorrectChar();
 		setCorrectInputReport(false);

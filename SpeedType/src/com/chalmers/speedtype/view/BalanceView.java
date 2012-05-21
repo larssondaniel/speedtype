@@ -113,14 +113,14 @@ public class BalanceView extends GameView {
 	private void drawCompletedChars(Canvas canvas, Word activeWord,
 			int currentCharPos) {
 
-		greenPaint.setTextSize(100);
-		greenPaint.setTypeface(mensch);
+		bluePaint.setTextSize(100);
+		bluePaint.setTypeface(mensch);
 		float x = getDisplayWidthFromPercentage(50)
-				- greenPaint.measureText(activeWord.toString()) / 2;
-		float y = greenPaint.getTextSize() + getDisplayHeightFromPercentage(35);
+				- bluePaint.measureText(activeWord.toString()) / 2;
+		float y = bluePaint.getTextSize() + getDisplayHeightFromPercentage(35);
 
 		canvas.drawText(activeWord.substring(0, currentCharPos), x, y,
-				greenPaint);
+				bluePaint);
 	}
 	
 	private void drawActiveChar(Canvas canvas, Word activeWord, int currentCharPos){
@@ -131,7 +131,7 @@ public class BalanceView extends GameView {
 		Paint activePaint = whitePaint;
 		
 		float x = getDisplayWidthFromPercentage(50) - whitePaint.measureText(activeWord.toString()) / 2 + whitePaint.measureText(activeWord.substring(0, currentCharPos));
-		float y = greenPaint.getTextSize() + getDisplayHeightFromPercentage(35);
+		float y = bluePaint.getTextSize() + getDisplayHeightFromPercentage(35);
 		
 		if(model.correctInputReport() != true){
 			activePaint = redPaint;
@@ -153,7 +153,7 @@ public class BalanceView extends GameView {
 				/ 2
 				+ whitePaint.measureText(activeWord
 						.substring(0, currentCharPos + 1));
-		float y = greenPaint.getTextSize() + getDisplayHeightFromPercentage(35);
+		float y = bluePaint.getTextSize() + getDisplayHeightFromPercentage(35);
 
 		canvas.drawText(
 				activeWord.substring(currentCharPos + 1, activeWord.length()), x,
