@@ -6,7 +6,6 @@ import java.util.Map;
 import com.chalmers.speedtype.util.Dictionary;
 import com.swarmconnect.SwarmAchievement;
 import com.swarmconnect.SwarmAchievement.GotAchievementsMapCB;
-
 import android.view.KeyEvent;
 import android.hardware.SensorEvent;
 
@@ -24,6 +23,12 @@ public abstract class GameModel {
 	protected int currentCharPos;
 	protected int score = 0;
 	protected int multiplier = 1;
+
+	protected long lastUpdateMillis;
+	protected PowerUp speedRewardPowerUp;
+	protected PowerUp multiplierPowerUp;
+
+	protected long speedRewardTimeStart;
 
 	protected int correctCharsInRow;
 	protected int correctWordsInRow;
@@ -95,6 +100,7 @@ public abstract class GameModel {
 
 	protected void onCorrectWord() {
 		incCorrectWordsInRow();
+		speedRewardTimeStart = System.currentTimeMillis();
 	}
 
 	protected void onIncorrectChar() {
@@ -191,5 +197,18 @@ public abstract class GameModel {
 		powerUp.usePowerUp();
 	}
 
+	public int getMultiplier() {
+		return multiplier;
+	}
+
 	public abstract String getManual();
+
+	public SpeedRewardPowerUp getSpeedReward() {
+		return (SpeedRewardPowerUp) speedRewardPowerUp;
+	}
+
+	public boolean isFastEnough() {
+		return System.currentTimeMillis() - speedRewardTimeStart < activeWord
+				.length() * 1000 ? true : false;
+	}
 }

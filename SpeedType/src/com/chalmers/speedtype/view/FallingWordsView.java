@@ -17,12 +17,12 @@ import com.chalmers.speedtype.model.Word;
 public class FallingWordsView extends GameView {
 
 	private FallingWordsModel model;
-	
+
 	private LinkedList<Word> visibleWords;
 	private Word activeWord;
 	private int currentCharPos;
 	private int score;
-	
+
 	private Paint completedCharsPaint;
 	private Paint incompleteCharsPaint;
 	private Paint scorePaint;
@@ -59,24 +59,23 @@ public class FallingWordsView extends GameView {
 		}
 
 		drawScore(canvas);
-		canvas.drawLine(0, getDisplayHeightFromPercentage(50), displayWidth, getDisplayHeightFromPercentage(50), linePaint);
+		canvas.drawLine(0, getDisplayHeightFromPercentage(50), displayWidth,
+				getDisplayHeightFromPercentage(50), linePaint);
 	}
 
-	private void drawActiveWord(Canvas canvas, Word word,
-			int currentCharPos) {
+	private void drawActiveWord(Canvas canvas, Word word, int currentCharPos) {
 		drawCompletedChars(canvas, word, currentCharPos);
 		drawIncompletedChars(canvas, word, currentCharPos);
 	}
 
-	private void drawCompletedChars(Canvas canvas, Word word,
-			int currentCharPos) {
+	private void drawCompletedChars(Canvas canvas, Word word, int currentCharPos) {
 
 		completedCharsPaint.setTextSize(activeWord.getSize());
-		
+
 		int x = calculateX(word, completedCharsPaint);
 
-		canvas.drawText(word.substring(0, currentCharPos),
-				x, (int) word.getY(), completedCharsPaint);
+		canvas.drawText(word.substring(0, currentCharPos), x,
+				(int) word.getY(), completedCharsPaint);
 	}
 
 	private void drawIncompletedChars(Canvas canvas, Word word,
@@ -84,11 +83,11 @@ public class FallingWordsView extends GameView {
 
 		incompleteCharsPaint.setTextSize(word.getSize());
 
-		float x = calculateX(word, incompleteCharsPaint) + incompleteCharsPaint.measureText(word
-				.substring(0, currentCharPos));
+		float x = calculateX(word, incompleteCharsPaint)
+				+ incompleteCharsPaint.measureText(word.substring(0,
+						currentCharPos));
 
-		canvas.drawText(
-				word.substring(currentCharPos, word.length()), x,
+		canvas.drawText(word.substring(currentCharPos, word.length()), x,
 				(int) word.getY(), incompleteCharsPaint);
 	}
 
@@ -101,7 +100,8 @@ public class FallingWordsView extends GameView {
 			inactiveWordsPaint.setTextSize(word.getSize());
 			x = calculateX(word, inactiveWordsPaint);
 
-			canvas.drawText(word.toString(), x, (int) word.getY(), inactiveWordsPaint);
+			canvas.drawText(word.toString(), x, (int) word.getY(),
+					inactiveWordsPaint);
 		}
 	}
 
@@ -116,28 +116,28 @@ public class FallingWordsView extends GameView {
 
 	private int calculateX(Word word, Paint paint) {
 		int span = (int) (displayWidth - paint.measureText(word.toString()));
-		return (int)word.getX() * span / 100;
+		return (int) word.getX() * span / 100;
 	}
-	
+
 	@Override
 	protected void onFinishInflate() {
 		super.onFinishInflate();
-		
+
 		completedCharsPaint = new Paint(whitePaint);
 		completedCharsPaint.setColor(Color.rgb(255, 0, 85));
-		
+
 		incompleteCharsPaint = new Paint(whitePaint);
-		
+
 		inactiveWordsPaint = new Paint(whitePaint);
 		inactiveWordsPaint.setColor(Color.argb(150, 255, 255, 255));
-		
+
 		scorePaint = new Paint(whitePaint);
 		scorePaint.setTextSize(40);
 		scorePaint.setTypeface(Typeface.SANS_SERIF);
-		
+
 		linePaint = new Paint(whitePaint);
 		linePaint.setColor(Color.rgb(255, 0, 85));
 		linePaint.setStyle(Style.FILL);
-		
+
 	}
 }

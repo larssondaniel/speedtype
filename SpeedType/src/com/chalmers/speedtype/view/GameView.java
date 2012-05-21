@@ -57,15 +57,15 @@ public abstract class GameView extends View implements PropertyChangeListener {
 		grayPaint.setStyle(Style.FILL);
 
 		greenPaint = new Paint();
-		greenPaint.setColor(Color.YELLOW);
+		greenPaint.setColor(Color.GREEN);
 		greenPaint.setAntiAlias(true);
 		greenPaint.setStyle(Style.FILL);
-	
+
 		yellowPaint = new Paint();
 		yellowPaint.setColor(Color.YELLOW);
 		yellowPaint.setAntiAlias(true);
 		yellowPaint.setStyle(Style.FILL);
-		
+
 		redPaint = new Paint();
 		redPaint.setColor(Color.RED);
 		redPaint.setAntiAlias(true);
@@ -96,6 +96,15 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+		System.out.println(model.getMultiplier());
+		if (model.getMultiplier() != 1) {
+			drawMultiplierPowerUp(canvas);
+		}
+
+		if (!model.getSpeedReward().isFinished()) {
+			drawSpeedReward(canvas);
+		}
+
 	}
 
 	@Override
@@ -118,11 +127,30 @@ public abstract class GameView extends View implements PropertyChangeListener {
 				model.setGameState(model.STATE_PAUSED);
 				return false;
 			}
-		} 
+		}
 		return super.dispatchKeyEvent(event);
 	}
 
 	public void propertyChange(PropertyChangeEvent event) {
 		postInvalidate();
+	}
+
+	public void drawMultiplierPowerUp(Canvas canvas) {
+		greenPaint.setTextSize(30);
+		// whitePaint.setTypeface(mensch);
+		int multiplier = model.getMultiplier();
+		float x = (getDisplayWidthFromPercentage(100) - greenPaint
+				.measureText("x" + multiplier + "!"));
+		float y = greenPaint.getTextSize() + getDisplayHeightFromPercentage(7);
+		canvas.drawText("x" + multiplier, x, y, greenPaint);
+	}
+
+	public void drawSpeedReward(Canvas canvas) {
+		greenPaint.setTextSize(20);
+		// whitePaint.setTypeface(mensch);
+		float x = (getDisplayWidthFromPercentage(50) - greenPaint
+				.measureText("+10 for speed!") / 2);
+		float y = greenPaint.getTextSize() + getDisplayHeightFromPercentage(2);
+		canvas.drawText("+10 for speed!", x, y, greenPaint);
 	}
 }

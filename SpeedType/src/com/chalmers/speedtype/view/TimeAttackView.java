@@ -98,7 +98,7 @@ public class TimeAttackView extends GameView {
 		int score = model.getScore();
 		float x = (displayWidth - whitePaint.measureText(score + "") - getDisplayWidthFromPercentage(2));
 		float y = whitePaint.getTextSize() + getDisplayHeightFromPercentage(2);
-		canvas.drawText(model.getScore() + "", x, y, whitePaint);
+		canvas.drawText(score + "", x, y, whitePaint);
 
 	}
 

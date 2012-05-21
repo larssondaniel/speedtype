@@ -18,15 +18,17 @@ public class TimeAttackModel extends GameModel {
 
 	private int timeLeft = 10000;
 	private boolean correctInput;
-	private long speedRewardTimeStart;
+
+	private int gameSpeed = 600;
+
 	private long lastUpdateMillis;
 
-	private PowerUp speedRewardPowerUp;
-	private int gameSpeed = 600;
 
 	public TimeAttackModel() {
 		super();
 		correctInput = false;
+		speedRewardPowerUp = new SpeedRewardPowerUp(this);
+		multiplierPowerUp = new MultiplierPowerUp(this);
 	}
 
 	protected void setTimeLeft(int timeLeft) {
@@ -58,11 +60,12 @@ public class TimeAttackModel extends GameModel {
 	protected void onCorrectWord() {
 		super.onCorrectWord();
 		if (isFastEnough()) {
-			speedRewardPowerUp = new SpeedRewardPowerUp(this);
 			speedRewardPowerUp.usePowerUp();
 		}
-		speedRewardTimeStart = System.currentTimeMillis();
 		setTimeLeft(timeLeft + getGameSpeed() * activeWord.length());
+		if (correctWordsInRow % 2 == 0) {
+			multiplierPowerUp.usePowerUp();
+		}
 		updateWord();
 	}
 
@@ -73,6 +76,7 @@ public class TimeAttackModel extends GameModel {
 	protected void onIncorrectChar() {
 		super.onIncorrectChar();
 		setCorrectInputReport(false);
+		multiplierPowerUp.endPowerUp();
 	}
 
 	public boolean isFastEnough() {
@@ -95,7 +99,7 @@ public class TimeAttackModel extends GameModel {
 			onIncorrectChar();
 		}
 	}
-	
+
 	@Override
 	public void update() {
 		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {

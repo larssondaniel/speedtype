@@ -50,7 +50,7 @@ public class GameActivity extends SwarmActivity {
 
 		String gameMode = getIntent().getExtras().getString("gameMode");
 		app = (SpeedTypeApplication) getApplication();
-		
+
 		startService(app.getbackgroundSoundServiceIntent());
 		setUpUtil();
 		initGameMode(gameMode);
@@ -69,6 +69,9 @@ public class GameActivity extends SwarmActivity {
 
 	private void initGameMode(String gameMode) {
 		model = GameFactory.createGameMode(this, gameMode);
+		System.out.println("Gamemode = " + gameMode);
+		System.out.println("Model = " + model);
+
 		setUpViews();
 		view.setModel(model);
 		controller = new Controller(model, new Handler() {
@@ -107,9 +110,10 @@ public class GameActivity extends SwarmActivity {
 		// Set TouchListener
 		view.setOnTouchListener(new OnTouchListener() {
 			@Override
-			public boolean onTouch(View v, MotionEvent event){
-				if(model.isGameOver() == true){
-					Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+			public boolean onTouch(View v, MotionEvent event) {
+				if (model.isGameOver() == true) {
+					Intent intent = new Intent(getApplicationContext(),
+							MenuActivity.class);
 					startActivity(intent);
 				}
 				return controller.onTouch(event);
@@ -134,8 +138,9 @@ public class GameActivity extends SwarmActivity {
 			sensorManager.registerListener(sensorEventListener, sensor,
 					SensorManager.SENSOR_DELAY_FASTEST);
 	}
+
 	@Override
-	public void onBackPressed () {
+	public void onBackPressed() {
 		Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
 		startActivity(intent);
 	}

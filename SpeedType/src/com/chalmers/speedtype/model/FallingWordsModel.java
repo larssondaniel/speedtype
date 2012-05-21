@@ -29,6 +29,7 @@ public class FallingWordsModel extends GameModel {
 
 	public FallingWordsModel() {
 		super();
+		speedRewardPowerUp = new SpeedRewardPowerUp(this);
 	}
 
 	@Override
@@ -66,6 +67,9 @@ public class FallingWordsModel extends GameModel {
 		super.onCorrectWord();
 		updateWord();
 		incSpeed();
+		if (isFastEnough()) {
+			speedRewardPowerUp.usePowerUp();
+		}
 	}
 
 	protected void onIncorrectChar() {
