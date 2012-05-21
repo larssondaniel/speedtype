@@ -136,8 +136,9 @@ public class FallingWordsView extends GameView {
 		scorePaint.setTypeface(Typeface.SANS_SERIF);
 
 		linePaint = new Paint(whitePaint);
-		linePaint.setColor(Color.rgb(255, 0, 85));
+		linePaint.setColor(Color.rgb(255, 255, 255));
 		linePaint.setStyle(Style.FILL);
+		linePaint.setStrokeWidth(3);
 
 	}
 }

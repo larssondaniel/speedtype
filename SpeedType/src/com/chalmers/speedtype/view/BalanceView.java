@@ -71,9 +71,9 @@ public class BalanceView extends GameView {
 		Word activeWord = model.getActiveWord();
 		Word nextWord = model.getNextWord();
 		int CurrentCharPos = model.getCurrentCharPos();
-
+		whitePaint.setStrokeWidth(3);
 		canvas.drawLine(0, getDisplayHeightFromPercentage(18), displayWidth,
-				getDisplayHeightFromPercentage(18), bluePaint);
+				getDisplayHeightFromPercentage(18), whitePaint);
 
 		drawScore(canvas);
 		drawNextWord(canvas, nextWord);

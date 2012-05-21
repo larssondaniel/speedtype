@@ -3,7 +3,7 @@
     android:id="@+id/scrabble_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background_blue" >
+    android:background="@drawable/gradient_background_yellow" >
 
     <com.chalmers.speedtype.view.ScrabbleView
         android:id="@+id/scrabble_view"

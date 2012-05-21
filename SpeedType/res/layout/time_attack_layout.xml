@@ -3,7 +3,7 @@
     android:id="@+id/time_attack_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background_blue" >
+    android:background="@drawable/gradient_background_green" >
 
     <com.chalmers.speedtype.view.TimeAttackView
         android:id="@+id/time_attack_view"
