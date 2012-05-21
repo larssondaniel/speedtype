@@ -136,6 +136,10 @@ public class FallingWordsModel extends GameModel {
 	}
 
 	@Override
+	public int getSwarmLeaderBoardID() {
+		return 830;
+	}
+
 	public String getManual() {
 		return manual;
 	}

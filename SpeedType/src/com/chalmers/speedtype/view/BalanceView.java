@@ -24,10 +24,6 @@ public class BalanceView extends GameView {
 	private float xOrigin;
 	private float yOrigin;
 	
-	private int count;
-	private Paint timeLeftPaint;
-
-
 	public BalanceView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
@@ -54,12 +50,7 @@ public class BalanceView extends GameView {
 		Options opts = new Options();
 		opts.inDither = true;
 		opts.inPreferredConfig = Bitmap.Config.RGB_565;
-		Bitmap planka = BitmapFactory.decodeResource(getResources(),
-				R.drawable.wood, opts);
-		boardImage = Bitmap.createScaledBitmap(planka,
-				(int) Util.getMetersToPixelsX(), dstHeight, true);
 		
-		timeLeftPaint = whitePaint;
 	}
 
 	public void setModel(GameModel model) {
@@ -70,14 +61,11 @@ public class BalanceView extends GameView {
 	@Override
 	protected void onDraw(Canvas canvas) {
 
-		canvas.drawBitmap(boardImage, 0,
-				Util.getMetersToPixelsY() * model.getVerticalBound() * 2 / 8
-						+ 0.005f * Util.getMetersToPixelsY(), null);
+
 
 		final long now = model.getSensorTimeStamp() + (System.nanoTime() - model.getCpuTimeStamp());
 		final float sx = model.getSensorX();
-		System.out.println(sx + " " + now);
-
+		
 		model.updateParticle(sx, now);
 		
 		final float xc = xOrigin;
@@ -87,56 +75,20 @@ public class BalanceView extends GameView {
 		final Bitmap bitmap = ballImage;
 		final float x = xc + model.getParticle().getPosX() * xs;
 		final float y = yc - model.getParticle().getPosY() * ys;
-		System.out.println(model.getParticle().getPosY() + " " + model.getParticle().getPosX() + " " + xs);
 		
 		canvas.drawBitmap(bitmap, x, y, null);
-
+		
 		Word activeWord = model.getActiveWord();
 		Word nextWord = model.getNextWord();
 		int CurrentCharPos = model.getCurrentCharPos();
-
+		
+		canvas.drawLine(0, getDisplayHeightFromPercentage(18), displayWidth-1, getDisplayHeightFromPercentage(18), bluePaint);
+		
 		drawScore(canvas);
-		drawTimeLeft(canvas);
 		drawNextWord(canvas, nextWord);
 		drawCompletedChars(canvas, activeWord, CurrentCharPos);
 		drawIncompletedChars(canvas, activeWord, CurrentCharPos);
 		drawActiveChar(canvas, activeWord, CurrentCharPos);
-		
-		invalidate();
-	}
-
-	private void drawTimeLeft(Canvas canvas) {
-		whitePaint.setTextSize(100);
-		whitePaint.setTypeface(mensch);
-		redPaint.setTextSize(100);
-		redPaint.setTypeface(mensch);
-
-		int timeLeft = model.getTimeLeft();
-		String timeLeftString;
-		
-		if (timeLeft < 10000) {
-			double timeLeftLow = ((double) timeLeft) / 1000;
-			timeLeftString = timeLeftLow + "";
-			count++;
-			if (count == 3) {
-				count = 0;
-				if (timeLeftPaint == whitePaint) {
-					timeLeftPaint = redPaint;
-				} else {
-					timeLeftPaint = whitePaint;
-				}
-			}
-		} else {
-			timeLeftPaint = whitePaint;
-			timeLeft = timeLeft / 1000;
-			timeLeftString = timeLeft + "";
-		}
-
-		float x = displayWidth / 2 - whitePaint.measureText(timeLeftString) / 2;
-		float y = whitePaint.getTextSize() + getDisplayHeightFromPercentage(5);
-
-		canvas.drawText(timeLeftString, x, y, timeLeftPaint);
-
 	}
 
 	private void drawNextWord(Canvas canvas, Word nextWord) {

@@ -125,9 +125,11 @@ public class MenuActivity extends SwarmActivity {
 
 	public void onPause() {
 		super.onPause();
+		// stopService(backgroundSoundServiceIntent);
 	}
 
 	public void onResume() {
 		super.onResume();
+		// startService(backgroundSoundServiceIntent);
 	}
 }

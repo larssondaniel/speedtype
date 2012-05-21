@@ -4,17 +4,24 @@ import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.controller.Controller;
 import com.chalmers.speedtype.model.GameModel;
+import com.chalmers.speedtype.util.BackgroundSoundService;
 import com.chalmers.speedtype.util.GameFactory;
 import com.chalmers.speedtype.util.Util;
+import com.chalmers.speedtype.util.BackgroundSoundService.BackgroundSoundBinder;
 import com.chalmers.speedtype.view.GameView;
 import com.swarmconnect.SwarmActivity;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -51,6 +58,7 @@ public class GameActivity extends SwarmActivity {
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 		String gameMode = getIntent().getExtras().getString("gameMode");
 		app = (SpeedTypeApplication) getApplication();
+		
 		startService(app.getbackgroundSoundServiceIntent());
 		setUpUtil();
 		initGameMode(gameMode);

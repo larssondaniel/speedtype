@@ -53,6 +53,8 @@ public abstract class GameModel {
 		System.out.println(listener);
 	}
 
+	public abstract int getSwarmLeaderBoardID();
+	
 	public Word getActiveWord() {
 		return activeWord;
 	}

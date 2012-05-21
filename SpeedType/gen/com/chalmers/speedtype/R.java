@@ -65,7 +65,6 @@ public final class R {
         public static final int swarm_trophy_gold=0x7f02002a;
         public static final int swarm_trophy_grey=0x7f02002b;
         public static final int swarm_x=0x7f02002c;
-        public static final int wood=0x7f02002d;
     }
     public static final class id {
         public static final int TextView01=0x7f070017;

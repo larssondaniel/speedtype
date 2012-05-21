@@ -26,7 +26,8 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	protected Paint grayPaint;
 	protected Paint greenPaint;
 	protected Paint redPaint;
-
+	protected Paint bluePaint;
+	
 	public GameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
@@ -62,6 +63,11 @@ public abstract class GameView extends View implements PropertyChangeListener {
 		redPaint.setColor(Color.RED);
 		redPaint.setAntiAlias(true);
 		redPaint.setStyle(Style.FILL);
+		
+		bluePaint = new Paint();
+		bluePaint.setColor(Color.BLUE);
+		bluePaint.setAntiAlias(true);
+		bluePaint.setStyle(Style.FILL);
 
 		setFocusable(true);
 		requestFocus();

@@ -70,10 +70,8 @@ public class Ball {
 				+ yAcceleration * dTdT;
 		lastPosX = xPos;
 		lastPosY = yPos;
-		System.out.println(xPos + " " + yPos);
 		xPos = x;
 		yPos = y;
-		System.out.println("xPos= " + xPos + "   " + "yPos= " + yPos);
 		xAcceleration = ax;
 		yAcceleration = ay;
 	}

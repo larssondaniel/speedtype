@@ -9,6 +9,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.chalmers.speedtype.model.GameModel;
+import com.swarmconnect.SwarmLeaderboard;
+import com.swarmconnect.SwarmLeaderboard.GotLeaderboardCB;
 
 public class Controller extends Thread {
 
@@ -20,12 +22,27 @@ public class Controller extends Thread {
 	private int gameState;
 	private boolean isRunning = false;
 
+	private SwarmLeaderboard leaderboard;
+
 	private GameModel model;
 	private Handler handler;
 
 	public Controller(GameModel model, Handler handler) {
 		this.model = model;
 		this.handler = handler;
+
+		GotLeaderboardCB callback = new GotLeaderboardCB() {
+			public void gotLeaderboard(SwarmLeaderboard leaderboard1) {
+
+				if (leaderboard1 != null) {
+
+					// Save the leaderboard for later use
+					leaderboard = leaderboard1;
+				}
+			}
+		};
+		SwarmLeaderboard.getLeaderboardById(model.getSwarmLeaderBoardID(),
+				callback);
 
 		setState(STATE_READY);
 	}
@@ -111,8 +128,10 @@ public class Controller extends Thread {
 		} else if (gameState == STATE_READY || gameState == STATE_PAUSED) {
 			setState(STATE_RUNNING);
 			return true;
-		} else if (gameState == STATE_GAMEOVER) {
-			// Handle game over
+		} else if(gameState == STATE_GAMEOVER) {
+			if (leaderboard != null) {
+			    leaderboard.submitScore(model.getScore());
+			} 
 			return true;
 		}
 		return false;

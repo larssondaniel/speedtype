@@ -15,53 +15,25 @@ public class BalanceModel extends GameModel {
 	private static final int LAYOUT_ID = R.layout.balance_layout;
 	private static final int VIEW_ID = R.id.balance_view;
 
-	private static final float ballDiameter = 0.006f;
 	private static final float ballFriction = 0.1f;
 	private static final String manual = "Do not let the ball hit the edges of the phone!";
+
+	private static final long UPDATE_FREQUENCY = 50;
 
 	private float sensorX;
 	private long sensorTimeStamp;
 	private long cpuTimeStamp;
 	private float horizontalBound;
 	private float verticalBound;
-	private int timeLeft = 10000;
 	private boolean correctInput;
 	Ball particle;
 
+	private long lastUpdateMillis;
+
 	public BalanceModel() {
 		super();
-		initTimer();
 		particle = new Ball(ballFriction, horizontalBound, verticalBound);
 		correctInput = false;
-	}
-
-	private void initTimer() {
-		Runnable runnable = new Runnable() {
-			public void run() {
-				while (true) {
-					try {
-						Thread.sleep(100);
-						setTimeLeft(timeLeft - 100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-		new Thread(runnable).start();
-	}
-
-	protected void setTimeLeft(int timeLeft) {
-		this.timeLeft = timeLeft;
-		// listener.propertyChange(null);
-	}
-
-	protected void incTimeLeft(int timeLeft) {
-
-	}
-
-	public int getTimeLeft() {
-		return timeLeft;
 	}
 
 	public long getSensorTimeStamp() {
@@ -135,7 +107,6 @@ public class BalanceModel extends GameModel {
 
 	protected void onCorrectWord() {
 		super.onCorrectWord();
-		setTimeLeft(timeLeft + 1000 * activeWord.length());
 		updateWord();
 	}
 
@@ -180,7 +151,7 @@ public class BalanceModel extends GameModel {
 
 	@Override
 	public boolean isContinuous() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -190,10 +161,21 @@ public class BalanceModel extends GameModel {
 
 	@Override
 	public void update() {
-		// Update here
+		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
+			if (particle.getPosX() <= -horizontalBound
+					|| particle.getPosX() >= horizontalBound) {
+				isGameOver = true;
+			}
+			lastUpdateMillis = System.currentTimeMillis();
+			listener.propertyChange(null);
+		}
 	}
 
 	@Override
+	public int getSwarmLeaderBoardID() {
+		return 897;
+	}
+
 	public String getManual() {
 		return manual;
 	}

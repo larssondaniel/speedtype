@@ -183,4 +183,10 @@ public class ScrabbleModel extends GameModel {
 	public String getManual() {
 		return manual;
 	}
+
+
+	@Override
+	public int getSwarmLeaderBoardID() {
+		return 899;
+	}
 }

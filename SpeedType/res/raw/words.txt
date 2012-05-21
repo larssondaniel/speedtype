@@ -217,7 +217,6 @@ draw
 left
 late
 run
-don't
 while
 press
 close
@@ -767,7 +766,6 @@ provide
 agree
 thus
 capital
-won't
 chair
 danger
 fruit

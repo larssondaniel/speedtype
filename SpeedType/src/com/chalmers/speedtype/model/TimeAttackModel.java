@@ -8,6 +8,7 @@ public class TimeAttackModel extends GameModel {
 
 	private static final int LAYOUT_ID = R.layout.time_attack_layout;
 	private static final int VIEW_ID = R.id.time_attack_view;
+
 	private static final String manual = "This is simple, just type the words as fast as possible!";
 
 	private static final int UPDATE_FREQUENCY = 50;
@@ -86,7 +87,7 @@ public class TimeAttackModel extends GameModel {
 		setTimeLeft(timeLeft + 1000 * activeWord.length());
 		updateWord();
 	}
-
+	
 	protected void onIncorrectChar() {
 		super.onIncorrectChar();
 		setCorrectInputReport(false);
@@ -121,8 +122,13 @@ public class TimeAttackModel extends GameModel {
 			isGameOver = true;
 	}
 
-	@Override
 	public String getManual() {
 		return manual;
+	}
+
+	@Override
+	public int getSwarmLeaderBoardID() {
+		return 826;
+
 	}
 }
