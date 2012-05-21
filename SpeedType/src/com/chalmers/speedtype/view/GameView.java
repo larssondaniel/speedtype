@@ -96,7 +96,6 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		System.out.println(model.getMultiplier());
 		if (model.getMultiplier() != 1) {
 			drawMultiplierPowerUp(canvas);
 		}

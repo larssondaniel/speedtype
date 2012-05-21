@@ -77,13 +77,21 @@
         android:background="@drawable/gradient_background_blue"
         android:orientation="vertical"
         android:visibility="gone" >
-
+        <ImageView
+            android:id="@+id/logo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/logo" />
         <Button
             android:id="@+id/time_attack_button"
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/menu_button"
             android:text="@string/time_attack"
             android:textSize="25sp" />

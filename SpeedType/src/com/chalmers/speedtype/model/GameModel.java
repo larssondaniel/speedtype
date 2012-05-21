@@ -57,7 +57,6 @@ public abstract class GameModel {
 
 	public void addChangeListener(PropertyChangeListener newListener) {
 		listener = newListener;
-		System.out.println(listener);
 	}
 
 	public abstract int getSwarmLeaderBoardID();
@@ -216,8 +215,6 @@ public abstract class GameModel {
 	}
 
 	public boolean isFastEnough() {
-		System.out.println(System.currentTimeMillis() + " - "
-				+ speedRewardTimeStart);
 		return System.currentTimeMillis() - speedRewardTimeStart < activeWord
 				.length() * 370 ? true : false;
 	}

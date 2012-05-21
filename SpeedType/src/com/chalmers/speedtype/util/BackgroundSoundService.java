@@ -33,8 +33,8 @@ public class BackgroundSoundService extends Service {
 		preferences = this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 		player = MediaPlayer.create(this, R.raw.menu_music);
 		player.setLooping(true);
-		player.setVolume(preferences.getInt(MUSIC_VOLUME, 70),
-				preferences.getInt(MUSIC_VOLUME, 70));
+		setVolume(preferences.getInt(MUSIC_VOLUME, 70));
+		System.out.println("NEW MEDIAPLAYER" + MUSIC_VOLUME);
 	}
 
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -67,7 +67,8 @@ public class BackgroundSoundService extends Service {
 	}
 
 	public void setVolume(int volume) {
-		float fVolume = (float) volume / 100;
+		float fVolume = ((float) volume) / 100;
+		System.out.println("fVolume: " + fVolume);
 		player.setVolume(fVolume, fVolume);
 	}
 }
