@@ -25,7 +25,7 @@
         <activity
             android:name=".activity.GameActivity"
             android:screenOrientation="portrait" 
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="stateAlwaysVisible" />
         <activity
             android:name=".activity.TimeAttackActivity"
             android:screenOrientation="portrait" />

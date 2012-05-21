@@ -1,20 +1,21 @@
 package com.chalmers.speedtype.model;
 
 import java.beans.PropertyChangeListener;
-import java.util.HashMap;
 import java.util.Map;
 
-import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Dictionary;
 import com.swarmconnect.SwarmAchievement;
 import com.swarmconnect.SwarmAchievement.GotAchievementsMapCB;
 
 import android.view.KeyEvent;
 import android.hardware.SensorEvent;
-import android.media.AudioManager;
-import android.media.SoundPool;
 
 public abstract class GameModel {
+
+	public final int STATE_RUNNING = 1;
+	public final int STATE_PAUSED = 2;
+
+	protected int gameState;
 
 	protected PropertyChangeListener listener;
 
@@ -37,14 +38,15 @@ public abstract class GameModel {
 	public GameModel() {
 		activeWord = new Word(Dictionary.getNextWord());
 		nextWord = new Word(Dictionary.getNextWord());
+		gameState = STATE_RUNNING;
+		
 		GotAchievementsMapCB callback = new GotAchievementsMapCB() {
-
 			public void gotMap(Map<Integer, SwarmAchievement> achievements1) {
-
-				// Store the map of achievements somewhere to be used later.
+				// Store the map of achievements to be used later.
 				achievements = achievements1;
 			}
 		};
+		
 		SwarmAchievement.getAchievementsMap(callback);
 	}
 
@@ -104,6 +106,22 @@ public abstract class GameModel {
 		currentCharPos++;
 	}
 
+	protected void incScore(int i) {
+		score += i;
+		checkAchievementsPrerequisites();
+	}
+	
+	protected boolean isWordComplete() {
+		return currentCharPos == activeWord.length() - 1;
+	}
+
+	protected void updateWord() {
+		activeWord = nextWord;
+		nextWord = new Word(Dictionary.getNextWord());
+		currentCharPos = 0;
+		listener.propertyChange(null);
+	}
+	
 	protected void giveAchievement(int id) {
 		if (achievements != null) {
 			SwarmAchievement achievement = achievements.get(id);
@@ -111,11 +129,6 @@ public abstract class GameModel {
 				achievement.unlock();
 			}
 		}
-	}
-
-	protected void incScore(int i) {
-		score += i;
-		checkAchievementsPrerequisites();
 	}
 
 	protected void checkAchievementsPrerequisites() {
@@ -130,32 +143,24 @@ public abstract class GameModel {
 		}
 	}
 
-	protected boolean isWordComplete() {
-		return currentCharPos == activeWord.length() - 1;
-	}
-
-	protected void updateWord() {
-		activeWord = nextWord;
-		nextWord = new Word(Dictionary.getNextWord());
-		currentCharPos = 0;
-		listener.propertyChange(null);
-	}
-
-	public void onSensorChanged(SensorEvent event) {
-		return;
-	}
-
-	public abstract void update();
-
 	public abstract void onInput(KeyEvent event);
 
 	public abstract int getLayoutId();
 
 	public abstract int getViewId();
 
+	// if this returns true, update() will be called continuously
 	public abstract boolean isContinuous();
+	
+	public abstract void update();
+
+	protected abstract void onPause();
+
+	protected abstract void onResume();
 
 	public abstract boolean isSensorDependent();
+
+	public abstract void onSensorChanged(SensorEvent event);
 
 	public void setDisplaySize(int w, int h) {
 		displayWidth = w;
@@ -164,6 +169,22 @@ public abstract class GameModel {
 
 	public boolean isGameOver() {
 		return isGameOver;
+	}
+
+	public void setGameState(int state) {
+		if (gameState == STATE_PAUSED && state == STATE_RUNNING) {
+			gameState = state;
+			onResume();
+		} else if (gameState == STATE_RUNNING && state == STATE_PAUSED) {
+			gameState = state;
+			onPause();
+		} else {
+			// Do nothing
+		}
+	}
+
+	public int getGameState() {
+		return gameState;
 	}
 
 	public void activatePowerUp(PowerUp powerUp) {

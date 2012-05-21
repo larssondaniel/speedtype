@@ -4,24 +4,18 @@ import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.application.SpeedTypeApplication;
 import com.chalmers.speedtype.controller.Controller;
 import com.chalmers.speedtype.model.GameModel;
-import com.chalmers.speedtype.util.BackgroundSoundService;
 import com.chalmers.speedtype.util.GameFactory;
 import com.chalmers.speedtype.util.Util;
-import com.chalmers.speedtype.util.BackgroundSoundService.BackgroundSoundBinder;
 import com.chalmers.speedtype.view.GameView;
 import com.swarmconnect.SwarmActivity;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -54,8 +48,6 @@ public class GameActivity extends SwarmActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		getWindow().setSoftInputMode(
-				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 		String gameMode = getIntent().getExtras().getString("gameMode");
 		app = (SpeedTypeApplication) getApplication();
 		
@@ -87,6 +79,7 @@ public class GameActivity extends SwarmActivity {
 				statusText.setText(m.getData().getString("text"));
 				manualText.setText(m.getData().getString("manualText"));
 				startText.setText(m.getData().getString("startText"));
+
 			}
 		});
 		controller.startGame();
@@ -118,7 +111,7 @@ public class GameActivity extends SwarmActivity {
 				if(model.isGameOver() == true){
 					Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
 					startActivity(intent);
-				}				
+				}
 				return controller.onTouch(event);
 			}
 		});
@@ -140,6 +133,11 @@ public class GameActivity extends SwarmActivity {
 		if (model.isSensorDependent())
 			sensorManager.registerListener(sensorEventListener, sensor,
 					SensorManager.SENSOR_DELAY_FASTEST);
+	}
+	@Override
+	public void onBackPressed () {
+		Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+		startActivity(intent);
 	}
 
 	@Override

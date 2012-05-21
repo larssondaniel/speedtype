@@ -1,5 +1,6 @@
 package com.chalmers.speedtype.model;
 
+import android.hardware.SensorEvent;
 import android.os.CountDownTimer;
 import android.view.KeyEvent;
 
@@ -131,6 +132,24 @@ public class ScrabbleModel extends GameModel {
 		setCorrectInputReport(false);
 	}
 	
+	
+	/**
+	 * TODO Write javadoc.
+	 */
+	@Override
+	public void update() {
+		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
+			if (lastUpdateMillis != 0){
+			setTimeLeft((int) (timeLeft - (System.currentTimeMillis() - lastUpdateMillis)));	
+			listener.propertyChange(null);
+			}
+			lastUpdateMillis = System.currentTimeMillis();			
+		}
+		if( timeLeft < 0){
+			isGameOver = true;
+		}
+	}
+	
 	/**
 	 * Returns the Layout_ID for this model.
 	 * @return int
@@ -157,39 +176,32 @@ public class ScrabbleModel extends GameModel {
 		return true;
 	}
 
-	/**
-	 * TODO Write javadoc.
-	 */
-	@Override
-	public boolean isSensorDependent() {
-		return false;
-	}
-
-	/**
-	 * TODO Write javadoc.
-	 */
-	@Override
-	public void update() {
-		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
-			if (lastUpdateMillis != 0){
-			setTimeLeft((int) (timeLeft - (System.currentTimeMillis() - lastUpdateMillis)));	
-			listener.propertyChange(null);
-			}
-			lastUpdateMillis = System.currentTimeMillis();			
-		}
-		if( timeLeft < 0){
-			isGameOver = true;
-		}
-	}
-
 	@Override
 	public String getManual() {
 		return manual;
 	}
 
+	@Override
+	protected void onPause() {
+		// Not used
+	}
+
+	@Override
+	protected void onResume() {
+		lastUpdateMillis = System.currentTimeMillis();	
+	}
 
 	@Override
 	public int getSwarmLeaderBoardID() {
 		return LEADERBOARD_ID;
+	}
+	
+	public boolean isSensorDependent() {
+		return false;
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		// Do nothing
 	}
 }

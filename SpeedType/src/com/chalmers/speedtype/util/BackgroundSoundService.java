@@ -1,23 +1,18 @@
 package com.chalmers.speedtype.util;
 
-//TODO fix implementation of the soundservice.
-
 import com.chalmers.speedtype.R;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.media.SoundPool;
 import android.os.Binder;
 import android.os.IBinder;
 
 public class BackgroundSoundService extends Service {
 
 	private final String MUSIC_VOLUME = "musicVolume";
-	private final String FX_VOLUME = "fxVolume";
-
+	
 	SharedPreferences preferences;
 	MediaPlayer player;
 	private final IBinder binder = new BackgroundSoundBinder();

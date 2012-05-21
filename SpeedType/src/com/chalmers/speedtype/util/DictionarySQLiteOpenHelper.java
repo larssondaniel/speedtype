@@ -51,14 +51,11 @@ public class DictionarySQLiteOpenHelper extends SQLiteOpenHelper {
 		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
 		String line;
-		StringBuilder text = new StringBuilder();
-
 		try {
 			while ((line = bufferedReader.readLine()) != null) {
 				addWord(db, line);
 			}
-		} catch (IOException e) {
-		}
+		} catch (IOException e) {}
 	}
 
 	private void createTables(SQLiteDatabase db) {

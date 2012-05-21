@@ -1,5 +1,6 @@
 package com.chalmers.speedtype.model;
 
+import android.hardware.SensorEvent;
 import android.view.KeyEvent;
 
 import com.chalmers.speedtype.R;
@@ -36,16 +37,6 @@ public class TimeAttackModel extends GameModel {
 		return timeLeft;
 	}
 
-	@Override
-	public int getLayoutId() {
-		return LAYOUT_ID;
-	}
-
-	@Override
-	public int getViewId() {
-		return VIEW_ID;
-	}
-
 	private void setCorrectInputReport(boolean b) {
 		correctInput = b;
 	}
@@ -56,22 +47,6 @@ public class TimeAttackModel extends GameModel {
 		} else {
 			setCorrectInputReport(true);
 			return false;
-		}
-	}
-
-	@Override
-	public void onInput(KeyEvent event) {
-		correctInput = true;
-		char inputChar = Character.toLowerCase((char) event.getUnicodeChar());
-		if (activeWord.charAt(currentCharPos) == inputChar) {
-			onCorrectChar();
-			if (isWordComplete()) {
-				onCorrectWord();
-			} else {
-				incCurrentCharPos();
-			}
-		} else {
-			onIncorrectChar();
 		}
 	}
 
@@ -100,21 +75,27 @@ public class TimeAttackModel extends GameModel {
 		setCorrectInputReport(false);
 	}
 
-	@Override
-	public boolean isContinuous() {
-		return true;
-	}
-
-	@Override
-	public boolean isSensorDependent() {
-		return false;
-	}
-
 	public boolean isFastEnough() {
 		return System.currentTimeMillis() - speedRewardTimeStart < activeWord
 				.length() * 1000 ? true : false;
 	}
-
+	
+	@Override
+	public void onInput(KeyEvent event) {
+		correctInput = true;
+		char inputChar = Character.toLowerCase((char) event.getUnicodeChar());
+		if (activeWord.charAt(currentCharPos) == inputChar) {
+			onCorrectChar();
+			if (isWordComplete()) {
+				onCorrectWord();
+			} else {
+				incCurrentCharPos();
+			}
+		} else {
+			onIncorrectChar();
+		}
+	}
+	
 	@Override
 	public void update() {
 		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
@@ -129,6 +110,7 @@ public class TimeAttackModel extends GameModel {
 			isGameOver = true;
 	}
 
+	@Override
 	public String getManual() {
 		return manual;
 	}
@@ -136,6 +118,38 @@ public class TimeAttackModel extends GameModel {
 	@Override
 	public int getSwarmLeaderBoardID() {
 		return LEADERBOARD_ID;
+	}
+	
+	@Override
+	protected void onPause() {
+		// No need to do anything here
+	}
+	@Override
+	protected void onResume() {
+		lastUpdateMillis = System.currentTimeMillis();	
+	}
+	
+	@Override
+	public int getLayoutId() {
+		return LAYOUT_ID;
+	}
 
+	@Override
+	public int getViewId() {
+		return VIEW_ID;
+	}
+	
+	@Override
+	public boolean isContinuous() {
+		return true;
+	}
+	
+	@Override
+	public boolean isSensorDependent() {
+		return false;
+	}
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		// Do nothing
 	}
 }

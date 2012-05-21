@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.util.Dictionary;
 
+import android.hardware.SensorEvent;
 import android.view.KeyEvent;
 
 public class FallingWordsModel extends GameModel {
@@ -128,21 +129,39 @@ public class FallingWordsModel extends GameModel {
 		return currentCharPos == visibleWords.getFirst().length() - 1;
 	}
 
+	@SuppressWarnings("unchecked")
 	public LinkedList<Word> getVisibleWords() {
-		return visibleWords;
+		return (LinkedList<Word>) visibleWords.clone();
 	}
 
 	@Override
 	public boolean isSensorDependent() {
 		return false;
 	}
-
+	
 	@Override
 	public int getSwarmLeaderBoardID() {
 		return LEADERBOARD_ID;
 	}
 
+	@Override
 	public String getManual() {
 		return manual;
+	}
+	
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		// Do nothing
+	}
+
+	@Override
+	protected void onPause() {
+		// No need to do anything here
+	}
+
+	@Override
+	protected void onResume() {
+		lastWordTimeMillis = System.currentTimeMillis();
+		lastUpdateMillis = System.currentTimeMillis();
 	}
 }

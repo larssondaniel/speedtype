@@ -97,7 +97,7 @@ public class MenuActivity extends SwarmActivity {
 		});
 		balanceButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				startGame("Balance");
+				startGame("BalanceGame");
 			}
 		});
 		scrabbleButton.setOnClickListener(new View.OnClickListener() {

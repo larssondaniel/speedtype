@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.View;
 
 public abstract class GameView extends View implements PropertyChangeListener {
@@ -27,7 +28,7 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	protected Paint greenPaint;
 	protected Paint redPaint;
 	protected Paint bluePaint;
-	
+
 	public GameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
@@ -63,7 +64,7 @@ public abstract class GameView extends View implements PropertyChangeListener {
 		redPaint.setColor(Color.RED);
 		redPaint.setAntiAlias(true);
 		redPaint.setStyle(Style.FILL);
-		
+
 		bluePaint = new Paint();
 		bluePaint.setColor(Color.BLUE);
 		bluePaint.setAntiAlias(true);
@@ -102,6 +103,17 @@ public abstract class GameView extends View implements PropertyChangeListener {
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		initView();
+	}
+
+	public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+		if (model.getGameState() == model.STATE_RUNNING) {
+			if (keyCode == KeyEvent.KEYCODE_BACK
+					&& event.getAction() == KeyEvent.ACTION_UP) {
+				model.setGameState(model.STATE_PAUSED);
+				return false;
+			}
+		} 
+		return super.dispatchKeyEvent(event);
 	}
 
 	public void propertyChange(PropertyChangeEvent event) {

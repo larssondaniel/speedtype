@@ -1,6 +1,5 @@
 package com.chalmers.speedtype.controller;
 
-import android.content.Intent;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,8 +8,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.chalmers.speedtype.activity.GameActivity;
-import com.chalmers.speedtype.activity.MenuActivity;
 import com.chalmers.speedtype.model.GameModel;
 import com.swarmconnect.SwarmLeaderboard;
 import com.swarmconnect.SwarmLeaderboard.GotLeaderboardCB;
@@ -48,48 +45,44 @@ public class Controller extends Thread {
 
 		setState(STATE_READY);
 	}
-
-	public void setState(int mode) {
-		gameState = mode;
-
-		Message message = handler.obtainMessage();
+	
+	public synchronized void setState(int mode) {
+        gameState = mode;
+        
+        Message message = handler.obtainMessage();
 		Bundle bundle = new Bundle();
 		String text = "";
 		String manualText = "";
 		String startText = "";
-
-		if (gameState == STATE_RUNNING) {
-			bundle.putString("text", text);
+        
+        if(gameState == STATE_RUNNING) {
+        	bundle.putString("text", text);
 			bundle.putInt("visibility", View.INVISIBLE);
 			bundle.putString("manualText", manualText);
 			bundle.putString("startText", startText);
 			message.setData(bundle);
 			handler.sendMessage(message);
-		} else {
-			manualText = model.getManual();
-			System.out.println(manualText);
-			switch (gameState) {
-			case STATE_READY:
-				text = "READY?";
-				startText = "Tap the screen to start";
-				break;
-			case STATE_PAUSED:
-				text = "PAUSED";
-				startText = "Tap the screen to continue";
-				break;
-			case STATE_GAMEOVER:
-				text = "GAME OVER\n\nScore: " + model.getScore();
-				if (leaderboard != null) {
-					leaderboard.submitScore(model.getScore());
-					System.out.println("SADA");
-				}
-				break;
-			default:
-				text = "SOMETHING IS WRONG";
-				break;
-			}
-
-			bundle.putString("text", text);
+            model.setGameState(model.STATE_RUNNING);
+        } else {	
+	        switch (gameState) {
+		        case STATE_READY:
+		        	text = "READY";
+		        	startText = "Tap the screen to start";
+		        	break;
+		        case STATE_PAUSED:
+		        	text = "PAUSED";
+		        	startText = "Tap the screen to continue";
+		        	break;
+		        case STATE_GAMEOVER:
+		        	text = "GAME OVER\n\nScore: " + model.getScore();
+		        	registerHighscore();
+		        	endGame();
+		        	break;
+		        default: 
+		        	text = "WTF, SOMETHING IS WRONG"; break;
+	        }
+	        
+	        bundle.putString("text", text);
 			bundle.putString("manualText", manualText);
 			bundle.putInt("visibility", View.VISIBLE);
 			bundle.putString("startText", startText);
@@ -97,7 +90,14 @@ public class Controller extends Thread {
 			bundle.putInt("startTextVisibility", View.VISIBLE);
 			message.setData(bundle);
 			handler.sendMessage(message);
-		}
+        }
+    }
+	
+private void registerHighscore() {
+	if (leaderboard != null) {
+		leaderboard.submitScore(model.getScore());
+		System.out.println("SADA");
+	}
 	}
 
 	public void startGame() {
@@ -113,13 +113,24 @@ public class Controller extends Thread {
 
 	@Override
 	public void run() {
+		synchronized (model) {
 		while (isRunning) {
 			if (gameState == STATE_RUNNING) {
 				model.update();
-				if (model.isGameOver())
+				
+				if (model.isGameOver()) {
 					setState(STATE_GAMEOVER);
-			}
+				} else if (model.getGameState() == model.STATE_PAUSED) {
+					System.out.println("pause");
+					pause();
+				}
+			} 
 		}
+		}
+	}
+	
+	public int getGameState() {
+		return gameState;
 	}
 
 	public void pause() {
@@ -128,18 +139,15 @@ public class Controller extends Thread {
 	}
 
 	public boolean onKey(KeyEvent event) {
-		if (gameState == STATE_RUNNING) {
+		if(gameState == STATE_RUNNING) {
 			model.onInput(event);
-			return true;
-		} else if (gameState == STATE_READY || gameState == STATE_PAUSED) {
-			setState(STATE_RUNNING);
 			return true;
 		}
 		return false;
 	}
 
 	public void onSensorChanged(SensorEvent event) {
-		if (gameState == STATE_RUNNING)
+		if(gameState == STATE_RUNNING && model.isSensorDependent())
 			model.onSensorChanged(event);
 	}
 

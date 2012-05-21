@@ -181,5 +181,15 @@ public class BalanceModel extends GameModel {
 	public String getManual() {
 		return manual;
 	}
-
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		
+	}
 }
