@@ -1,5 +1,6 @@
 package com.chalmers.speedtype.controller;
 
+import android.content.Intent;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +9,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.chalmers.speedtype.activity.GameActivity;
+import com.chalmers.speedtype.activity.MenuActivity;
 import com.chalmers.speedtype.model.GameModel;
 import com.swarmconnect.SwarmLeaderboard;
 import com.swarmconnect.SwarmLeaderboard.GotLeaderboardCB;
@@ -35,7 +38,6 @@ public class Controller extends Thread {
 			public void gotLeaderboard(SwarmLeaderboard leaderboard1) {
 
 				if (leaderboard1 != null) {
-
 					// Save the leaderboard for later use
 					leaderboard = leaderboard1;
 				}
@@ -77,6 +79,10 @@ public class Controller extends Thread {
 				break;
 			case STATE_GAMEOVER:
 				text = "GAME OVER\n\nScore: " + model.getScore();
+				if (leaderboard != null) {
+					leaderboard.submitScore(model.getScore());
+					System.out.println("SADA");
+				}
 				break;
 			default:
 				text = "SOMETHING IS WRONG";
@@ -127,11 +133,6 @@ public class Controller extends Thread {
 			return true;
 		} else if (gameState == STATE_READY || gameState == STATE_PAUSED) {
 			setState(STATE_RUNNING);
-			return true;
-		} else if(gameState == STATE_GAMEOVER) {
-			if (leaderboard != null) {
-			    leaderboard.submitScore(model.getScore());
-			} 
 			return true;
 		}
 		return false;

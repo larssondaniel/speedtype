@@ -114,7 +114,11 @@ public class GameActivity extends SwarmActivity {
 		// Set TouchListener
 		view.setOnTouchListener(new OnTouchListener() {
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
+			public boolean onTouch(View v, MotionEvent event){
+				if(model.isGameOver() == true){
+					Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+					startActivity(intent);
+				}				
 				return controller.onTouch(event);
 			}
 		});
