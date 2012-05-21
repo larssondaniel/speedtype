@@ -32,8 +32,7 @@ public class Word implements CharSequence {
 	}
 
 	public CharSequence subSequence(int start, int end) {
-		word.subSequence(start, end);
-		return null;
+		return word.subSequence(start, end);
 	}
 	
 	public String substring(int start, int end){
