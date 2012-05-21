@@ -153,7 +153,7 @@ public class TimeAttackModel extends GameModel {
 		return false;
 	}
 	@Override
-	public void onSensorChanged(SensorEvent event) {
+	public void onSensorChanged(SensorEvent event, int displayRotation) {
 		// Do nothing
 	}
 }

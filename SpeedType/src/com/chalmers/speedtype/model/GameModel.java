@@ -166,7 +166,7 @@ public abstract class GameModel {
 
 	public abstract boolean isSensorDependent();
 
-	public abstract void onSensorChanged(SensorEvent event);
+	public abstract void onSensorChanged(SensorEvent event, int displayRotation);
 
 	public void setDisplaySize(int w, int h) {
 		displayWidth = w;

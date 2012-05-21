@@ -8,21 +8,23 @@ import android.graphics.Paint;
 import android.graphics.BitmapFactory.Options;
 import android.hardware.Sensor;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+
 import com.chalmers.speedtype.R;
 import com.chalmers.speedtype.model.BalanceModel;
 import com.chalmers.speedtype.model.GameModel;
 import com.chalmers.speedtype.model.Word;
-import com.chalmers.speedtype.util.Util;
 
 public class BalanceView extends GameView {
 
 	private BalanceModel model;
 	private static final float ballDiameter = 0.006f;
 
-	private Bitmap ballImage;
-	private Bitmap boardImage;
+	private Bitmap ballImage; 
 	private float xOrigin;
 	private float yOrigin;
+	
+	private float metersToPixels;
 	
 	public BalanceView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -43,14 +45,18 @@ public class BalanceView extends GameView {
 		// Scaling of the ball
 		Bitmap ball = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ball);
-		final int dstWidth = (int) (ballDiameter * Util.getMetersToPixelsX());
-		final int dstHeight = (int) (ballDiameter * Util.getMetersToPixelsY());
+		
+		DisplayMetrics metrics = getResources().getDisplayMetrics();
+		metersToPixels = metrics.xdpi / 0.0254f;
+				
+		int dstWidth = (int) (ballDiameter * metersToPixels);
+		int dstHeight = (int) (ballDiameter * metersToPixels);
+		
 		ballImage = Bitmap.createScaledBitmap(ball, dstWidth, dstHeight, true);
 
 		Options opts = new Options();
 		opts.inDither = true;
 		opts.inPreferredConfig = Bitmap.Config.RGB_565;
-		
 	}
 
 	public void setModel(GameModel model) {
@@ -60,35 +66,25 @@ public class BalanceView extends GameView {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-
-
-
-		final long now = model.getSensorTimeStamp() + (System.nanoTime() - model.getCpuTimeStamp());
-		final float sx = model.getSensorX();
-		
-		model.updateParticle(sx, now);
-		
-		final float xc = xOrigin;
-		final float yc = yOrigin;
-		final float xs = Util.getMetersToPixelsX();
-		final float ys = Util.getMetersToPixelsY();
-		final Bitmap bitmap = ballImage;
-		final float x = xc + model.getParticle().getPosX() * xs;
-		final float y = yc - model.getParticle().getPosY() * ys;
-		
-		canvas.drawBitmap(bitmap, x, y, null);
+		drawBall(canvas);
 		
 		Word activeWord = model.getActiveWord();
 		Word nextWord = model.getNextWord();
 		int CurrentCharPos = model.getCurrentCharPos();
 		
-		canvas.drawLine(0, getDisplayHeightFromPercentage(18), displayWidth-1, getDisplayHeightFromPercentage(18), bluePaint);
+		canvas.drawLine(0, getDisplayHeightFromPercentage(18), displayWidth, getDisplayHeightFromPercentage(18), bluePaint);
 		
 		drawScore(canvas);
 		drawNextWord(canvas, nextWord);
 		drawCompletedChars(canvas, activeWord, CurrentCharPos);
 		drawIncompletedChars(canvas, activeWord, CurrentCharPos);
 		drawActiveChar(canvas, activeWord, CurrentCharPos);
+	}
+
+	private void drawBall(Canvas canvas) {
+		final float x = xOrigin + model.getBall().getPosX() * metersToPixels;;
+		final float y = yOrigin - model.getBall().getPosY() * metersToPixels;;
+		canvas.drawBitmap(ballImage, x, y, null);
 	}
 
 	private void drawNextWord(Canvas canvas, Word nextWord) {
@@ -169,7 +165,7 @@ public class BalanceView extends GameView {
 		super.onSizeChanged(w, h, oldw, oldh);
 		xOrigin = (w - ballImage.getWidth()) * 0.5f;
 		yOrigin = (h - ballImage.getHeight()) * 0.5f;
-		model.setHorizontalBound(((w / Util.getMetersToPixelsX() - ballDiameter) * 0.5f));
-		model.setVerticalBound(((h / Util.getMetersToPixelsY() - ballDiameter) * 0.5f));
+		model.setHorizontalBound(((w / metersToPixels - ballDiameter) * 0.5f));
+		model.setVerticalBound(((h / metersToPixels - ballDiameter) * 0.5f));
 	}
 }

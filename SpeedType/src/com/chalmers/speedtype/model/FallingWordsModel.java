@@ -154,7 +154,7 @@ public class FallingWordsModel extends GameModel {
 	}
 	
 	@Override
-	public void onSensorChanged(SensorEvent event) {
+	public void onSensorChanged(SensorEvent event, int displayRotation) {
 		// Do nothing
 	}
 

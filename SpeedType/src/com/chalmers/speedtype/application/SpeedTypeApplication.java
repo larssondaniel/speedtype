@@ -23,14 +23,11 @@ public class SpeedTypeApplication extends Application {
 
 		backgroundSoundServiceIntent = new Intent(this,
 				BackgroundSoundService.class);
-		//startService(backgroundSoundServiceIntent);
 	}
 
 	@Override
 	public void onTerminate() {
 		database.close();
-		// stopService(new Intent(this, BackgroundSoundService.class));
-		// stopService(backgroundSoundServiceIntent);
 		super.onTerminate();
 	}
 

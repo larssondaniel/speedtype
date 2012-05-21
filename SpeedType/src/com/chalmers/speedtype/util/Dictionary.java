@@ -70,7 +70,7 @@ private static Random random = new Random();
             randomNumber = random.nextInt(string.size());
             scrabble = scrabble + (string.remove(randomNumber));
         }
-        if(scrabble == s){
+        if(scrabble.equals(s)){
         	scrabble(input);
         } 
 

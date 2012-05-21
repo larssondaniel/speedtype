@@ -58,13 +58,14 @@ public class GameActivity extends SwarmActivity {
 	}
 
 	private void setUpUtil() {
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		Util.setConstants(metrics);
-
-		Util.setResources(getResources());
-		WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-		Util.setDisplay(windowManager.getDefaultDisplay());
+//		DisplayMetrics metrics = new DisplayMetrics();
+//		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//		System.out.println(metrics);
+//		Util.setConstants(metrics);
+//
+//		Util.setResources(getResources());
+//		WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+//		Util.setDisplay(windowManager.getDefaultDisplay());
 	}
 
 	private void initGameMode(String gameMode) {
@@ -127,7 +128,8 @@ public class GameActivity extends SwarmActivity {
 			}
 
 			public void onSensorChanged(SensorEvent event) {
-				controller.onSensorChanged(event);
+				WindowManager wm = (WindowManager)getSystemService(WINDOW_SERVICE);
+				controller.onSensorChanged(event, wm.getDefaultDisplay().getRotation());
 			}
 		};
 

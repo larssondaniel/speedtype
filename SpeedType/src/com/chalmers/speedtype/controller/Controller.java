@@ -146,9 +146,9 @@ private void registerHighscore() {
 		return false;
 	}
 
-	public void onSensorChanged(SensorEvent event) {
+	public void onSensorChanged(SensorEvent event, int displayRotation) {
 		if(gameState == STATE_RUNNING && model.isSensorDependent())
-			model.onSensorChanged(event);
+			model.onSensorChanged(event, displayRotation);
 	}
 
 	public boolean onTouch(MotionEvent event) {

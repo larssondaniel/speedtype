@@ -28,13 +28,13 @@ public class BalanceModel extends GameModel {
 	private float horizontalBound;
 	private float verticalBound;
 	private boolean correctInput;
-	Ball particle;
+	private Ball ball;
 
 	private long lastUpdateMillis;
 
 	public BalanceModel() {
 		super();
-		particle = new Ball(ballFriction, horizontalBound, verticalBound);
+		ball = new Ball(ballFriction, horizontalBound, verticalBound);
 		correctInput = false;
 	}
 
@@ -46,16 +46,12 @@ public class BalanceModel extends GameModel {
 		return cpuTimeStamp;
 	}
 
-	public Ball getParticle() {
-		return particle;
+	public Ball getBall() {
+		return ball;
 	}
 
 	public float getSensorX() {
 		return sensorX;
-	}
-
-	public void updateParticle(float sx, long now) {
-		particle.update(sx, now);
 	}
 
 	public float getVerticalBound() {
@@ -64,12 +60,12 @@ public class BalanceModel extends GameModel {
 
 	public void setVerticalBound(float verticalBound) {
 		this.verticalBound = verticalBound;
-		particle.setVerticalBound(verticalBound);
+		ball.setVerticalBound(verticalBound);
 	}
 
 	public void setHorizontalBound(float horizontalBound) {
 		this.horizontalBound = horizontalBound;
-		particle.setHorizontalBound(horizontalBound);
+		ball.setHorizontalBound(horizontalBound);
 	}
 
 	private void setCorrectInputReport(boolean b) {
@@ -118,10 +114,10 @@ public class BalanceModel extends GameModel {
 	}
 
 	@Override
-	public void onSensorChanged(SensorEvent event) {
+	public void onSensorChanged(SensorEvent event, int displayRotation) {
 		if (event.sensor.getType() != Sensor.TYPE_ACCELEROMETER)
 			return;
-		switch (Util.getDisplay().getRotation()) {
+		switch (displayRotation) {
 		case Surface.ROTATION_0:
 			sensorX = event.values[0];
 			break;
@@ -164,11 +160,17 @@ public class BalanceModel extends GameModel {
 	@Override
 	public void update() {
 		if (System.currentTimeMillis() - lastUpdateMillis > UPDATE_FREQUENCY) {
-			if (particle.getPosX() <= -horizontalBound
-					|| particle.getPosX() >= horizontalBound) {
+			if (ball.getPosX() <= -horizontalBound
+					|| ball.getPosX() >= horizontalBound) {
 				isGameOver = true;
 			}
 			lastUpdateMillis = System.currentTimeMillis();
+			
+			float sensorX = getSensorX();
+			long now = getSensorTimeStamp() + (System.nanoTime() - getCpuTimeStamp());
+			
+			ball.update(sensorX, now);
+			
 			listener.propertyChange(null);
 		}
 	}
@@ -185,11 +187,9 @@ public class BalanceModel extends GameModel {
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
-		
 	}
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-		
 	}
 }
