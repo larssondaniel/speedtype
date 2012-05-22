@@ -2,7 +2,7 @@
 SpeedType is an Android application - or game if you will - developed to enhance you smart phone typing skills. It is also crazy amounts of fun. You should try it out, seriously.
 
 * Installing
-If you have an Android smart phone with support for the Android API 15 or higher, installing SpeedType is easy. Just browse our repo on your mobile phone and click the installable .apk-file. 
+If you have an Android smart phone with support for the Android API 15 or higher, installing SpeedType is easy. Just download the runnable .apk-file from our repo to your smart phone.
 
 The application is developed for, and has yet to be tested on any other device than the HTC Sensation. If you encounter any problems with your device we recommend that you use an emulator. See details below. 
 
